@@ -19,8 +19,8 @@ public class ArticlesService {
         this.articlesRepository = articlesRepository;
     }
 
-    public ResponseEntity<?> findArticlesById(Integer article_id) {
-        List<ArticlesEntity> articlesList = articlesRepository.findAllByArticle_id(article_id);
+    public ResponseEntity<?> findArticlesByType(String articleType) {
+        List<ArticlesEntity> articlesList = articlesRepository.findAllBy(articleType);
 
         if (articlesList == null) {
             Map<String, String> response = new HashMap<>();
