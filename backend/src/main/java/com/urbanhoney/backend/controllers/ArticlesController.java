@@ -24,7 +24,7 @@ public class ArticlesController {
         return "Get one article";
     }
 
-    @GetMapping("/articles/{articlesType}")
+    /*@GetMapping("/articles/{articlesType}")
     public List<String> getArticlesByType(@PathVariable("articlesType") String articleType) {
         return articlesService.findArticlesByType(articleType);
     }
@@ -32,7 +32,7 @@ public class ArticlesController {
     @GetMapping("/articles")
     public List<String> getAllArticles() {
         return "Get all articles";
-    }
+    }*/
     
     @PostMapping("/article")
     public String postNewArticle() {

@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -47,22 +48,22 @@ public class AuthService {
             UserEntity findByUsername = authRepository.findByUsername(userDto.getUsername()).orElse(null);
             if (findByEmail != null) {
                 response.put("error", "This email is already taken !");
-                return ResponseEntity.badRequest().body(response);
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
             } else if (findByUsername != null) {
                 response.put("error", "This username is already taken !");
-                return ResponseEntity.badRequest().body(response);
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
             } else {
                 Map<String, UserEntity> responseSucess = new HashMap<>();
                 userDto.setPassword(passwordEncoder.encode(userDto.getPassword()));
                 UserEntity userEntity = UserMapper.mapToUser(userDto);
                 authRepository.save(userEntity);
                 responseSucess.put("Success", userEntity);
-                return ResponseEntity.ok(responseSucess);
+                return ResponseEntity.status(HttpStatus.OK).body(responseSucess);
             }
         }
 
         response.put("error", "Please insert a real mail please.");
-        return ResponseEntity.badRequest().body(response);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
     }
 
 
@@ -70,12 +71,12 @@ public class AuthService {
         UserEntity getUserByEmailOrUsername = authRepository.findByEmailOrUsername(authRequestDto.getEmailOrUsername()).orElse(null);
         if (getUserByEmailOrUsername == null) {
             response.put("error", "Email or Username not found.");
-            return ResponseEntity.badRequest().body(response);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
         }
 
         if (passwordEncoder.matches(authRequestDto.getPassword(), getUserByEmailOrUsername.getPassword()) == false) {
             response.put("error", "Your password is incorrect.");
-            return ResponseEntity.badRequest().body(response);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
         }
 
         UserDto userDto = UserMapper.mapToUserDto(getUserByEmailOrUsername);
@@ -87,7 +88,7 @@ public class AuthService {
         Map<String, TokenResponse> response = new HashMap<>();
         response.put("success", tokenResponse);
 
-        return ResponseEntity.ok(response);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     public UserDto findUserByMail (String userMail) {
@@ -99,7 +100,7 @@ public class AuthService {
         UserEntity userEntity = authRepository.findById(userId).orElse(null);
         if (userEntity == null) {
             response.put("error", "Invalid credentials !");
-            return ResponseEntity.badRequest().body(response);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
         }
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -107,10 +108,10 @@ public class AuthService {
         
         if (authentitcateUser.getId().equals(userId) == false) {
             response.put("error", "Invalid user");
-            return ResponseEntity.badRequest().body(response);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
         }
 
         UserDto userDto = UserMapper.mapToUserDto(userEntity);
-        return ResponseEntity.ok(userDto);
+        return ResponseEntity.status(HttpStatus.OK).body(userDto);
     }
 }

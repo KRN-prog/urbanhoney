@@ -37,5 +37,6 @@ public class AuthController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return authService.findUserByMail(authentication.getName());
     }
+
     
 }

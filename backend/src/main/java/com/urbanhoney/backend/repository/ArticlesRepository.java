@@ -9,5 +9,5 @@ import com.urbanhoney.backend.models.ArticlesEntity;
 
 @Repository
 public interface ArticlesRepository extends JpaRepository<ArticlesEntity, Long> {
-    List<ArticlesEntity> findAllBy(Integer article_id);
+    //List<ArticlesEntity> findAllBy(Integer article_id);
 }

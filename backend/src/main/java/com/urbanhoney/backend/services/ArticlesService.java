@@ -19,7 +19,7 @@ public class ArticlesService {
         this.articlesRepository = articlesRepository;
     }
 
-    public ResponseEntity<?> findArticlesByType(String articleType) {
+    /*public ResponseEntity<?> findArticlesByType(String articleType) {
         List<ArticlesEntity> articlesList = articlesRepository.findAllBy(articleType);
 
         if (articlesList == null) {
@@ -29,7 +29,7 @@ public class ArticlesService {
         }
 
         return ResponseEntity.ok("OK");
-    }
+    }*/
     /*List<ThemeDto> themesDtos = theme.stream()
                 .map(ThemeMapper::maptoThemesDto)
                 .collect(Collectors.toList());*/
