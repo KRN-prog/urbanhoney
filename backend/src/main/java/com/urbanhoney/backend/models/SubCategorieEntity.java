@@ -1,5 +1,6 @@
 package com.urbanhoney.backend.models;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -26,12 +27,12 @@ public class SubCategorieEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "sub_categorie_id")
-    private Integer sub_categorie_id;
+    private Integer subCategorieId;
 
     @Column(name = "sub_categorie_name")
-    private String sub_categorie_name;
+    private String subCategorieName;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "categorie_linked_id", referencedColumnName = "categorie_id", nullable = false)
     private CategorieEntity categorie;
 
