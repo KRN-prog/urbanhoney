@@ -1,11 +1,8 @@
 package com.urbanhoney.backend.models;
 
-import java.util.List;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -39,7 +36,7 @@ public class ArticlesEntity {
     private String description;
 
     @ManyToOne(cascade = CascadeType.REMOVE)
-    @JoinColumn(name = "sub_categorie_linked_id", nullable = false) // Clé étrangère
+    @JoinColumn(name = "sub_categorie_linked_id", nullable = false)
     private SubCategorieEntity subCategorieLinkedId;
 
     @Column(name = "brand")
