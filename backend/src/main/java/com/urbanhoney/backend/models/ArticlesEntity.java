@@ -2,11 +2,15 @@ package com.urbanhoney.backend.models;
 
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -26,7 +30,7 @@ public class ArticlesEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "article_id")
-    private Integer article_id;
+    private Integer articleId;
 
     @Column(name = "title")
     private String title;
@@ -34,20 +38,21 @@ public class ArticlesEntity {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "categorie_id")
-    private Integer categorie_id;
+    @ManyToOne(cascade = CascadeType.REMOVE)
+    @JoinColumn(name = "sub_categorie_linked_id", nullable = false) // Clé étrangère
+    private SubCategorieEntity subCategorieLinkedId;
 
     @Column(name = "brand")
     private String brand;
 
     @Column(name = "price")
-    private List<String> price;
+    private String price;
 
     @Column(name = "colors")
-    private List<String> color;
+    private String color;
 
     @Column(name = "size")
-    private List<String> size;
+    private String size;
 
     @Column(name = "pictures")
     private String pictures;
@@ -55,6 +60,6 @@ public class ArticlesEntity {
     @Column(name = "composition")
     private String composition;
 
-    @Column(name = "entretien")
+    @Column(name = "entretient")
     private String entretien;
 }

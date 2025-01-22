@@ -15,6 +15,8 @@ public interface SubCategorieRepository extends JpaRepository<SubCategorieEntity
 
     List<SubCategorieEntity> findAll();
 
+    Optional<SubCategorieEntity> findBySubCategorieId(Integer subCategorieId);
+
     Optional<SubCategorieEntity> findBySubCategorieName(String subCategorieName);
 
     void deleteBySubCategorieName(String subCategorieName);
