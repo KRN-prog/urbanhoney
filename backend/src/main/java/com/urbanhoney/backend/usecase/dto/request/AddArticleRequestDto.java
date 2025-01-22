@@ -1,7 +1,5 @@
 package com.urbanhoney.backend.usecase.dto.request;
 
-import java.util.List;
-
 import com.urbanhoney.backend.models.SubCategorieEntity;
 
 import lombok.Getter;
