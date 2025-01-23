@@ -4,9 +4,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.urbanhoney.backend.services.OrdersService;
+import com.urbanhoney.backend.usecase.dto.request.AddOrderRequestDto;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,16 +22,8 @@ public class OrdersController {
     OrdersService ordersService;
 
     @PostMapping("/order/new")
-    public String newOrder(@RequestBody String entity) {
-        //TODO: process POST request
-        
-        return entity;
-    }
-    
-    
-    @GetMapping("/orders")
-    public String getAllOrdersOfUser(Authentication authentication) {
-        return ordersService.getAllOrders(authentication);
+    public ResponseEntity<?> newOrder(@RequestBody AddOrderRequestDto addOrderRequestDto) {
+        return ordersService.postNewOrder(addOrderRequestDto);
     }
     
 }
