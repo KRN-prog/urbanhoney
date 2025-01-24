@@ -22,6 +22,10 @@ public class OrdersService {
 
     @Autowired
     private AuthRepository authRepository;
+
+    public OrdersService(OrdersRepository ordersRepository) {
+        this.ordersRepository = ordersRepository;
+    }
     
     public ResponseEntity<?> postNewOrder(AddOrderRequestDto addOrderRequestDto) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -39,9 +43,11 @@ public class OrdersService {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
         }
 
+        System.out.println(addOrderRequestDto);
+
         ordersRepository.save(addOrderRequestDto);
         Map<String, String> response = new HashMap<>();
         response.put("success", "Order taken !");
-        return ResponseEntity.status(HttpStatus.OK).body(response);
+        return ResponseEntity.status(HttpStatus.CREATED).body("response");
     }
 }

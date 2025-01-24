@@ -1,5 +1,7 @@
 package com.urbanhoney.backend.usecase.dto.mapper;
 
+import java.util.ArrayList;
+
 import com.urbanhoney.backend.models.UserEntity;
 import com.urbanhoney.backend.usecase.dto.UserDto;
 
@@ -21,6 +23,7 @@ public class UserMapper {
             userDto.getUsername(),
             userDto.getPassword(),
             userDto.getProfilePicture(),
-            userDto.getIs_admin());
+            userDto.getIs_admin(),
+            new ArrayList<>());
     }
 }

@@ -1,5 +1,8 @@
 package com.urbanhoney.backend.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -36,4 +39,6 @@ public class UserEntity {
     @Column(name = "is_admin", columnDefinition = "TINYINT(1)")
     private Boolean isAdmin;
 
+    @OneToMany(mappedBy = "userId", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<OrdersEntity> orders = new ArrayList<>();
 }

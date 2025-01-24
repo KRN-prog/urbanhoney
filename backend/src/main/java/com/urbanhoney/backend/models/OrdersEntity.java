@@ -1,5 +1,8 @@
 package com.urbanhoney.backend.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -7,6 +10,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -29,8 +34,13 @@ public class OrdersEntity {
     @Column(name = "order_id")
     private Integer orderId;
 
-    @Column(name = "article_list")
-    private String articleList;
+    @ManyToMany(cascade = CascadeType.REMOVE)
+    @JoinTable(
+        name = "order_articles",
+        joinColumns = @JoinColumn(name = "order_id"),
+        inverseJoinColumns = @JoinColumn(name = "article_id")
+    )
+    private List<ArticlesEntity> articlesEntities = new ArrayList<>();
 
     @Column(name = "total")
     private String total;
