@@ -3,6 +3,8 @@ package com.urbanhoney.backend.models;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -40,7 +42,7 @@ public class ArticlesEntity {
     @Column(name = "description")
     private String description;
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne
     @JoinColumn(name = "sub_categorie_linked_id", nullable = false)
     private SubCategorieEntity subCategorieLinkedId;
 
@@ -66,5 +68,6 @@ public class ArticlesEntity {
     private String entretien;
 
     @ManyToMany(mappedBy = "articlesEntities")
+    @JsonIgnore
     private List<OrdersEntity> orders = new ArrayList<>();
 }

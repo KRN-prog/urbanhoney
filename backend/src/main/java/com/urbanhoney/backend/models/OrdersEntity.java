@@ -34,7 +34,7 @@ public class OrdersEntity {
     @Column(name = "order_id")
     private Integer orderId;
 
-    @ManyToMany(cascade = CascadeType.REMOVE)
+    @ManyToMany
     @JoinTable(
         name = "order_articles",
         joinColumns = @JoinColumn(name = "order_id"),
@@ -45,7 +45,7 @@ public class OrdersEntity {
     @Column(name = "total")
     private String total;
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private UserEntity userId;
 }

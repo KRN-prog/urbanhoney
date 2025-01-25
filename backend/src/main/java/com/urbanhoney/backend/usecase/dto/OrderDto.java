@@ -1,8 +1,8 @@
-package com.urbanhoney.backend.usecase.dto.request;
+package com.urbanhoney.backend.usecase.dto;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.urbanhoney.backend.models.ArticlesEntity;
 import com.urbanhoney.backend.models.UserEntity;
 
@@ -15,8 +15,16 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class AddOrderRequestDto {
-    private List<ArticlesEntity> articleList = new ArrayList<>();
+public class OrderDto {
+    
+    private Integer orderId;
+
+    @JsonProperty("article_id")
+    private List<ArticlesEntity> articlesList;
+
+    @JsonProperty("total")
     private String total;
+
+    @JsonProperty("user_id")
     private UserEntity userId;
 }

@@ -9,10 +9,11 @@ import com.urbanhoney.backend.usecase.dto.request.AddOrderRequestDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 
@@ -30,8 +31,13 @@ public class OrdersController {
     }
     
     @GetMapping("/orders")
-    public String getMethodName(Authentication authentication) {
-        return new String();
+    public ResponseEntity<?> getAllOrdersOfUser(Authentication authentication) {
+        return ordersService.getOrdersFromUser(authentication);
+    }
+
+    @DeleteMapping("/order/{orderId}")
+    public ResponseEntity<?> deleteOrderById(@PathVariable("orderId") Integer orderId) {
+        return ordersService.deleteOrderById(orderId);
     }
 
 }

@@ -1,6 +1,9 @@
 package com.urbanhoney.backend.usecase.dto;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.urbanhoney.backend.models.OrdersEntity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
