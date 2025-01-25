@@ -17,7 +17,6 @@ import com.urbanhoney.backend.repository.OrdersRepository;
 import com.urbanhoney.backend.usecase.dto.mapper.OrderMapper;
 import com.urbanhoney.backend.usecase.dto.request.AddOrderRequestDto;
 
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 
 @Service
