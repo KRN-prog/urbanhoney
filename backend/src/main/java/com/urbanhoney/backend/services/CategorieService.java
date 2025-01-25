@@ -1,6 +1,5 @@
 package com.urbanhoney.backend.services;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -34,121 +33,118 @@ public class CategorieService {
         this.categorieRepository = categorieRepository;
     }
 
-    public ResponseEntity<?> addNewCategorie(AddCategorieRequestDto addCategorieRequestDto) {
-
-        Map<String, String> response = new HashMap<>();
-
-        if (addCategorieRequestDto.getCategorie().isEmpty() || addCategorieRequestDto.getGender().isEmpty()) {
-            response.put("error", "Please fill requirement !");
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+    public ResponseEntity<Map<String, String>> addNewCategorie(AddCategorieRequestDto addCategorieRequestDto) {
+        // Validation des champs requis
+        if (addCategorieRequestDto.getCategorie() == null || addCategorieRequestDto.getCategorie().isEmpty() ||
+            addCategorieRequestDto.getGender() == null || addCategorieRequestDto.getGender().isEmpty()) {
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body(Map.of("error", "Please fill in all required fields!"));
         }
-
+    
+        // Nettoyage et normalisation de la catégorie
+        String normalizedCategorie = addCategorieRequestDto.getCategorie().trim().replace(" ", "_");
+        addCategorieRequestDto.setCategorie(normalizedCategorie);
+    
+        // Validation du champ "gender"
+        List<String> validGenders = List.of("H", "F", "H/F");
+        if (!validGenders.contains(addCategorieRequestDto.getGender())) {
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body(Map.of("error", "Invalid gender. Please select a valid option: H, F, or H/F."));
+        }
+    
+        // Mapping et enregistrement de la catégorie
         CategorieEntity categorieEntity = CategorieMapper.mapToCategorieEntity(addCategorieRequestDto);
         categorieRepository.save(categorieEntity);
-        response.put("success", "Categorie added");
-        return ResponseEntity.status(HttpStatus.OK).body(response);
+    
+        // Réponse de succès
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(Map.of("success", "Category added successfully!"));
     }
+    
 
-    public ResponseEntity<?> addNewSubCategorie(AddSubCategorieRequestDto addSubCategorieRequestDto) {
+    public ResponseEntity<Map<String, String>> addNewSubCategorie(AddSubCategorieRequestDto addSubCategorieRequestDto) {
 
-        Map<String, String> response = new HashMap<>();
+        String normalizedSubCategorie = addSubCategorieRequestDto.getSubCategorieName().trim().replace(" ", "_");
+        addSubCategorieRequestDto.setSubCategorieName(normalizedSubCategorie);
 
-        CategorieEntity categorieEntity = categorieRepository.findByCategorieId(addSubCategorieRequestDto.getCategorieLinkId().getCategorieId()).orElse(null);
-
-        if (categorieEntity == null) {
-            response.put("error", "Categorie not found !");
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+        if (categorieRepository.existsByCategorieId(addSubCategorieRequestDto.getCategorieLinkId().getCategorieId()) == false) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("error", "Categorie not found !"));
         }
         
-        if (addSubCategorieRequestDto.getGender().isEmpty()) {
-            response.put("error", "Please select a valid gender");
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+        List<String> validGenders = List.of("H", "F", "H/F");
+        if (!validGenders.contains(addSubCategorieRequestDto.getGender())) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("error", "Please select a valid gender"));
         }
 
         SubCategorieEntity subCategorieEntity = SubCategorieMapper.mapToSubCategorieEntity(addSubCategorieRequestDto);
         subCategorieRepository.save(subCategorieEntity);
-        response.put("success", "Sub categorie added");
         
-        return ResponseEntity.status(HttpStatus.OK).body(response);
+        return ResponseEntity.status(HttpStatus.OK).body(Map.of("success", "Sub categorie added"));
     }
 
     public ResponseEntity<?> getAllCategories() {
 
-        Map<String, String> response = new HashMap<>();
-
         List<CategorieEntity> categorieEntity = categorieRepository.findAll();
 
-        if (categorieEntity == null) {
-            response.put("error", "categories not found, an error has occured !");
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+        if (categorieEntity.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("error", "categories not found, an error has occured !"));
         }
 
         List<CategorieDto> categoriesDtos = categorieEntity.stream()
                 .map(CategorieMapper::mapToCategorieDto)
                 .collect(Collectors.toList());
 
-        return ResponseEntity.status(HttpStatus.OK).body(categoriesDtos);
+        return ResponseEntity.status(HttpStatus.OK).body(Map.of("success", categoriesDtos));
     }
 
     public ResponseEntity<?> getCategorieByName(String subCategorieName) {
 
-        Map<String, String> response = new HashMap<>();
-
         CategorieEntity categorieEntity = categorieRepository.findByCategorie(subCategorieName).orElse(null);
         if (categorieEntity == null) {
-            response.put("error", "Categorie not found");
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("error", "Categorie not found"));
         }
 
         CategorieDto CategorieDto = CategorieMapper.mapToCategorieDto(categorieEntity);
-        return ResponseEntity.status(HttpStatus.OK).body(CategorieDto);
+        return ResponseEntity.status(HttpStatus.OK).body(Map.of("success", CategorieDto));
     }
-
 
     public ResponseEntity<?> getAllSubCategories() {
 
-        Map<String, String> response = new HashMap<>();
-
         List<SubCategorieEntity> subCategorieEntities = subCategorieRepository.findAll();
         if (subCategorieEntities == null) {
-            response.put("error", "sub categories not found, an error has occured !");
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("error", "sub categories not found, an error has occured !"));
         }
 
         List<SubCategorieDto> subCategorieDto = subCategorieEntities.stream()
                 .map(SubCategorieMapper::mapToSubCategorieDto)
                 .collect(Collectors.toList());
 
-        return ResponseEntity.status(HttpStatus.OK).body(subCategorieDto);
+        return ResponseEntity.status(HttpStatus.OK).body(Map.of("success", subCategorieDto));
     }
 
     public ResponseEntity<?> getSubCategorieByName(String subCategorieName) {
-
-        Map<String, String> response = new HashMap<>();
         
         SubCategorieEntity subCategorieEntity = subCategorieRepository.findBySubCategorieName(subCategorieName).orElse(null);
         if (subCategorieEntity == null) {
-            response.put("error", "Sub categorie not found");
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("error", "Sub categorie not found"));
         }
 
         SubCategorieDto subCategorieDto = SubCategorieMapper.mapToSubCategorieDto(subCategorieEntity);
-        return ResponseEntity.status(HttpStatus.OK).body(subCategorieDto);
+        return ResponseEntity.status(HttpStatus.OK).body(Map.of("success", subCategorieDto));
     }
 
     @Transactional
     public ResponseEntity<?> deleteSubCategorieByName(String subCategorieName) {
-
-        Map<String, String> response = new HashMap<>();
         
         SubCategorieEntity findSubCategorieEntity = subCategorieRepository.findBySubCategorieName(subCategorieName).orElse(null);
         if (findSubCategorieEntity == null) {
-            response.put("error", "Sub categorie not found");
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response); 
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("error", "Sub categorie not found")); 
         }
 
         subCategorieRepository.deleteBySubCategorieName(subCategorieName);
-        response.put("success", "Sub categorie"+subCategorieName+" deleted");
-        return ResponseEntity.status(HttpStatus.OK).body(response);
+        return ResponseEntity.status(HttpStatus.OK).body(Map.of("success", "Sub categorie"+subCategorieName+" deleted"));
     }
 }

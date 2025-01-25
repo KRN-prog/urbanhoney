@@ -12,7 +12,7 @@ import com.urbanhoney.backend.usecase.dto.request.AddCategorieRequestDto;
 @Repository
 public interface CategorieRepository extends JpaRepository<CategorieEntity, Long> {
 
-    Optional<CategorieEntity> findByCategorieId(Integer categorieId);
+    boolean existsByCategorieId(Integer categorieId);
 
     List<CategorieEntity> findAll();
 

@@ -27,12 +27,12 @@ public class CategoriesController {
     private CategorieService categorieService;
     
     @PostMapping("/new")
-    public ResponseEntity<?> postNewCategorie(@RequestBody AddCategorieRequestDto addCategorieRequestDto , Authentication authentication) {
+    public ResponseEntity<?> postNewCategorie(@RequestBody AddCategorieRequestDto addCategorieRequestDto) {
         return categorieService.addNewCategorie(addCategorieRequestDto);
     }
 
     @PostMapping("/sub_categorie/new")
-    public ResponseEntity<?> postNewSubCategorie(@RequestBody AddSubCategorieRequestDto AddSubCategorieRequestDto , Authentication authentication) {
+    public ResponseEntity<?> postNewSubCategorie(@RequestBody AddSubCategorieRequestDto AddSubCategorieRequestDto) {
         return categorieService.addNewSubCategorie(AddSubCategorieRequestDto);
     }
 

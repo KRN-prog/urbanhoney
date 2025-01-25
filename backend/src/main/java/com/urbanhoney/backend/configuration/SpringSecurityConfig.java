@@ -32,7 +32,8 @@ public class SpringSecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
                         .requestMatchers("/urbanhoney/auth/login", "/urbanhoney/auth/register", "/urbanhoney/article/{articleId}",
-                        "/urbanhoney/articles/{articlesType}", "/urbanhoney/articles", "/urbanhoney/article")
+                        "/urbanhoney/articles/{articlesType}", "/urbanhoney/articles", "/urbanhoney/article", "/urbanhoney/categorie/get",
+                        "/urbanhoney/categorie/get/{categorieName}", "/urbanhoney/categorie/sub_categorie", "/urbanhoney/categorie/sub_categorie/{subCategorieName}")
                         .permitAll()
                         .anyRequest().authenticated())
                 .httpBasic(Customizer.withDefaults())
