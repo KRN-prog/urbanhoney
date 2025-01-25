@@ -34,7 +34,6 @@ public class CategorieService {
     }
 
     public ResponseEntity<Map<String, String>> addNewCategorie(AddCategorieRequestDto addCategorieRequestDto) {
-        // Validation des champs requis
         if (addCategorieRequestDto.getCategorie() == null || addCategorieRequestDto.getCategorie().isEmpty() ||
             addCategorieRequestDto.getGender() == null || addCategorieRequestDto.getGender().isEmpty()) {
             return ResponseEntity
@@ -42,11 +41,9 @@ public class CategorieService {
                     .body(Map.of("error", "Please fill in all required fields!"));
         }
     
-        // Nettoyage et normalisation de la catégorie
         String normalizedCategorie = addCategorieRequestDto.getCategorie().trim().replace(" ", "_");
         addCategorieRequestDto.setCategorie(normalizedCategorie);
     
-        // Validation du champ "gender"
         List<String> validGenders = List.of("H", "F", "H/F");
         if (!validGenders.contains(addCategorieRequestDto.getGender())) {
             return ResponseEntity
@@ -54,11 +51,9 @@ public class CategorieService {
                     .body(Map.of("error", "Invalid gender. Please select a valid option: H, F, or H/F."));
         }
     
-        // Mapping et enregistrement de la catégorie
         CategorieEntity categorieEntity = CategorieMapper.mapToCategorieEntity(addCategorieRequestDto);
         categorieRepository.save(categorieEntity);
-    
-        // Réponse de succès
+
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(Map.of("success", "Category added successfully!"));
