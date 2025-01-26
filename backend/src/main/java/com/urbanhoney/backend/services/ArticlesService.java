@@ -31,63 +31,48 @@ public class ArticlesService {
     }
 
     public ResponseEntity<?> addNewArticle(AddArticleRequestDto addArticleRequest) {
-        Map<String, String> response = new HashMap<>();
         SubCategorieEntity subCategorie = subCategorieRepository.findBySubCategorieId(addArticleRequest.getSubCategorie().getSubCategorieId()).orElse(null);
 
         if (subCategorie == null) {
-            response.put("error", "Sub categorie linked to the article not found !");
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("error", "Sub categorie linked to the article not found !"));
         }
 
         ArticlesEntity articlesEntity = ArticleMapper.mapToArticleEntity(addArticleRequest);
         articlesRepository.save(articlesEntity);
-        response.put("success", "Article saved !");
-        return ResponseEntity.status(HttpStatus.OK).body(response);
+        return ResponseEntity.status(HttpStatus.OK).body(Map.of("success", "Article saved !"));
     }
 
     public ResponseEntity<?> getArticleById(Integer articleId) {
         ArticlesEntity articlesEntity = articlesRepository.findByArticleId(articleId).orElse(null);
 
         if (articlesEntity == null) {
-            Map<String, String> response = new HashMap<>();
-            response.put("error", "Cannout find any article.");
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("error", "Cannout find any article."));
         }
 
-        Map<String, ArticleDto> response = new HashMap<>();
         ArticleDto articleDto = ArticleMapper.mapToArticleDto(articlesEntity);
-        response.put("success", articleDto);
-        return ResponseEntity.status(HttpStatus.OK).body(response);
+        return ResponseEntity.status(HttpStatus.OK).body(Map.of("success", articleDto));
     }
 
     public ResponseEntity<?> getAllArticles() {
         List<ArticlesEntity> articlesEntities = articlesRepository.findAll();
         if (articlesEntities.isEmpty()) {
-            Map<String, String> response = new HashMap<>();
-            response.put("error", "No articles found !");
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("error", "No articles found !"));
         }
 
-        Map<String, List<ArticlesEntity>> response = new HashMap<>();
-        response.put("success", articlesEntities);
-        return ResponseEntity.status(HttpStatus.OK).body(response);
+        return ResponseEntity.status(HttpStatus.OK).body(Map.of("success", articlesEntities));
     }
 
     public ResponseEntity<?> getArticleByType(String articleType) {
 
         List<ArticlesEntity> articleEntity = articlesRepository.findBySubCategorieLinkedId_SubCategorieName(articleType);
         if (articleEntity == null || articleEntity.isEmpty()) {
-            Map<String, String> response = new HashMap<>();
-            response.put("error", "No sub articles found !");
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("error", "No sub articles found !"));
         }
 
         List<ArticleDto> articleDtos = articleEntity.stream()
                 .map(ArticleMapper::mapToArticleDto)
                 .collect(Collectors.toList());
-
-        Map<String, List<ArticleDto>> response = new HashMap<>();
-        response.put("success", articleDtos);
-        return ResponseEntity.status(HttpStatus.OK).body(response);
+                
+        return ResponseEntity.status(HttpStatus.OK).body(Map.of("success", articleDtos));
     }
 }
