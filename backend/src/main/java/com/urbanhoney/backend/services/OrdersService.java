@@ -36,38 +36,30 @@ public class OrdersService {
         UserEntity authentitcateUser = authRepository.findByEmail(authentication.getName()).orElse(null);
 
         if (authentitcateUser == null) {
-            Map<String, String> response = new HashMap<>();
-            response.put("error", "User not found !");
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("error", "User not found !"));
         }
 
         if (addOrderRequestDto.getArticleList().isEmpty() || addOrderRequestDto.getTotal().isEmpty()) {
-            Map<String, String> response = new HashMap<>();
-            response.put("error", "Please fill all fields !");
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("error", "Please fill all fields !"));
         }
 
         OrdersEntity ordersEntity = OrderMapper.mapToOrdersEntity(addOrderRequestDto);
 
         ordersRepository.save(ordersEntity);
-        Map<String, String> response = new HashMap<>();
-        response.put("success", "Order taken !");
-        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+        return ResponseEntity.status(HttpStatus.CREATED).body(Map.of("success", "Order taken !"));
     }
 
     public ResponseEntity<?> getOrdersFromUser(Authentication authentication) {
         UserEntity authentitcateUser = authRepository.findByEmail(authentication.getName()).orElse(null);
 
         if (authentitcateUser == null) {
-            Map<String, String> response = new HashMap<>();
-            response.put("error", "User not found !");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("error", "User not found !"));
         }
         
         List<OrdersEntity> ordersEntities = ordersRepository.findAllByUserId_Id(authentitcateUser.getId());
 
         if (ordersEntities.isEmpty()) {
-            Map<String, String> response = new HashMap<>();
-            response.put("error", "No order found !");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("error", "No order found !"));
         }
 
         return ResponseEntity.status(HttpStatus.OK).body(ordersEntities);
@@ -76,14 +68,10 @@ public class OrdersService {
     @Transactional
     public ResponseEntity<?> deleteOrderById(Integer orderId) {
         if (ordersRepository.existsByOrderId(orderId) == false) {
-            Map<String, String> response = new HashMap<>();
-            response.put("error", "Order not found !");
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("error", "Order not found !"));
         }
         ordersRepository.deleteByOrderId(orderId);
-
-        Map<String, String> response = new HashMap<>();
-        response.put("success", "Order deleted !");
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body(response);
+        
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(Map.of("success", "Order deleted !"));
     }
 }
