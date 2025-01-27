@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.urbanhoney.backend.services.ArticlesService;
 import com.urbanhoney.backend.usecase.dto.request.AddArticleRequestDto;
 
+import jakarta.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -23,7 +25,7 @@ public class ArticlesController {
     private ArticlesService articlesService;
 
     @PostMapping("/article")
-    public ResponseEntity<?> postNewArticle(@RequestBody AddArticleRequestDto addArticleRequest) {
+    public ResponseEntity<?> postNewArticle(@Valid @RequestBody AddArticleRequestDto addArticleRequest) {
         return articlesService.addNewArticle(addArticleRequest);
     }
     
