@@ -1,6 +1,5 @@
 package com.urbanhoney.backend.services;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -71,7 +70,7 @@ public class OrdersService {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("error", "Order not found !"));
         }
         ordersRepository.deleteByOrderId(orderId);
-        
+
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(Map.of("success", "Order deleted !"));
     }
 }
