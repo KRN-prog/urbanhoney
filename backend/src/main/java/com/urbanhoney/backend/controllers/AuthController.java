@@ -7,6 +7,8 @@ import com.urbanhoney.backend.services.AuthService;
 import com.urbanhoney.backend.usecase.dto.UserDto;
 import com.urbanhoney.backend.usecase.dto.request.AuthRequestDto;
 
+import jakarta.validation.Valid;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +25,7 @@ public class AuthController {
     private AuthService authService;
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody AuthRequestDto authRequestDto, Authentication authentication) {
+    public ResponseEntity<?> login(@Valid @RequestBody AuthRequestDto authRequestDto, Authentication authentication) {
         return authService.loginUser(authRequestDto, authentication);
     }
     

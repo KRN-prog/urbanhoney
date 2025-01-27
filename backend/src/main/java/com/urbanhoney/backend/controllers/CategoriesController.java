@@ -7,6 +7,8 @@ import com.urbanhoney.backend.services.CategorieService;
 import com.urbanhoney.backend.usecase.dto.request.AddCategorieRequestDto;
 import com.urbanhoney.backend.usecase.dto.request.AddSubCategorieRequestDto;
 
+import jakarta.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,12 +28,12 @@ public class CategoriesController {
     private CategorieService categorieService;
     
     @PostMapping("/new")
-    public ResponseEntity<?> postNewCategorie(@RequestBody AddCategorieRequestDto addCategorieRequestDto) {
+    public ResponseEntity<?> postNewCategorie(@Valid @RequestBody AddCategorieRequestDto addCategorieRequestDto) {
         return categorieService.addNewCategorie(addCategorieRequestDto);
     }
 
     @PostMapping("/sub_categorie/new")
-    public ResponseEntity<?> postNewSubCategorie(@RequestBody AddSubCategorieRequestDto AddSubCategorieRequestDto) {
+    public ResponseEntity<?> postNewSubCategorie(@Valid @RequestBody AddSubCategorieRequestDto AddSubCategorieRequestDto) {
         return categorieService.addNewSubCategorie(AddSubCategorieRequestDto);
     }
 

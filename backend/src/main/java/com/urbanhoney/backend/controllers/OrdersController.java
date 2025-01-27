@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.urbanhoney.backend.services.OrdersService;
 import com.urbanhoney.backend.usecase.dto.request.AddOrderRequestDto;
 
+import jakarta.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -26,7 +28,7 @@ public class OrdersController {
     OrdersService ordersService;
 
     @PostMapping("/order/new")
-    public ResponseEntity<?> newOrder(@RequestBody AddOrderRequestDto addOrderRequestDto) {
+    public ResponseEntity<?> newOrder(@Valid @RequestBody AddOrderRequestDto addOrderRequestDto) {
         return ordersService.postNewOrder(addOrderRequestDto);
     }
     
