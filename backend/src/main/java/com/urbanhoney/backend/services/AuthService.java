@@ -39,44 +39,35 @@ public class AuthService {
         return pattern.matcher(email).matches();
     }
 
-    Map<String, String> response = new HashMap<>();
-
     public ResponseEntity<?> registerUser(UserDto userDto) {
         
         if (userDto.getEmail() != null || isValidEmail(userDto.getEmail()) == true) {
             UserEntity findByEmail = authRepository.findByEmail(userDto.getEmail()).orElse(null);
             UserEntity findByUsername = authRepository.findByUsername(userDto.getUsername()).orElse(null);
             if (findByEmail != null) {
-                response.put("error", "This email is already taken !");
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("error", "This email is already taken !"));
             } else if (findByUsername != null) {
-                response.put("error", "This username is already taken !");
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("error", "This username is already taken !"));
             } else {
-                Map<String, UserEntity> responseSucess = new HashMap<>();
                 userDto.setPassword(passwordEncoder.encode(userDto.getPassword()));
                 UserEntity userEntity = UserMapper.mapToUser(userDto);
                 authRepository.save(userEntity);
-                responseSucess.put("Success", userEntity);
-                return ResponseEntity.status(HttpStatus.OK).body(responseSucess);
+                return ResponseEntity.status(HttpStatus.OK).body(Map.of("Success", userEntity));
             }
         }
 
-        response.put("error", "Please insert a real mail please.");
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("error", "Please insert a real mail please."));
     }
 
 
     public ResponseEntity<?> loginUser(AuthRequestDto authRequestDto, Authentication authentication) {
         UserEntity getUserByEmailOrUsername = authRepository.findByEmailOrUsername(authRequestDto.getEmailOrUsername()).orElse(null);
         if (getUserByEmailOrUsername == null) {
-            response.put("error", "Email or Username not found.");
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("error", "Email or Username not found."));
         }
 
         if (passwordEncoder.matches(authRequestDto.getPassword(), getUserByEmailOrUsername.getPassword()) == false) {
-            response.put("error", "Your password is incorrect.");
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("error", "Your password is incorrect."));
         }
 
         UserDto userDto = UserMapper.mapToUserDto(getUserByEmailOrUsername);
@@ -85,10 +76,8 @@ public class AuthService {
 
         TokenResponse tokenResponse = new TokenResponse();
         tokenResponse.setToken(token);
-        Map<String, TokenResponse> response = new HashMap<>();
-        response.put("success", tokenResponse);
 
-        return ResponseEntity.status(HttpStatus.OK).body(response);
+        return ResponseEntity.status(HttpStatus.OK).body(Map.of("success", tokenResponse));
     }
 
     public UserDto findUserByMail (String userMail) {
@@ -99,16 +88,14 @@ public class AuthService {
     public ResponseEntity<?> findUserById (Integer userId) {
         UserEntity userEntity = authRepository.findById(userId).orElse(null);
         if (userEntity == null) {
-            response.put("error", "Invalid credentials !");
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("error", "Invalid credentials !"));
         }
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserEntity authentitcateUser = authRepository.findByEmail(authentication.getName()).orElse(null);
         
         if (authentitcateUser.getId().equals(userId) == false) {
-            response.put("error", "Invalid user");
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("error", "Invalid user"));
         }
 
         UserDto userDto = UserMapper.mapToUserDto(userEntity);
