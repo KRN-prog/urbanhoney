@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 @Component({
@@ -7,6 +7,14 @@ import { RouterOutlet } from '@angular/router';
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
-export class AppComponent {
-  title = 'urbanhoney_Front-end';
+export class AppComponent implements OnInit {
+  title = 'Urbanhoney';
+
+  constructor(private renderer: Renderer2) {}
+
+  ngOnInit() {
+    this.renderer.setStyle(document.body, 'margin', '0');
+    this.renderer.setStyle(document.body, 'padding', '0');
+    this.renderer.setStyle(document.body, 'font-family', 'sans-serif');
+  }
 }
