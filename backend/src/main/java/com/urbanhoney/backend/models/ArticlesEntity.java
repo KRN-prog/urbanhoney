@@ -2,6 +2,7 @@ package com.urbanhoney.backend.models;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -48,16 +49,16 @@ public class ArticlesEntity {
     private String brand;
 
     @Column(name = "price")
-    private String price;
+    private Map<Double, String> price;
 
     @Column(name = "colors")
-    private String color;
+    private List<String> color;
 
     @Column(name = "size")
-    private String size;
+    private List<String> size;
 
     @Column(name = "pictures")
-    private String pictures;
+    private List<String> pictures;
 
     @Column(name = "composition")
     private String composition;

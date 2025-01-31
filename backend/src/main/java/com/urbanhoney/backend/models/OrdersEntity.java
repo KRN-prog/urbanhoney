@@ -2,6 +2,7 @@ package com.urbanhoney.backend.models;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -42,7 +43,7 @@ public class OrdersEntity {
     private List<ArticlesEntity> articlesEntities = new ArrayList<>();
 
     @Column(name = "total")
-    private String total;
+    private Map<Double, String> total;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)

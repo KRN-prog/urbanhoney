@@ -2,6 +2,7 @@ package com.urbanhoney.backend.usecase.dto.request;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import com.urbanhoney.backend.models.ArticlesEntity;
 import com.urbanhoney.backend.models.UserEntity;
@@ -19,6 +20,6 @@ import lombok.Setter;
 public class AddOrderRequestDto {
     private List<ArticlesEntity> articleList = new ArrayList<>();
     @NotEmpty(message = "Your order must have a total price")
-    private String total;
+    private Map<Double, String> total;
     private UserEntity userId;
 }

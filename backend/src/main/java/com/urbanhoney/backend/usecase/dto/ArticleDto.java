@@ -1,5 +1,8 @@
 package com.urbanhoney.backend.usecase.dto;
 
+import java.util.List;
+import java.util.Map;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.urbanhoney.backend.models.SubCategorieEntity;
 
@@ -28,16 +31,16 @@ public class ArticleDto {
     private String brand;
 
     @JsonProperty("price")
-    private String price;
+    private Map<Double, String> price;
 
     @JsonProperty("colors")
-    private String colors;
+    private List<String> colors;
 
     @JsonProperty("size")
-    private String size;
+    private List<String> size;
 
     @JsonProperty("pictures")
-    private String pictures;
+    private List<String> pictures;
 
     @JsonProperty("composition")
     private String composition;

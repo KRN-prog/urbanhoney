@@ -38,6 +38,9 @@ public class OrdersService {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("error", "User not found !"));
         }
 
+        System.out.println(addOrderRequestDto.getArticleList());
+        System.out.println(addOrderRequestDto.getTotal());
+        System.out.println(addOrderRequestDto.getUserId());
         if (addOrderRequestDto.getArticleList().isEmpty() || addOrderRequestDto.getTotal().isEmpty()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("error", "Please fill all fields !"));
         }
