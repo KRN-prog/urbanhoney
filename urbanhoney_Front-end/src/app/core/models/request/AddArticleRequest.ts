@@ -1,4 +1,4 @@
-import { SubCategorie } from "../subCategorie";
+import { SubCategorie } from "../SubCategorie";
 
 export interface AddArticleRequest {
     title: string,

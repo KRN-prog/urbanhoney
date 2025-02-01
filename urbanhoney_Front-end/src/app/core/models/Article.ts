@@ -1,5 +1,4 @@
-import { SubCategorie } from "./subCategorie";
-
+import { SubCategorie } from "./SubCategorie";
 
 export interface Article {
     article_id: number,
