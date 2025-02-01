@@ -10,7 +10,7 @@ import com.urbanhoney.backend.usecase.dto.request.AddOrderRequestDto;
 
 @Repository
 public interface OrdersRepository extends JpaRepository<OrdersEntity, Long> {
-    void save(AddOrderRequestDto addOrderRequestDto);
+    OrdersEntity save(OrdersEntity ordersEntity);
 
     List<OrdersEntity> findAllByUserId_Id(Integer userId);
 

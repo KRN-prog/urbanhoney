@@ -2,10 +2,13 @@ package com.urbanhoney.backend.models;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.urbanhoney.backend.configuration.StringListConverter;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -47,17 +50,21 @@ public class ArticlesEntity {
     @Column(name = "brand")
     private String brand;
 
+    @Convert(converter = StringListConverter.class)
     @Column(name = "price")
-    private String price;
+    private List<String> price;
 
+    @Convert(converter = StringListConverter.class)
     @Column(name = "colors")
-    private String color;
+    private List<String> color;
 
+    @Convert(converter = StringListConverter.class)
     @Column(name = "size")
-    private String size;
+    private List<String> size;
 
+    @Convert(converter = StringListConverter.class)
     @Column(name = "pictures")
-    private String pictures;
+    private List<String> pictures;
 
     @Column(name = "composition")
     private String composition;

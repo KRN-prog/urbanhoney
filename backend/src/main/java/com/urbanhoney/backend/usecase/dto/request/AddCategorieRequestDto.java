@@ -1,8 +1,8 @@
 package com.urbanhoney.backend.usecase.dto.request;
 
-import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,7 +10,7 @@ import lombok.Setter;
 @Setter
 public class AddCategorieRequestDto {
     @NotEmpty(message = "Please enter a categorie name")
-    @Max(value = 15, message = "Your categorie name must not excede 15 characters")
+    @Size(max = 15, message = "Your categorie name must not excede 15 characters")
     private String categorie;
 
     @NotEmpty(message = "please enter a gender for the categorie")

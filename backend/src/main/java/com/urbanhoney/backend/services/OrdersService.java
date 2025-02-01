@@ -1,5 +1,6 @@
 package com.urbanhoney.backend.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -9,8 +10,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import com.urbanhoney.backend.models.ArticlesEntity;
 import com.urbanhoney.backend.models.OrdersEntity;
 import com.urbanhoney.backend.models.UserEntity;
+import com.urbanhoney.backend.repository.ArticlesRepository;
 import com.urbanhoney.backend.repository.AuthRepository;
 import com.urbanhoney.backend.repository.OrdersRepository;
 import com.urbanhoney.backend.usecase.dto.mapper.OrderMapper;
@@ -25,11 +28,15 @@ public class OrdersService {
 
     private AuthRepository authRepository;
 
-    public OrdersService(OrdersRepository ordersRepository, AuthRepository authRepository) {
+    private ArticlesRepository articlesRepository;
+
+    public OrdersService(OrdersRepository ordersRepository, AuthRepository authRepository, ArticlesRepository articlesRepository) {
         this.ordersRepository = ordersRepository;
         this.authRepository = authRepository;
+        this.articlesRepository = articlesRepository;
     }
     
+    @Transactional
     public ResponseEntity<?> postNewOrder(AddOrderRequestDto addOrderRequestDto) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserEntity authentitcateUser = authRepository.findByEmail(authentication.getName()).orElse(null);
@@ -37,14 +44,27 @@ public class OrdersService {
         if (authentitcateUser == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("error", "User not found !"));
         }
-
+        
         if (addOrderRequestDto.getArticleList().isEmpty() || addOrderRequestDto.getTotal().isEmpty()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("error", "Please fill all fields !"));
         }
 
-        OrdersEntity ordersEntity = OrderMapper.mapToOrdersEntity(addOrderRequestDto);
+        OrdersEntity order = new OrdersEntity();
+        order.setTotal(addOrderRequestDto.getTotal());
 
-        ordersRepository.save(ordersEntity);
+        UserEntity user = authRepository.findById(addOrderRequestDto.getUserId().getId())
+            .orElseThrow(() -> new RuntimeException("User not found"));
+        order.setUserId(user);
+
+        List<ArticlesEntity> articles = new ArrayList<>();
+        for (ArticlesEntity article : addOrderRequestDto.getArticleList()) {
+            ArticlesEntity managedArticle = articlesRepository.findByArticleId(article.getArticleId())
+                    .orElseThrow(() -> new RuntimeException("Article not found"));
+            articles.add(managedArticle);
+        }
+        order.setArticlesEntities(articles);
+
+        ordersRepository.save(order);
         return ResponseEntity.status(HttpStatus.CREATED).body(Map.of("success", "Order taken !"));
     }
 
