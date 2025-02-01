@@ -5,8 +5,10 @@ import java.util.List;
 import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.urbanhoney.backend.configuration.StringListConverter;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -48,15 +50,19 @@ public class ArticlesEntity {
     @Column(name = "brand")
     private String brand;
 
+    @Convert(converter = StringListConverter.class)
     @Column(name = "price")
-    private Map<Double, String> price;
+    private List<String> price;
 
+    @Convert(converter = StringListConverter.class)
     @Column(name = "colors")
     private List<String> color;
 
+    @Convert(converter = StringListConverter.class)
     @Column(name = "size")
     private List<String> size;
 
+    @Convert(converter = StringListConverter.class)
     @Column(name = "pictures")
     private List<String> pictures;
 

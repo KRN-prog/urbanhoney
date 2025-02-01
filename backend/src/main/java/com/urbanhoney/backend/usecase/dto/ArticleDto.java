@@ -31,7 +31,7 @@ public class ArticleDto {
     private String brand;
 
     @JsonProperty("price")
-    private Map<Double, String> price;
+    private List<String> price;
 
     @JsonProperty("colors")
     private List<String> colors;

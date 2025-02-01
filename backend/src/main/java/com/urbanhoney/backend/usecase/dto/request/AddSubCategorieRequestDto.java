@@ -2,9 +2,9 @@ package com.urbanhoney.backend.usecase.dto.request;
 
 import com.urbanhoney.backend.models.CategorieEntity;
 
-import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,7 +13,7 @@ import lombok.Setter;
 public class AddSubCategorieRequestDto {
 
     @NotEmpty(message = "Please enter a sub categorie name")
-    @Max(value = 15, message = "Your sub categorie name must not excede 15 characters")
+    @Size(max = 15, message = "Your sub categorie name must not excede 15 characters")
     private String subCategorieName;
 
     private CategorieEntity categorieLinkId;
