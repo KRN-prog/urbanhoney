@@ -44,7 +44,7 @@ public class ArticlesController {
         return articlesService.getArticleByType(articleType);
     }
 
-    @DeleteMapping()
+    @DeleteMapping("/article/{articleId}")
     public String deleteArticleById(@PathVariable("articlesType") Integer articleId) {
         return "Delete article by id";
     }
