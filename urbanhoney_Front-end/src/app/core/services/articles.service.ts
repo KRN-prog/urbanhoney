@@ -9,7 +9,8 @@ import { Article } from "../models/Article";
 export class ArticlesService {
 
     private article = 'http://localhost:8080/urbanhoney/article/';
-    private articles = 'http://localhost:8080/urbanhoney/articles/';
+    private articles = 'http://localhost:8080/urbanhoney/articles';
+    private articlesSlashed = 'http://localhost:8080/urbanhoney/articles/';
 
     constructor(private http: HttpClient) {}
 
@@ -31,7 +32,7 @@ export class ArticlesService {
     }
 
     getArticlesByType(articleType: string): Observable<any> {
-        return this.http.get<{"success": Array<Article>}>(this.articles + articleType);
+        return this.http.get<{"success": Array<Article>}>(this.articlesSlashed + articleType);
     }
 
     /*deleteArticleById(idArticle: number): Observable<any> {

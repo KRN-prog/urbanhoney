@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { ArticlesService } from '../../core/services/articles.service';
 
 @Component({
   selector: 'app-landing-page',
@@ -8,4 +10,8 @@ import { Component } from '@angular/core';
 })
 export class LandingPageComponent {
 
+  constructor() {}
+
+  ngOnInit(): void {
+  }
 }
