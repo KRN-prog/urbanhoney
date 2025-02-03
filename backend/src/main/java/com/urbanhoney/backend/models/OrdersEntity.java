@@ -2,8 +2,13 @@ package com.urbanhoney.backend.models;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
+import com.urbanhoney.backend.configuration.StringListConverter;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
+import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -33,7 +38,7 @@ public class OrdersEntity {
     @Column(name = "order_id")
     private Integer orderId;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
         name = "order_articles",
         joinColumns = @JoinColumn(name = "order_id"),
@@ -41,8 +46,9 @@ public class OrdersEntity {
     )
     private List<ArticlesEntity> articlesEntities = new ArrayList<>();
 
+    @Convert(converter = StringListConverter.class)
     @Column(name = "total")
-    private String total;
+    private List<String> total;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
