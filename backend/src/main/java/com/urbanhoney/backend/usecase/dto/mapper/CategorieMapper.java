@@ -9,7 +9,8 @@ public class CategorieMapper {
         return new CategorieEntity(
             null,
             addCategorieRequestDto.getCategorie(),
-            addCategorieRequestDto.getGender());
+            addCategorieRequestDto.getGender(),
+            addCategorieRequestDto.getCategory_picture());
     }
 
     public static CategorieDto mapToCategorieDto(CategorieEntity categorieEntity) {

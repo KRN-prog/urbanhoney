@@ -16,4 +16,7 @@ public class AddCategorieRequestDto {
     @NotEmpty(message = "please enter a gender for the categorie")
     @Pattern(regexp = "^(H|F|H/F)$", message = "Gender must be 'H', 'F', or 'H/F'")
     private String gender;
+
+    @NotEmpty(message = "Please enter an image for the category")
+    private String category_picture;
 }

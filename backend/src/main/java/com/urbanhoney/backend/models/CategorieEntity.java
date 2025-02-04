@@ -31,5 +31,8 @@ public class CategorieEntity {
 
     @Column(name = "gender")
     private String gender;
+
+    @Column(name = "category_picture")
+    private String category_picture;
     
 }
