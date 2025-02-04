@@ -2,9 +2,8 @@ package com.urbanhoney.backend.models;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
-import com.urbanhoney.backend.configuration.StringListConverter;
+import com.urbanhoney.backend.converter.StringListConverter;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;

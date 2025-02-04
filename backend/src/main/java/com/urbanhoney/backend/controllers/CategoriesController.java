@@ -3,10 +3,12 @@ package com.urbanhoney.backend.controllers;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.urbanhoney.backend.configuration.JwtUtil;
 import com.urbanhoney.backend.services.CategorieService;
 import com.urbanhoney.backend.usecase.dto.request.AddCategorieRequestDto;
 import com.urbanhoney.backend.usecase.dto.request.AddSubCategorieRequestDto;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
