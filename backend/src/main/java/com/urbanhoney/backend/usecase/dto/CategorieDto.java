@@ -20,4 +20,7 @@ public class CategorieDto {
 
     @JsonProperty("gender")
     private String gender;
+
+    @JsonProperty("category_picture")
+    private String categoryPicture;
 }

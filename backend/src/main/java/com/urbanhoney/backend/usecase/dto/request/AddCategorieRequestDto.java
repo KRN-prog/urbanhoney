@@ -1,5 +1,7 @@
 package com.urbanhoney.backend.usecase.dto.request;
 
+import org.hibernate.validator.constraints.URL;
+
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
@@ -17,6 +19,7 @@ public class AddCategorieRequestDto {
     @Pattern(regexp = "^(H|F|H/F)$", message = "Gender must be 'H', 'F', or 'H/F'")
     private String gender;
 
-    @NotEmpty(message = "Please enter an image for the category")
+    @NotEmpty(message = "Please enter a picture link for your categorie")
+    @URL(message = "The link is not valide")
     private String category_picture;
 }

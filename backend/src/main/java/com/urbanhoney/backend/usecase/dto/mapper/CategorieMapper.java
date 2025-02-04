@@ -17,6 +17,7 @@ public class CategorieMapper {
         return new CategorieDto(
             categorieEntity.getCategorieId(),
             categorieEntity.getCategorie(),
-            categorieEntity.getGender());
+            categorieEntity.getGender(),
+            categorieEntity.getCategory_picture());
     }
 }
