@@ -1,5 +1,7 @@
 package com.urbanhoney.backend.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -23,16 +25,17 @@ public class CategorieEntity {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "categorie_id")
-    private Integer categorieId;
+    @Column(name = "category_id")
+    private Integer categoryId;
 
-    @Column(name = "categorie")
-    private String categorie;
+    @Column(name = "category_name")
+    @JsonProperty("category_name")
+    private String categoryName;
 
     @Column(name = "gender")
     private String gender;
 
     @Column(name = "category_picture")
-    private String category_picture;
+    private String categoryPicture;
     
 }

@@ -34,16 +34,16 @@ public class CategorieService {
     }
 
     public ResponseEntity<Map<String, String>> addNewCategorie(AddCategorieRequestDto addCategorieRequestDto) {
-        if (addCategorieRequestDto.getCategorie() == null || addCategorieRequestDto.getCategorie().isEmpty() ||
+        if (addCategorieRequestDto.getCategoryName() == null || addCategorieRequestDto.getCategoryName().isEmpty() ||
             addCategorieRequestDto.getGender() == null || addCategorieRequestDto.getGender().isEmpty() ||
-            addCategorieRequestDto.getCategory_picture() == null || addCategorieRequestDto.getCategory_picture().isEmpty()) {
+            addCategorieRequestDto.getCategoryPicture() == null || addCategorieRequestDto.getCategoryPicture().isEmpty()) {
             return ResponseEntity
                     .status(HttpStatus.BAD_REQUEST)
                     .body(Map.of("error", "Please fill in all required fields!"));
         }
     
-        String normalizedCategorie = addCategorieRequestDto.getCategorie().trim().replace(" ", "_");
-        addCategorieRequestDto.setCategorie(normalizedCategorie);
+        String normalizedCategorie = addCategorieRequestDto.getCategoryName().trim().replace(" ", "_");
+        addCategorieRequestDto.setCategoryName(normalizedCategorie);
     
         List<String> validGenders = List.of("H", "F", "H/F");
         if (!validGenders.contains(addCategorieRequestDto.getGender())) {
@@ -66,7 +66,7 @@ public class CategorieService {
         String normalizedSubCategorie = addSubCategorieRequestDto.getSubCategorieName().trim().replace(" ", "_");
         addSubCategorieRequestDto.setSubCategorieName(normalizedSubCategorie);
 
-        if (categorieRepository.existsByCategorieId(addSubCategorieRequestDto.getCategorieLinkId().getCategorieId()) == false) {
+        if (categorieRepository.existsByCategoryId(addSubCategorieRequestDto.getCategorieLinkId().getCategoryId()) == false) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("error", "Categorie not found !"));
         }
         
@@ -98,7 +98,7 @@ public class CategorieService {
 
     public ResponseEntity<?> getCategorieByName(String subCategorieName) {
 
-        CategorieEntity categorieEntity = categorieRepository.findByCategorie(subCategorieName).orElse(null);
+        CategorieEntity categorieEntity = categorieRepository.findByCategoryName(subCategorieName).orElse(null);
         if (categorieEntity == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("error", "Categorie not found"));
         }

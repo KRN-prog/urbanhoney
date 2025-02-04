@@ -15,8 +15,8 @@ public class CategorieDto {
 
     private Integer categoryId;
 
-    @JsonProperty("category")
-    private String category;
+    @JsonProperty("category_name")
+    private String category_name;
 
     @JsonProperty("gender")
     private String gender;

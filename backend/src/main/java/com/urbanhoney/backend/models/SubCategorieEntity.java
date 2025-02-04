@@ -33,7 +33,7 @@ public class SubCategorieEntity {
     private String subCategorieName;
 
     @ManyToOne(cascade = CascadeType.REMOVE)
-    @JoinColumn(name = "categorie_linked_id", referencedColumnName = "categorie_id", nullable = false)
+    @JoinColumn(name = "categorie_linked_id", referencedColumnName = "category_id", nullable = false)
     private CategorieEntity categorie;
 
     @Column(name = "gender")

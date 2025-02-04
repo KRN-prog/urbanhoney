@@ -8,16 +8,16 @@ public class CategorieMapper {
     public static CategorieEntity mapToCategorieEntity(AddCategorieRequestDto addCategorieRequestDto) {
         return new CategorieEntity(
             null,
-            addCategorieRequestDto.getCategorie(),
+            addCategorieRequestDto.getCategoryName(),
             addCategorieRequestDto.getGender(),
-            addCategorieRequestDto.getCategory_picture());
+            addCategorieRequestDto.getCategoryName());
     }
 
     public static CategorieDto mapToCategorieDto(CategorieEntity categorieEntity) {
         return new CategorieDto(
-            categorieEntity.getCategorieId(),
-            categorieEntity.getCategorie(),
+            categorieEntity.getCategoryId(),
+            categorieEntity.getCategoryName(),
             categorieEntity.getGender(),
-            categorieEntity.getCategory_picture());
+            categorieEntity.getCategoryPicture());
     }
 }
