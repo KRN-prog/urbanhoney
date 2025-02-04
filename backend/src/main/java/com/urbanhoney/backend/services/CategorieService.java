@@ -35,7 +35,8 @@ public class CategorieService {
 
     public ResponseEntity<Map<String, String>> addNewCategorie(AddCategorieRequestDto addCategorieRequestDto) {
         if (addCategorieRequestDto.getCategorie() == null || addCategorieRequestDto.getCategorie().isEmpty() ||
-            addCategorieRequestDto.getGender() == null || addCategorieRequestDto.getGender().isEmpty()) {
+            addCategorieRequestDto.getGender() == null || addCategorieRequestDto.getGender().isEmpty() ||
+            addCategorieRequestDto.getCategoriePicture() == null || addCategorieRequestDto.getCategoriePicture().isEmpty()) {
             return ResponseEntity
                     .status(HttpStatus.BAD_REQUEST)
                     .body(Map.of("error", "Please fill in all required fields!"));
