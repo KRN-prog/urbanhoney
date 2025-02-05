@@ -30,7 +30,8 @@ public class ArticlesService {
     }
 
     public ResponseEntity<?> addNewArticle(AddArticleRequestDto addArticleRequest) {
-        SubCategorieEntity subCategorie = subCategorieRepository.findBySubCategorieId(addArticleRequest.getSubCategorie().getSubCategorieId()).orElse(null);
+        System.out.println(addArticleRequest.getSubCategorie().getSubcategoryId());
+        SubCategorieEntity subCategorie = subCategorieRepository.findBySubcategoryId(addArticleRequest.getSubCategorie().getSubcategoryId()).orElse(null);
 
         if (subCategorie == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("error", "Sub categorie linked to the article not found !"));
@@ -63,7 +64,7 @@ public class ArticlesService {
 
     public ResponseEntity<?> getArticleByType(String articleType) {
 
-        List<ArticlesEntity> articleEntity = articlesRepository.findBySubCategorieLinkedId_SubCategorieName(articleType);
+        List<ArticlesEntity> articleEntity = articlesRepository.findBySubCategoryLinkedId_SubCategoryName(articleType);
         if (articleEntity == null || articleEntity.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("error", "No sub articles found !"));
         }

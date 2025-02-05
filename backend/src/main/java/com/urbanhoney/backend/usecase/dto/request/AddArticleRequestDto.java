@@ -2,7 +2,8 @@ package com.urbanhoney.backend.usecase.dto.request;
 
 import java.util.List;
 
-import com.urbanhoney.backend.configuration.StringListConverter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.urbanhoney.backend.converter.StringListConverter;
 import com.urbanhoney.backend.models.SubCategorieEntity;
 
 import jakarta.persistence.Convert;
@@ -22,6 +23,7 @@ public class AddArticleRequestDto {
     @Size(max = 200, message = "The description of an article can't excede 200 characters.")
     private String description;
 
+    @JsonProperty("sub_category")
     private SubCategorieEntity subCategorie;
 
     @NotEmpty(message = "The brand field can't be empty")

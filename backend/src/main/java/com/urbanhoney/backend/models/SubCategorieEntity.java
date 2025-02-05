@@ -1,5 +1,7 @@
 package com.urbanhoney.backend.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -26,14 +28,16 @@ public class SubCategorieEntity {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "sub_categorie_id")
-    private Integer subCategorieId;
+    @Column(name = "sub_category_id")
+    @JsonProperty("sub_category_id")
+    private Integer subcategoryId;
 
-    @Column(name = "sub_categorie_name")
-    private String subCategorieName;
+    @Column(name = "sub_category_name")
+    @JsonProperty("sub_category_name")
+    private String subCategoryName;
 
     @ManyToOne(cascade = CascadeType.REMOVE)
-    @JoinColumn(name = "categorie_linked_id", referencedColumnName = "category_id", nullable = false)
+    @JoinColumn(name = "category_linked_id", referencedColumnName = "category_id", nullable = false)
     private CategorieEntity categorie;
 
     @Column(name = "gender")

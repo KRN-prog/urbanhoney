@@ -3,15 +3,18 @@ package com.urbanhoney.backend.controllers;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.urbanhoney.backend.configuration.JwtUtil;
 import com.urbanhoney.backend.services.CategorieService;
+import com.urbanhoney.backend.services.IsAdminService;
 import com.urbanhoney.backend.usecase.dto.request.AddCategorieRequestDto;
 import com.urbanhoney.backend.usecase.dto.request.AddSubCategorieRequestDto;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,14 +31,30 @@ public class CategoriesController {
 
     @Autowired
     private CategorieService categorieService;
+
+    private final IsAdminService isAdminService;
+
+    public CategoriesController(IsAdminService isAdminService) {
+        this.isAdminService = isAdminService;
+    }
     
     @PostMapping("/new")
-    public ResponseEntity<?> postNewCategorie(@Valid @RequestBody AddCategorieRequestDto addCategorieRequestDto) {
+    public ResponseEntity<?> postNewCategorie(@Valid @RequestBody AddCategorieRequestDto addCategorieRequestDto, HttpServletRequest request) {
+        if (!isAdminService.isAdmin(request)) {
+            return ResponseEntity
+                    .status(HttpStatus.UNAUTHORIZED)
+                    .body(Map.of("error", "You don't have the permission to do that action"));
+        }
         return categorieService.addNewCategorie(addCategorieRequestDto);
     }
 
     @PostMapping("/sub_categorie/new")
-    public ResponseEntity<?> postNewSubCategorie(@Valid @RequestBody AddSubCategorieRequestDto AddSubCategorieRequestDto) {
+    public ResponseEntity<?> postNewSubCategorie(@Valid @RequestBody AddSubCategorieRequestDto AddSubCategorieRequestDto, HttpServletRequest request) {
+        if (!isAdminService.isAdmin(request)) {
+            return ResponseEntity
+                    .status(HttpStatus.UNAUTHORIZED)
+                    .body(Map.of("error", "You don't have the permission to do that action"));
+        }
         return categorieService.addNewSubCategorie(AddSubCategorieRequestDto);
     }
 
@@ -60,7 +79,12 @@ public class CategoriesController {
     }
     
     @DeleteMapping("/sub_categorie/delete/{subCategorieName}")
-    public ResponseEntity<?> deleteSubCategorieByName(@PathVariable("subCategorieName") String subCategorieName) {
+    public ResponseEntity<?> deleteSubCategorieByName(@PathVariable("subCategorieName") String subCategorieName, HttpServletRequest request) {
+        if (!isAdminService.isAdmin(request)) {
+            return ResponseEntity
+                    .status(HttpStatus.UNAUTHORIZED)
+                    .body(Map.of("error", "You don't have the permission to do that action"));
+        }
         return categorieService.deleteSubCategorieByName(subCategorieName);
     }
 }

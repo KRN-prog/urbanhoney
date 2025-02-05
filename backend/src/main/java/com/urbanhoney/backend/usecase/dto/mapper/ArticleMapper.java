@@ -29,7 +29,7 @@ public class ArticleMapper {
             articlesEntity.getArticleId(),
             articlesEntity.getTitle(),
             articlesEntity.getDescription(),
-            articlesEntity.getSubCategorieLinkedId(),
+            articlesEntity.getSubCategoryLinkedId(),
             articlesEntity.getBrand(),
             articlesEntity.getPrice(),
             articlesEntity.getColor(),

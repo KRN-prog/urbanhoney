@@ -7,8 +7,6 @@ import com.urbanhoney.backend.services.AuthService;
 import com.urbanhoney.backend.usecase.dto.UserDto;
 import com.urbanhoney.backend.usecase.dto.request.AuthRequestDto;
 
-import jakarta.validation.Valid;
-
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.beans.factory.annotation.Autowired;

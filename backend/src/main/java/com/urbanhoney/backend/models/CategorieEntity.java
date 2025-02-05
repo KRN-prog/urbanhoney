@@ -26,6 +26,7 @@ public class CategorieEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "category_id")
+    @JsonProperty("category_id")
     private Integer categoryId;
 
     @Column(name = "category_name")

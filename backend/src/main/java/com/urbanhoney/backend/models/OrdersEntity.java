@@ -3,11 +3,8 @@ package com.urbanhoney.backend.models;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.urbanhoney.backend.converter.StringListConverter;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
-import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -45,9 +42,8 @@ public class OrdersEntity {
     )
     private List<ArticlesEntity> articlesEntities = new ArrayList<>();
 
-    @Convert(converter = StringListConverter.class)
     @Column(name = "total")
-    private List<String> total;
+    private String total;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)

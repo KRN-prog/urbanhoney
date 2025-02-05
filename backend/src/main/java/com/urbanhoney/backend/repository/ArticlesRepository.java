@@ -12,11 +12,12 @@ import com.urbanhoney.backend.usecase.dto.ArticleDto;
 @Repository
 public interface ArticlesRepository extends JpaRepository<ArticlesEntity, Long> {
 
+    @SuppressWarnings("null")
     List<ArticlesEntity> findAll();
 
     Optional<ArticlesEntity> findByArticleId(Integer articleId);
 
-    List<ArticlesEntity> findBySubCategorieLinkedId_SubCategorieName(String articleType);
+    List<ArticlesEntity> findBySubCategoryLinkedId_SubCategoryName(String articleType);
 
     void save(ArticleDto articleDto);
 }

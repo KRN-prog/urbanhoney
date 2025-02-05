@@ -15,8 +15,8 @@ public class SubCategorieMapper {
 
     public static SubCategorieDto mapToSubCategorieDto(SubCategorieEntity subCategorieEntity) {
         return new SubCategorieDto(
-            subCategorieEntity.getSubCategorieId(),
-            subCategorieEntity.getSubCategorieName(),
+            subCategorieEntity.getSubcategoryId(),
+            subCategorieEntity.getSubCategoryName(),
             subCategorieEntity.getCategorie(),
             subCategorieEntity.getGender());
     }

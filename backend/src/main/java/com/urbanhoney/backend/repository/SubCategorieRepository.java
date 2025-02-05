@@ -13,13 +13,14 @@ import com.urbanhoney.backend.usecase.dto.request.AddSubCategorieRequestDto;
 @Repository
 public interface SubCategorieRepository extends JpaRepository<SubCategorieEntity, Long> {
 
+    @SuppressWarnings("null")
     List<SubCategorieEntity> findAll();
 
-    Optional<SubCategorieEntity> findBySubCategorieId(Integer subCategorieId);
+    Optional<SubCategorieEntity> findBySubcategoryId(Integer subcategoryId);
 
-    Optional<SubCategorieEntity> findBySubCategorieName(String subCategorieName);
+    Optional<SubCategorieEntity> findBySubCategoryName(String subCategoryName);
 
-    void deleteBySubCategorieName(String subCategorieName);
+    void deleteBySubCategoryName(String subCategoryName);
 
     void save(AddSubCategorieRequestDto addSubCategorieRequestDto);
 }

@@ -1,5 +1,6 @@
 package com.urbanhoney.backend.usecase.dto.request;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.urbanhoney.backend.models.CategorieEntity;
 
 import jakarta.validation.constraints.NotEmpty;
@@ -14,8 +15,10 @@ public class AddSubCategorieRequestDto {
 
     @NotEmpty(message = "Please enter a sub categorie name")
     @Size(max = 15, message = "Your sub categorie name must not excede 15 characters")
+    @JsonProperty("sub_categorie_name")
     private String subCategorieName;
 
+    @JsonProperty("sub_categorie_linked_id")
     private CategorieEntity categorieLinkId;
 
     @NotEmpty(message = "please enter a gender for the categorie")

@@ -16,7 +16,6 @@ import com.urbanhoney.backend.models.UserEntity;
 import com.urbanhoney.backend.repository.ArticlesRepository;
 import com.urbanhoney.backend.repository.AuthRepository;
 import com.urbanhoney.backend.repository.OrdersRepository;
-import com.urbanhoney.backend.usecase.dto.mapper.OrderMapper;
 import com.urbanhoney.backend.usecase.dto.request.AddOrderRequestDto;
 
 import jakarta.transaction.Transactional;
@@ -50,6 +49,7 @@ public class OrdersService {
         }
 
         OrdersEntity order = new OrdersEntity();
+
         order.setTotal(addOrderRequestDto.getTotal());
 
         UserEntity user = authRepository.findById(addOrderRequestDto.getUserId().getId())
@@ -75,6 +75,7 @@ public class OrdersService {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("error", "User not found !"));
         }
         
+        System.out.println(authentitcateUser.getId());
         List<OrdersEntity> ordersEntities = ordersRepository.findAllByUserId_Id(authentitcateUser.getId());
 
         if (ordersEntities.isEmpty()) {

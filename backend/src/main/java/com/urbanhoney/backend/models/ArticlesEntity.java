@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.urbanhoney.backend.converter.StringListConverter;
 
 import jakarta.persistence.Column;
@@ -43,8 +44,8 @@ public class ArticlesEntity {
     private String description;
 
     @ManyToOne
-    @JoinColumn(name = "sub_categorie_linked_id", nullable = false)
-    private SubCategorieEntity subCategorieLinkedId;
+    @JoinColumn(name = "sub_category_linked_id", nullable = false)
+    private SubCategorieEntity subCategoryLinkedId;
 
     @Column(name = "brand")
     private String brand;

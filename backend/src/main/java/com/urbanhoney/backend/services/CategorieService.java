@@ -29,11 +29,13 @@ public class CategorieService {
     @Autowired
     private SubCategorieRepository subCategorieRepository;
 
+
     public CategorieService(CategorieRepository categorieRepository) {
         this.categorieRepository = categorieRepository;
     }
 
     public ResponseEntity<Map<String, String>> addNewCategorie(AddCategorieRequestDto addCategorieRequestDto) {
+
         if (addCategorieRequestDto.getCategoryName() == null || addCategorieRequestDto.getCategoryName().isEmpty() ||
             addCategorieRequestDto.getGender() == null || addCategorieRequestDto.getGender().isEmpty() ||
             addCategorieRequestDto.getCategoryPicture() == null || addCategorieRequestDto.getCategoryPicture().isEmpty()) {
@@ -123,7 +125,7 @@ public class CategorieService {
 
     public ResponseEntity<?> getSubCategorieByName(String subCategorieName) {
         
-        SubCategorieEntity subCategorieEntity = subCategorieRepository.findBySubCategorieName(subCategorieName).orElse(null);
+        SubCategorieEntity subCategorieEntity = subCategorieRepository.findBySubCategoryName(subCategorieName).orElse(null);
         if (subCategorieEntity == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("error", "Sub categorie not found"));
         }
@@ -135,12 +137,12 @@ public class CategorieService {
     @Transactional
     public ResponseEntity<?> deleteSubCategorieByName(String subCategorieName) {
         
-        SubCategorieEntity findSubCategorieEntity = subCategorieRepository.findBySubCategorieName(subCategorieName).orElse(null);
+        SubCategorieEntity findSubCategorieEntity = subCategorieRepository.findBySubCategoryName(subCategorieName).orElse(null);
         if (findSubCategorieEntity == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("error", "Sub categorie not found")); 
         }
 
-        subCategorieRepository.deleteBySubCategorieName(subCategorieName);
+        subCategorieRepository.deleteBySubCategoryName(subCategorieName);
         return ResponseEntity.status(HttpStatus.OK).body(Map.of("success", "Sub categorie"+subCategorieName+" deleted"));
     }
 }

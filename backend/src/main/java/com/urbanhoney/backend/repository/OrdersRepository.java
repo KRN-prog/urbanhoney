@@ -6,10 +6,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import com.urbanhoney.backend.models.OrdersEntity;
-import com.urbanhoney.backend.usecase.dto.request.AddOrderRequestDto;
 
 @Repository
 public interface OrdersRepository extends JpaRepository<OrdersEntity, Long> {
+    @SuppressWarnings({ "null", "unchecked" })
     OrdersEntity save(OrdersEntity ordersEntity);
 
     List<OrdersEntity> findAllByUserId_Id(Integer userId);

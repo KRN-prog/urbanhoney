@@ -14,12 +14,13 @@ import lombok.Setter;
 @AllArgsConstructor
 public class SubCategorieDto {
     
+    @JsonProperty("sub_categorie_id")
     private Integer subCategorieId;
 
-    @JsonProperty("sub_categorie_name")
+    @JsonProperty("sub_category_name")
     private String subCategorieName;
 
-    @JsonProperty("categorie_linked_id")
+    @JsonProperty("category_linked_id")
     private CategorieEntity categorie;
 
     @JsonProperty("gender")
