@@ -2,9 +2,8 @@
     <article>
         <section>
             <h2>Shop by category:</h2>
-            <div>
-                <img src="#" alt="#" />
-                <p>Example</p>
+            <div class="categoryWrapper">
+                <app-categorie-scheme *ngFor="let category of categories" [category]="category" class="categoryWrapper__basis"></app-categorie-scheme>
             </div>
         </section>
     </article>

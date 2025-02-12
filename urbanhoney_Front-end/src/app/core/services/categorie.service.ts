@@ -3,7 +3,7 @@ import { Observable } from "rxjs";
 import { AddCategorieRequest } from "../models/request/AddCategorieRequest";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { AddSubCategorieRequest } from "../models/request/AddSubCategorieRequest";
-import { Categorie } from "../models/Categorie";
+import { Category } from "../models/Category";
 import { SubCategorie } from "../models/SubCategorie";
 
 @Injectable({
@@ -13,6 +13,7 @@ export class CategorieService {
 
     private newCategories = 'http://localhost:8080/urbanhoney/categorie/new';
     private getCategories = 'http://localhost:8080/urbanhoney/categorie/get/';
+    private getAllCategorie = 'http://localhost:8080/urbanhoney/categorie/get';
     private subCategories = 'http://localhost:8080/urbanhoney/categorie/sub_categorie/';
     private newSubCategories = 'http://localhost:8080/urbanhoney/categorie/sub_categorie/new';
     private deleteSubCategories = 'http://localhost:8080/urbanhoney/categorie/sub_categorie/delete/';
@@ -38,11 +39,11 @@ export class CategorieService {
     }
 
     getAllCategories(): Observable<any> {
-        return this.http.get<{"success": Array<Categorie>}>(this.getCategories);
+        return this.http.get<{"success": Array<Category>}>(this.getAllCategorie);
     }
 
     getCategoriesByType(typeCategorie: string): Observable<any> {
-        return this.http.get<{"success": Categorie}>(this.getCategories + typeCategorie);
+        return this.http.get<{"success": Category}>(this.getCategories + typeCategorie);
     }
 
     getAllSubCategories(): Observable<any> {

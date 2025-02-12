@@ -1,0 +1,8 @@
+.categoryWrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    &__basis {
+        margin: 0 55px;
+    }
+}

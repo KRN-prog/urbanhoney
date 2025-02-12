@@ -1,7 +1,7 @@
-import { Categorie } from "../Categorie";
+import { Category } from "../Category";
 
 export interface AddSubCategorieRequest {
     subCategorieName: string,
-    categorieLinkId: Categorie,
+    categorieLinkId: Category,
     gender: string
 }
