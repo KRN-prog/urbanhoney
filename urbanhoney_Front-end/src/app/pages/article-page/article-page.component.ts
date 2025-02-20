@@ -2,15 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { ArticlesService } from '../../core/services/articles.service';
 import { Article } from '../../core/models/Article';
 import { ActivatedRoute } from '@angular/router';
+import { NgFor } from '@angular/common';
 
 @Component({
   selector: 'app-article-page',
-  imports: [],
+  imports: [NgFor],
   templateUrl: './article-page.component.html',
   styleUrl: './article-page.component.scss'
 })
 export class ArticlePageComponent implements OnInit {
-  private article!: Article;
+  article!: Article;
 
   constructor(private route: ActivatedRoute, private articlesService: ArticlesService) {}
 

@@ -1,1 +1,10 @@
-<p>article-page works!</p>
+<main>
+    <article>
+        <section>
+            <img [src]="article.pictures[0]" [alt]="article.title">
+            <div>
+                <img *ngFor="let picture of article.pictures" [src]="picture" [alt]="article.title">
+            </div>
+        </section>
+    </article>
+</main>
