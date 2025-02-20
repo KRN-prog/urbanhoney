@@ -23,7 +23,7 @@ export class ArticlesService {
         return this.http.post<{"success": string}>(this.article, requestBody);
     }
 
-    getArticleById(idArticle: number): Observable<any> {
+    getArticleById(idArticle: string | null): Observable<any> {
         return this.http.get<{"success": Article}>(this.article + idArticle);
     }
 

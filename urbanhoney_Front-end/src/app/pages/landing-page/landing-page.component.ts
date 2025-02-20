@@ -5,10 +5,11 @@ import { CategorieSchemeComponent } from "../../components/categorie-scheme/cate
 import { NgFor } from '@angular/common';
 import { ArticlesService } from '../../core/services/articles.service';
 import { Article } from '../../core/models/Article';
+import { ArticleSchemeComponent } from "../../components/article-scheme/article-scheme.component";
 
 @Component({
   selector: 'app-landing-page',
-  imports: [CategorieSchemeComponent, NgFor],
+  imports: [CategorieSchemeComponent, NgFor, ArticleSchemeComponent],
   templateUrl: './landing-page.component.html',
   styleUrl: './landing-page.component.scss'
 })
@@ -26,7 +27,6 @@ export class LandingPageComponent implements OnInit {
   getCategories(): any {
     this.categorieService.getAllCategories().subscribe(
       (response: any) => {
-        console.log(response);
         this.categories = response.success;
       }
     );
@@ -35,7 +35,8 @@ export class LandingPageComponent implements OnInit {
   getAllArticles(): any {
     this.articlesService.getAllArticles().subscribe(
       (response: any) => {
-        console.log(response);
+        console.log(response.success);
+        
         this.articles = response.success;
       }
     );

@@ -1,8 +1,8 @@
 import { Category } from "./Category";
 
 export interface SubCategorie {
+    categorie: Category,
     sub_categorie_id: number,
-    sub_categorie_name: string,
-    categorie_linked_id: Category,
+    sub_category_name: string,
     gender: string
 }

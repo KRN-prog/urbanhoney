@@ -1,0 +1,11 @@
+<article (click)="goToArticle(article.articleId)" class="article">
+    <img [src]="article.pictures[0] | safeUrl" [alt]="article.title" class="article__img">
+    <span class="article__category">{{ article.subCategoryLinkedId.categorie.category_name }} / {{ article.subCategoryLinkedId.sub_category_name }}</span>
+    <h2 class="article__title article__text">{{ article.title }}</h2>
+    <section>
+        <h3 class="article__brand article__text">{{ article.brand }}</h3>
+        <div class="article__infoContainer">
+            <span *ngFor="let price of article.price">{{ price }}</span>
+        </div>
+    </section>
+</article>
