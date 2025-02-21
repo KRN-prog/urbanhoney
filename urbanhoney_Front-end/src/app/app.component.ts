@@ -10,11 +10,6 @@ import { RouterOutlet } from '@angular/router';
 export class AppComponent implements OnInit {
   title = 'Urbanhoney';
 
-  constructor(private renderer: Renderer2) {}
-
   ngOnInit() {
-    this.renderer.setStyle(document.body, 'margin', '0');
-    this.renderer.setStyle(document.body, 'padding', '0');
-    this.renderer.setStyle(document.body, 'font-family', 'sans-serif');
   }
 }

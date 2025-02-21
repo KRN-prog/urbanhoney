@@ -1,9 +1,40 @@
 <main>
-    <article>
-        <section>
-            <img [src]="article.pictures[0]" [alt]="article.title">
+    <article *ngIf="article != undefined">
+        <section class="imageArticle__section">
+            <img [src]="mainImage" [alt]="article.title" class="imageArticle__section__img" />
+            <div class="imageArticle__section__imgPrewiewContainer">
+                <img *ngFor="let picture of article.pictures" [src]="picture" [alt]="article.title" (click)="getCurrentImage(picture)" class="imageArticle__section__imgPrewiewContainer__img" />
+            </div>
+        </section>
+        <section class="article-info">
+            <span class="article-info__category">{{ article.sub_category_linked_id.categorie.category_name }} / {{ article.sub_category_linked_id.sub_category_name }}</span>
+            <h2 class="article-info__title">{{ article.title }}</h2>
+            <p class="article-info__brand">{{ article.brand }}</p>
+            <p class="article-info__description">{{ article.description }}</p>
             <div>
-                <img *ngFor="let picture of article.pictures" [src]="picture" [alt]="article.title">
+                <span *ngFor="let price of article.price">{{ price }}</span>
+            </div>
+            <div>
+                <h3>Choose a color:</h3>
+                <span *ngFor="let color of article.colors" [style.background-color]="color" class="colorBox"></span>
+            </div>
+            <div>
+                <h3>Choose a size:</h3>
+                <span *ngFor="let size of article.size">{{ size }}</span>
+            </div>
+            <div>
+                <button type="button">Add to card</button>
+            </div>
+
+            <div>
+                <h3>Characteristics</h3>
+                <div>
+                    <h4>Composition :</h4>
+                    <p>{{ article.composition }}</p>
+
+                    <h4>Entretien :</h4>
+                    <p>{{ article.entretient }}</p>
+                </div>
             </div>
         </section>
     </article>

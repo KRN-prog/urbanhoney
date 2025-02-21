@@ -59,7 +59,11 @@ public class ArticlesService {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("error", "No articles found !"));
         }
 
-        return ResponseEntity.status(HttpStatus.OK).body(Map.of("success", articlesEntities));
+        List<ArticleDto> articleDtos = articlesEntities.stream()
+                .map(ArticleMapper::mapToArticleDto)
+                .collect(Collectors.toList());
+
+        return ResponseEntity.status(HttpStatus.OK).body(Map.of("success", articleDtos));
     }
 
     public ResponseEntity<?> getArticleByType(String articleType) {

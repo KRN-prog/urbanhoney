@@ -23,7 +23,7 @@ public class ArticleDto {
     @JsonProperty("description")
     private String description;
 
-    @JsonProperty("sub_categorie_id")
+    @JsonProperty("sub_category_linked_id")
     private SubCategorieEntity subCategorieId;
 
     @JsonProperty("brand")
