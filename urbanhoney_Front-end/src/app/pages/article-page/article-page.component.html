@@ -7,7 +7,7 @@
             </div>
         </section>
         <section class="article-info">
-            <span class="article-info__category">{{ article.sub_category_linked_id.categorie.category_name }} / {{ article.sub_category_linked_id.sub_category_name }}</span>
+            <span class="article-info__category">{{ article.sub_category_linked_id.categorie.category_name }} / {{ article.sub_category_linked_id.sub_category_name.replace("_", " ") }}</span>
             <h2 class="article-info__title">{{ article.title }}</h2>
             <p class="article-info__brand">{{ article.brand }}</p>
             <p class="article-info__description">{{ article.description }}</p>

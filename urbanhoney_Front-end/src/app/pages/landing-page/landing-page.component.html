@@ -1,13 +1,9 @@
 <main>
     <nav>
-        <article>
-            <section>
-                <h2>Shop by category:</h2>
-                <div class="categoryWrapper">
-                    <app-categorie-scheme *ngFor="let category of categories" [category]="category" class="categoryWrapper__basis"></app-categorie-scheme>
-                </div>
-            </section>
-        </article>
+        <h2>Shop by category:</h2>
+        <ul class="categoryWrapper">
+            <app-categorie-scheme *ngFor="let category of categories" [category]="category" class="categoryWrapper__basis"></app-categorie-scheme>
+        </ul>
     </nav>
     <div class="articleWraper">
         <app-article-scheme *ngFor="let article of articles" [article]="article" class="articleContainer"></app-article-scheme>

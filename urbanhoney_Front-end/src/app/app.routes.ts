@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { LandingPageComponent } from './pages/landing-page/landing-page.component';
 import { ArticlePageComponent } from './pages/article-page/article-page.component';
+import { ArticlesPageComponent } from './pages/articles-page/articles-page.component';
 
 export const routes: Routes = [{
     path: '',
@@ -9,4 +10,8 @@ export const routes: Routes = [{
 {
     path: 'article/:articleId',
     component: ArticlePageComponent
+},
+{
+    path: 'articles/:articleType',
+    component: ArticlesPageComponent
 }];

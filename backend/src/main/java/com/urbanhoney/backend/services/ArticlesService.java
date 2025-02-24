@@ -68,7 +68,7 @@ public class ArticlesService {
 
     public ResponseEntity<?> getArticleByType(String articleType) {
 
-        List<ArticlesEntity> articleEntity = articlesRepository.findBySubCategoryLinkedId_SubCategoryName(articleType);
+        List<ArticlesEntity> articleEntity = articlesRepository.findBySubCategoryLinkedId_Categorie_CategoryName(articleType);
         if (articleEntity == null || articleEntity.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("error", "No sub articles found !"));
         }

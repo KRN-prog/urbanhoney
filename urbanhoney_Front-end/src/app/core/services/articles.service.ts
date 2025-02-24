@@ -31,7 +31,7 @@ export class ArticlesService {
         return this.http.get<{"success": Array<Article>}>(this.articles);
     }
 
-    getArticlesByType(articleType: string): Observable<any> {
+    getArticlesByType(articleType: string | null): Observable<any> {
         return this.http.get<{"success": Array<Article>}>(this.articlesSlashed + articleType);
     }
 

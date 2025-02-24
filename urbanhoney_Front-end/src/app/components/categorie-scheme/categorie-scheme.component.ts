@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Category } from '../../core/models/Category';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-categorie-scheme',
@@ -9,4 +10,10 @@ import { Category } from '../../core/models/Category';
 })
 export class CategorieSchemeComponent {
   @Input() category!: Category;
+
+  constructor(private router: Router) {}
+
+  goToArtilesByType(articleType: string): void {
+    this.router.navigate(['/articles/'+articleType]);
+  }
 }

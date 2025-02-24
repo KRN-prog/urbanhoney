@@ -17,7 +17,7 @@ public interface ArticlesRepository extends JpaRepository<ArticlesEntity, Long> 
 
     Optional<ArticlesEntity> findByArticleId(Integer articleId);
 
-    List<ArticlesEntity> findBySubCategoryLinkedId_SubCategoryName(String articleType);
+    List<ArticlesEntity> findBySubCategoryLinkedId_Categorie_CategoryName(String articleType);
 
     void save(ArticleDto articleDto);
 }

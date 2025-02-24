@@ -1,1 +1,12 @@
-<p>articles-page works!</p>
+<main>
+    <section>
+        <article *ngIf="error == true">
+            <h1>{{ errorMsg.status }}</h1>
+            <p>{{ errorMsg.error.error }}</p>
+        </article>
+
+        <div class="articleWraper">
+            <app-article-scheme *ngFor="let article of articles" [article]="article" class="articleContainer"></app-article-scheme>
+        </div>
+    </section>
+</main>
