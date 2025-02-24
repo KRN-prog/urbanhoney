@@ -77,6 +77,11 @@ public class CategoriesController {
     public ResponseEntity<?> getSubCategorieByName(@PathVariable("subCategorieName") String subCategorieName) {
         return categorieService.getSubCategorieByName(subCategorieName);
     }
+
+    @GetMapping("/get/sub_categorie/categorie/{categorieName}")
+    public ResponseEntity<?> getSubCategorieByCategorieName(@PathVariable("categorieName") String categorieName) {
+        return categorieService.getAllSubCategoriesByCategorieName(categorieName);
+    }
     
     @DeleteMapping("/sub_categorie/delete/{subCategorieName}")
     public ResponseEntity<?> deleteSubCategorieByName(@PathVariable("subCategorieName") String subCategorieName, HttpServletRequest request) {

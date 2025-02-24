@@ -134,6 +134,17 @@ public class CategorieService {
         return ResponseEntity.status(HttpStatus.OK).body(Map.of("success", subCategorieDto));
     }
 
+    public ResponseEntity<?> getAllSubCategoriesByCategorieName(String categorieName) {
+        
+        SubCategorieEntity subCategorieEntity = subCategorieRepository.findByCategorie_CategoryName(categorieName).orElse(null);
+        if (subCategorieEntity == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("error", "Sub categorie not found"));
+        }
+
+        SubCategorieDto subCategorieDto = SubCategorieMapper.mapToSubCategorieDto(subCategorieEntity);
+        return ResponseEntity.status(HttpStatus.OK).body(Map.of("success", subCategorieDto));
+    }
+
     @Transactional
     public ResponseEntity<?> deleteSubCategorieByName(String subCategorieName) {
         
