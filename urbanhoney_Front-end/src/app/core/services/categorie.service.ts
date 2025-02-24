@@ -15,6 +15,7 @@ export class CategorieService {
     private getCategories = 'http://localhost:8080/urbanhoney/categorie/get/';
     private getAllCategorie = 'http://localhost:8080/urbanhoney/categorie/get';
     private subCategories = 'http://localhost:8080/urbanhoney/categorie/sub_categorie/';
+    private getAllsubCategoriesByCategorieName = 'http://localhost:8080/urbanhoney/categorie/get/sub_categorie/categorie/';
     private newSubCategories = 'http://localhost:8080/urbanhoney/categorie/sub_categorie/new';
     private deleteSubCategories = 'http://localhost:8080/urbanhoney/categorie/sub_categorie/delete/';
     
@@ -48,6 +49,10 @@ export class CategorieService {
 
     getAllSubCategories(): Observable<any> {
         return this.http.get<{"success": Array<SubCategorie>}>(this.subCategories);
+    }
+
+    getAllSubCategoriesByCategoryName(): Observable<any> {
+        return this.http.get<{"success": Array<SubCategorie>}>(this.getAllsubCategoriesByCategorieName);
     }
 
     getSubCategoriesByName(subCategorieName: string): Observable<any> {
