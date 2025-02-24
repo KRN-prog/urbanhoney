@@ -11,6 +11,7 @@ export class ArticlesService {
     private article = 'http://localhost:8080/urbanhoney/article/';
     private articles = 'http://localhost:8080/urbanhoney/articles';
     private articlesSlashed = 'http://localhost:8080/urbanhoney/articles/';
+    private articlesBySubCategory = 'http://localhost:8080/urbanhoney/articles/subcategory/';
 
     constructor(private http: HttpClient) {}
 
@@ -33,6 +34,10 @@ export class ArticlesService {
 
     getArticlesByType(articleType: string | null): Observable<any> {
         return this.http.get<{"success": Array<Article>}>(this.articlesSlashed + articleType);
+    }
+
+    getArticlesBySubCategoryName(categoryName: string | null): Observable<any> {
+        return this.http.get<{"success": Array<Article>}>(this.articlesBySubCategory + categoryName);
     }
 
     /*deleteArticleById(idArticle: number): Observable<any> {

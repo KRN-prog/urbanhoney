@@ -6,10 +6,11 @@ import { NgFor } from '@angular/common';
 import { ArticlesService } from '../../core/services/articles.service';
 import { Article } from '../../core/models/Article';
 import { ArticleSchemeComponent } from "../../components/article-scheme/article-scheme.component";
+import { HeaderComponent } from "../../components/header/header.component";
 
 @Component({
   selector: 'app-landing-page',
-  imports: [CategorieSchemeComponent, NgFor, ArticleSchemeComponent],
+  imports: [CategorieSchemeComponent, NgFor, ArticleSchemeComponent, HeaderComponent],
   templateUrl: './landing-page.component.html',
   styleUrl: './landing-page.component.scss'
 })

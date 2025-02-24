@@ -136,12 +136,14 @@ public class CategorieService {
 
     public ResponseEntity<?> getAllSubCategoriesByCategorieName(String categorieName) {
         
-        SubCategorieEntity subCategorieEntity = subCategorieRepository.findByCategorie_CategoryName(categorieName).orElse(null);
+        List<SubCategorieEntity> subCategorieEntity = subCategorieRepository.findAllByCategorie_CategoryName(categorieName);
         if (subCategorieEntity == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("error", "Sub categorie not found"));
         }
 
-        SubCategorieDto subCategorieDto = SubCategorieMapper.mapToSubCategorieDto(subCategorieEntity);
+        List<SubCategorieDto> subCategorieDto = subCategorieEntity.stream()
+                .map(SubCategorieMapper::mapToSubCategorieDto)
+                .collect(Collectors.toList());
         return ResponseEntity.status(HttpStatus.OK).body(Map.of("success", subCategorieDto));
     }
 

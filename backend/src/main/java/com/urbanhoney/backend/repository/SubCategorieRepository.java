@@ -20,7 +20,7 @@ public interface SubCategorieRepository extends JpaRepository<SubCategorieEntity
 
     Optional<SubCategorieEntity> findBySubCategoryName(String subCategoryName);
 
-    Optional<SubCategorieEntity> findByCategorie_CategoryName(String categoryName);
+    List<SubCategorieEntity> findAllByCategorie_CategoryName(String categoryName);
 
     void deleteBySubCategoryName(String subCategoryName);
 

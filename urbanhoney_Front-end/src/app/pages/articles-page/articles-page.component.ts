@@ -5,23 +5,38 @@ import { Article } from '../../core/models/Article';
 import { NgFor, NgIf } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ArticleSchemeComponent } from "../../components/article-scheme/article-scheme.component";
+import { CategorieService } from '../../core/services/categorie.service';
+import { SubCategorie } from '../../core/models/SubCategorie';
+import { HeaderComponent } from "../../components/header/header.component";
 
 @Component({
   selector: 'app-articles-page',
-  imports: [NgIf, NgFor, ArticleSchemeComponent],
+  imports: [NgIf, NgFor, ArticleSchemeComponent, HeaderComponent],
   templateUrl: './articles-page.component.html',
   styleUrl: './articles-page.component.scss'
 })
 export class ArticlesPageComponent implements OnInit {
+  subCategories: Array<SubCategorie> = [];
   articles: Array<Article> = [];
   error: boolean = false;
   errorMsg!: HttpErrorResponse;
 
-  constructor(private route: ActivatedRoute, private articlesService: ArticlesService) {}
+  constructor(private route: ActivatedRoute, private articlesService: ArticlesService, private categoriesService: CategorieService) {}
 
   ngOnInit(): void {
     console.log(this.route.snapshot.paramMap.get('articleType'));  
     this.getArticlesByType();
+    this.getAllSubCategoriesByCategoriename();
+  }
+
+  getAllSubCategoriesByCategoriename(): any {
+    this.route.snapshot.paramMap.get('articleType')?.replace(" ","_");
+    this.categoriesService.getAllSubCategoriesByCategoryName(this.route.snapshot.paramMap.get('articleType')).subscribe(
+      (response: any) => {
+        console.log(response.success);
+        this.subCategories = response.success;
+      }
+    );;
   }
 
   getArticlesByType():any {
@@ -33,7 +48,20 @@ export class ArticlesPageComponent implements OnInit {
         
       },
       error: (err) => {
-        console.error(err);
+        this.error = true;
+        this.errorMsg = err;
+      }
+    });
+  }
+
+  getArticlesByCategorieName(categorieName: string): any {
+    this.articlesService.getArticlesBySubCategoryName(categorieName).subscribe({
+      next: (response) => {
+        this.articles = response.success;
+        console.log(response.success);
+        this.error = false;
+      },
+      error: (err) => {
         this.error = true;
         this.errorMsg = err;
       }

@@ -51,8 +51,8 @@ export class CategorieService {
         return this.http.get<{"success": Array<SubCategorie>}>(this.subCategories);
     }
 
-    getAllSubCategoriesByCategoryName(): Observable<any> {
-        return this.http.get<{"success": Array<SubCategorie>}>(this.getAllsubCategoriesByCategorieName);
+    getAllSubCategoriesByCategoryName(categoryName: string | null): Observable<any> {
+        return this.http.get<{"success": Array<SubCategorie>}>(this.getAllsubCategoriesByCategorieName + categoryName);
     }
 
     getSubCategoriesByName(subCategorieName: string): Observable<any> {

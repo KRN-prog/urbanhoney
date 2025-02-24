@@ -79,4 +79,19 @@ public class ArticlesService {
                 
         return ResponseEntity.status(HttpStatus.OK).body(Map.of("success", articleDtos));
     }
+
+    public ResponseEntity<?> getArticleBySubCategoryName(String articleCategory) {
+
+        String articleCategoryReformated = articleCategory.replace("_", " ");
+        List<ArticlesEntity> articleEntity = articlesRepository.findBySubCategoryLinkedId_SubCategoryName(articleCategoryReformated);
+        if (articleEntity == null || articleEntity.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("error", "No sub articles found !"));
+        }
+
+        List<ArticleDto> articleDtos = articleEntity.stream()
+                .map(ArticleMapper::mapToArticleDto)
+                .collect(Collectors.toList());
+                
+        return ResponseEntity.status(HttpStatus.OK).body(Map.of("success", articleDtos));
+    }
 }

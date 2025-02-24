@@ -56,8 +56,13 @@ public class ArticlesController {
     }
 
     @GetMapping("/articles/{articlesType}")
-    public ResponseEntity<?> getArticlesByType(@PathVariable("articlesType") String articleType) {
+    public ResponseEntity<?> getArticlesByCategorieName(@PathVariable("articlesType") String articleType) {
         return articlesService.getArticleByType(articleType);
+    }
+
+    @GetMapping("/articles/subcategory/{articlesSubCategory}")
+    public ResponseEntity<?> getArticlesBySubCategorieName(@PathVariable("articlesSubCategory") String articleSubCategory) {
+        return articlesService.getArticleBySubCategoryName(articleSubCategory);
     }
 
     @DeleteMapping("/article/{articleId}")

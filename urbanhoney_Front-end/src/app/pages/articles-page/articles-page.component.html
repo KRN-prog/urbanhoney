@@ -1,11 +1,18 @@
+<app-header></app-header>
 <main>
     <section>
+        <div *ngIf="subCategories.length != 0">
+            <div *ngFor="let subCategorie of subCategories">
+                <button (click)="getArticlesByCategorieName(subCategorie.sub_category_name)">{{ subCategorie.sub_category_name.replaceAll("_"," ") }}</button>
+            </div>
+        </div>
+
         <article *ngIf="error == true">
-            <h1>{{ errorMsg.status }}</h1>
+            <h2>{{ errorMsg.status }}</h2>
             <p>{{ errorMsg.error.error }}</p>
         </article>
 
-        <div class="articleWraper">
+        <div class="articleWraper" *ngIf="error != true">
             <app-article-scheme *ngFor="let article of articles" [article]="article" class="articleContainer"></app-article-scheme>
         </div>
     </section>

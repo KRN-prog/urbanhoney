@@ -3,10 +3,11 @@ import { ArticlesService } from '../../core/services/articles.service';
 import { Article } from '../../core/models/Article';
 import { ActivatedRoute } from '@angular/router';
 import { NgFor, NgIf } from '@angular/common';
+import { HeaderComponent } from "../../components/header/header.component";
 
 @Component({
   selector: 'app-article-page',
-  imports: [NgFor, NgIf],
+  imports: [NgFor, NgIf, HeaderComponent],
   templateUrl: './article-page.component.html',
   styleUrl: './article-page.component.scss'
 })
