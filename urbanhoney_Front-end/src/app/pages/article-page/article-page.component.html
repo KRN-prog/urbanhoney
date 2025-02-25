@@ -15,18 +15,27 @@
             <div>
                 <span *ngFor="let price of article.price">{{ price }}</span>
             </div>
-            <div>
-                <h3>Choose a color:</h3>
-                <span *ngFor="let color of article.colors" [style.background-color]="color" class="colorBox"></span>
-            </div>
-            <div>
-                <h3>Choose a size:</h3>
-                <span *ngFor="let size of article.size">{{ size }}</span>
-            </div>
-            <div>
-                <button type="button">Add to card</button>
-            </div>
-
+            <form (ngSubmit)="addToCart()">
+                <div>
+                    <h3>Choose a color:</h3>
+                    <div *ngFor="let color of article.colors">
+                        <label [for]="color" [style.background-color]="color" class="colorBox">
+                            <input type="radio" [id]="color" [(ngModel)]="cartData.color" name="color" [value]="color" />
+                        </label>
+                    </div>
+                </div>
+                <div>
+                    <h3>Choose a size:</h3>
+                    <div *ngFor="let size of article.size">
+                        <input type="radio" [id]="size" [(ngModel)]="cartData.size" name="size" [value]="size">
+                        <label [for]="size" >{{ size }}</label>
+                    </div>
+                </div>
+                <div>
+                    <button type="submit" >Add to card</button>
+                    <p *ngIf="errorAddToCard == true">{{ errorMsgAddToCard }}</p>
+                </div>
+            </form>
             <div>
                 <h3>Characteristics</h3>
                 <div>
