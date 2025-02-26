@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { LocalStorageService } from '../../core/services/localStorage.service';
 
 @Component({
   selector: 'app-header',
@@ -10,9 +11,13 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent {
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, public localStorageService: LocalStorageService) {}
 
   homeRouting(): void {
     this.router.navigate(['/']);
+  }
+
+  cardRouting(): void {
+    this.router.navigate(['/cart']);
   }
 }

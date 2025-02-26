@@ -1,0 +1,14 @@
+<app-header></app-header>
+<main>
+    <section>
+        <article *ngFor="let cardItem of this.localStorageService.getCard()">
+            <h3>{{ cardItem.title }}</h3>
+            <p>{{ cardItem.brand }}</p>
+            <p>{{ cardItem.colors }}</p>
+            <p>{{ cardItem.size }}</p>
+            <p>{{ cardItem.price }}</p>
+            <p>Count: {{ cardItem.count }}</p>
+            <img [src]="cardItem.pictures[0]" [alt]="cardItem.title" width="100px" height="100px"/>
+        </article>
+    </section>
+</main>
