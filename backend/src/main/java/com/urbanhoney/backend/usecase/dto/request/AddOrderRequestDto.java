@@ -19,7 +19,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class AddOrderRequestDto {
     @JsonProperty("article_list")
-    private List<ArticlesEntity> articleList = new ArrayList<>();
+    private List<Integer> articleList = new ArrayList<>();
     
     @NotNull(message = "Your order must have a total price")
     private String total;

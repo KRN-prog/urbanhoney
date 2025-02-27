@@ -44,4 +44,9 @@ public class UserEntity {
     @OneToMany(mappedBy = "userId", cascade = CascadeType.REMOVE, orphanRemoval = true)
     @JsonIgnore
     private List<OrdersEntity> orders = new ArrayList<>();
+
+    @Override
+    public String toString() {
+        return "UserEntity{id=" + id + ", email=" + email + " username= "+username+", password="+password+", profilePicture="+profilePicture+", isAdmin="+isAdmin+"}";
+    }
 }

@@ -56,7 +56,7 @@ export class ArticlePageComponent implements OnInit {
       article.size = [this.cartData.size]; 
       this.errorAddToCard = false;
       this.localStorageService.addToCard(article);
-      console.log(this.localStorageService.getCard());
+      console.log(this.localStorageService.getCart());
       
     }else {
       this.errorAddToCard = true;

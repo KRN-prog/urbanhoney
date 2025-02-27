@@ -1,44 +1,71 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { LocalStorageService } from '../../core/services/localStorage.service';
-import { NgFor } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { HeaderComponent } from "../../components/header/header.component";
 import { ArticleCart } from '../../core/models/ArticleCart';
 
 @Component({
   selector: 'app-cart-page',
-  imports: [NgFor, HeaderComponent],
+  imports: [NgFor, NgIf, HeaderComponent],
   templateUrl: './cart-page.component.html',
   styleUrl: './cart-page.component.scss'
 })
 export class CartPageComponent implements OnInit {
-  uniqueArticles: ArticleCart[] = [];
-  countMap: any = {};
+  cartContent: Array<ArticleCart> = [];
+  uniqueCartContent: Array<ArticleCart> = [];
+  totalPrice!: number;
+  emptyCart: boolean = false;
+  emptyCartMsg!: string;
 
   constructor(public localStorageService: LocalStorageService) {}
 
   ngOnInit(): void {
-    console.log(this.localStorageService.getCard());
+    console.log(this.localStorageService.getCart());
 
-    this.localStorageService.getCard().forEach(item => {
-      // Vérifier si l'objet existe déjà dans uniqueArticles
-      const index = this.uniqueArticles.findIndex(obj => JSON.stringify(obj) === JSON.stringify(item));
+    this.localStorageService.cart$.subscribe((cart) => {
+      this.cartContent = cart;
+      this.uniqueCartContent = this.showCartContent(this.localStorageService.getCart());
+
+      if (this.cartContent.length > 0) {
+        this.emptyCart = false;
+        this.totalPrice = 0;
+        for (let i = 0; i < this.cartContent.length; i++) {
+          this.totalPrice += parseFloat(this.cartContent[i].price[0]);
+          this.totalPrice = Math.round(this.totalPrice * 100) / 100;
+        } 
+      }else {
+        this.emptyCart = true;
+        this.emptyCartMsg = "Your cart is empty !";
+      }
+    });
+  }
+
+  showCartContent(cart: any): any {
+    const uniqueArticles: ArticleCart[] = [];
+    const countMap: any = {};
+
+    cart.forEach((item: ArticleCart) => {
+      const index = uniqueArticles.findIndex(obj => JSON.stringify(obj.articleId) === JSON.stringify(item.articleId)
+      && JSON.stringify(obj.colors) === JSON.stringify(item.colors)
+      && JSON.stringify(obj.size) === JSON.stringify(item.size));
 
       if (index !== -1) {
-        // Si l'objet existe déjà, incrémenter son compteur
-        this.countMap[index] += 1;
+        countMap[index] += 1;
       } else {
-        // Ajouter l'objet au tableau unique et initialiser son compteur
-        this.uniqueArticles.push(item);
-        this.countMap[this.uniqueArticles.length - 1] = 1;
+        uniqueArticles.push(item);
+        countMap[uniqueArticles.length - 1] = 1;
       }
     });
 
-    // Ajouter le compteur aux objets uniques
-    const result = this.uniqueArticles.map((item, index) => ({ ...item, count: this.countMap[index] }));
+    return uniqueArticles.map((item, index) => ({ ...item, count: countMap[index] }));
+  }
 
-    console.log(result);
-    
+  deleteFromCart(itemId: number): any {
+    this.localStorageService.removeFromCard(itemId);
+  }
+
+  removeOneFromCart(itemId: number): any {
+    this.localStorageService.removeOneFromCard(itemId);
   }
 
 }

@@ -3,6 +3,8 @@ package com.urbanhoney.backend.models;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -47,5 +49,11 @@ public class OrdersEntity {
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
+    @JsonIgnore
     private UserEntity userId;
+
+    @Override
+    public String toString() {
+        return "OrdersEntity{id=" + orderId + ", total=" + total + "}";
+    }
 }

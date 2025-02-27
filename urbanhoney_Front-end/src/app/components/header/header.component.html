@@ -1,4 +1,10 @@
 <header class="header">
     <h1 class="header__heading" (click)="homeRouting()">Urbanhoney</h1>
-    <p (click)="cardRouting()">Card list: {{ this.localStorageService.getCard().length }}</p>
+    <p (click)="cardRouting()">Card list: {{ this.localStorageService.getCart().length }}</p>
+
+    <div *ngIf="this.localStorageService.getUser() == null">
+        <span (click)="inscriptionRouting()">Sign Up</span>
+        <span>/</span>
+        <span (click)="connexionRouting()">Log In</span>
+    </div>
 </header>

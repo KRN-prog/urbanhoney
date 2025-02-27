@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.urbanhoney.backend.models.ArticlesEntity;
@@ -14,6 +16,9 @@ public interface ArticlesRepository extends JpaRepository<ArticlesEntity, Long> 
 
     @SuppressWarnings("null")
     List<ArticlesEntity> findAll();
+
+    @Query("SELECT a FROM ArticlesEntity a WHERE a.articleId IN :articleIds")
+    List<ArticlesEntity> findAllByArticleId(@Param("articleIds") List<Integer> articleIds);
 
     Optional<ArticlesEntity> findByArticleId(Integer articleId);
 

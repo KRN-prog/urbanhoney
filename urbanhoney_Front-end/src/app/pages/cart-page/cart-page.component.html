@@ -1,14 +1,28 @@
 <app-header></app-header>
 <main>
     <section>
-        <article *ngFor="let cardItem of this.localStorageService.getCard()">
-            <h3>{{ cardItem.title }}</h3>
-            <p>{{ cardItem.brand }}</p>
-            <p>{{ cardItem.colors }}</p>
-            <p>{{ cardItem.size }}</p>
-            <p>{{ cardItem.price }}</p>
-            <p>Count: {{ cardItem.count }}</p>
-            <img [src]="cardItem.pictures[0]" [alt]="cardItem.title" width="100px" height="100px"/>
+        <article *ngIf="emptyCart === false">
+            <div *ngFor="let cardItem of uniqueCartContent">
+                <h3>{{ cardItem.title }}</h3>
+                <p>{{ cardItem.brand }}</p>
+                <p>{{ cardItem.colors }}</p>
+                <p>{{ cardItem.size }}</p>
+                <p>{{ cardItem.price }}</p>
+                <p>Count: {{ cardItem.count }}</p>
+                <p (click)="removeOneFromCart(cardItem.articleId)">Remove one</p>
+                <p (click)="deleteFromCart(cardItem.articleId)">Delete</p>
+                <img [src]="cardItem.pictures[0]" [alt]="cardItem.title" width="100px" height="100px"/>
+            </div>
+            <div>
+                <h4>Total:</h4>
+                <p>{{ totalPrice }} €</p>
+            </div>
+            <div>
+                <button type="button">Order</button>
+            </div>
+        </article>
+        <article *ngIf="emptyCart === true">
+            <h1>{{ emptyCartMsg }}</h1>
         </article>
     </section>
 </main>

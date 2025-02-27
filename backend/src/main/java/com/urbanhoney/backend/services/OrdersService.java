@@ -57,8 +57,8 @@ public class OrdersService {
         order.setUserId(user);
 
         List<ArticlesEntity> articles = new ArrayList<>();
-        for (ArticlesEntity article : addOrderRequestDto.getArticleList()) {
-            ArticlesEntity managedArticle = articlesRepository.findByArticleId(article.getArticleId())
+        for (Integer article : addOrderRequestDto.getArticleList()) {
+            ArticlesEntity managedArticle = articlesRepository.findByArticleId(article)
                     .orElseThrow(() -> new RuntimeException("Article not found"));
             articles.add(managedArticle);
         }
