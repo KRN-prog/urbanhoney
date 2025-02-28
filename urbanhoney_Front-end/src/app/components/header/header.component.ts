@@ -26,6 +26,10 @@ export class HeaderComponent {
     this.router.navigate(['/inscription']);
   }
 
+  profilRouting(): void {
+    this.router.navigate(['/profil']);
+  }
+
   cardRouting(): void {
     this.router.navigate(['/cart']);
   }

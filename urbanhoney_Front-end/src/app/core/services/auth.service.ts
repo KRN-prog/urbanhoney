@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { AuthRequest } from "../models/request/AuthRequest";
 import { User } from "../models/User";
+import { RegisterRequest } from "../models/request/RegisterRequest";
 
 @Injectable({
     providedIn: 'root',
@@ -23,7 +24,7 @@ export class AuthService {
         return this.http.post<{"success": any}>(this.login, loginData);
     }
 
-    registerUser(registerData: User): Observable<any> {
+    registerUser(registerData: RegisterRequest): Observable<any> {
         return this.http.post<{"success": User}>(this.register, registerData);
     }
 

@@ -2,26 +2,22 @@
 <main>
     <article>
         <section>
-            <form>
+            <h2>Sign up</h2>
+            <h3 *ngIf="errorsMsg">{{ errorsMsg }}</h3>
+            <form (ngSubmit)="registerUser()">
                 <div>
-                    <label for="">
-                        Email:
-                        <input type="text" name="email" id="email" placeholder="Please enter an email" />
-                    </label>
+                    <label for="email">Email:</label>
+                    <input type="email" name="email" id="email" placeholder="Please enter an email" [(ngModel)]="registerData.email" (blur)="emailVerification()" required/>
                 </div>
 
                 <div>
-                    <label for="">
-                        Username:
-                        <input type="text" name="username" id="username" placeholder="Please enter a username" />
-                    </label>
+                    <label for="username">Username:</label>
+                    <input type="text" name="username" id="username" placeholder="Please enter a username" autocomplete="off" [(ngModel)]="registerData.username" (blur)="usernameVerification()" required/>
                 </div>
 
                 <div>
-                    <label for="">
-                        Password:
-                        <input type="text" name="password" id="password" placeholder="Please enter a password" />
-                    </label>
+                    <label for="password">Password:</label>
+                    <input type="password" name="password" id="password" placeholder="Please enter a password" [(ngModel)]="registerData.password" (blur)="passwordVerification()" required />
                 </div>
 
                 <button>Sign up</button>

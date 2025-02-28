@@ -51,7 +51,7 @@ public class AuthService {
                 userDto.setPassword(passwordEncoder.encode(userDto.getPassword()));
                 UserEntity userEntity = UserMapper.mapToUser(userDto);
                 authRepository.save(userEntity);
-                return ResponseEntity.status(HttpStatus.OK).body(Map.of("Success", userEntity));
+                return ResponseEntity.status(HttpStatus.OK).body(Map.of("Success", "User register successfully"));
             }
         }
 

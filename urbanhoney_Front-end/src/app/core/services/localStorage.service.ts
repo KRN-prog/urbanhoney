@@ -7,7 +7,7 @@ import { User } from '../models/User';
   providedIn: 'root',
 })
 export class LocalStorageService {
-  private readonly CARD_KEY = 'card';
+  private readonly CART_KEY = 'card';
   private readonly USER_KEY = 'user';
   private cartSubject = new BehaviorSubject<any[]>(this.getCart());
 
@@ -18,23 +18,23 @@ export class LocalStorageService {
   }
 
   private initializeLocalStorage(): void {
-    if (!localStorage.getItem(this.CARD_KEY)) {
-      localStorage.setItem(this.CARD_KEY, JSON.stringify([]));
+    if (!localStorage.getItem(this.CART_KEY)) {
+      localStorage.setItem(this.CART_KEY, JSON.stringify([]));
       console.log('Tableau "card" initialisé dans le localStorage.');
     }
   }
 
-  getCart(): any[] {
-    const item = localStorage.getItem(this.CARD_KEY);
+  getCart(): ArticleCart[] {
+    const item = localStorage.getItem(this.CART_KEY);
     return item ? JSON.parse(item) : [];
   }
 
-  setCard(card: any[]): void {
-    localStorage.setItem(this.CARD_KEY, JSON.stringify(card));
+  setCard(card: ArticleCart[]): void {
+    localStorage.setItem(this.CART_KEY, JSON.stringify(card));
     this.cartSubject.next(card);
   }
 
-  addToCard(item: any): void {
+  addToCard(item: ArticleCart): void {
     const card = this.getCart();
     card.push(item);
     this.setCard(card);
@@ -63,5 +63,15 @@ export class LocalStorageService {
   getUser(): User | null {
     const item = localStorage.getItem(this.USER_KEY);
     return item ? JSON.parse(item) : null;
+  }
+
+  setUser(token: string): void {
+    if (!localStorage.getItem(this.USER_KEY)) {
+      localStorage.setItem(this.USER_KEY, JSON.stringify(token));
+    }
+  }
+
+  removeUser(): void {
+    localStorage.removeItem(this.USER_KEY);
   }
 }

@@ -10,7 +10,7 @@ export class OrderService {
 
     private order = 'http://localhost:8080/urbanhoney/order/';
     private newOrder = 'http://localhost:8080/urbanhoney/order/new';
-    private orders = 'http://localhost:8080/urbanhoney/orders/';
+    private orders = 'http://localhost:8080/urbanhoney/orders';
 
     constructor(private http: HttpClient) {}
 
@@ -23,8 +23,8 @@ export class OrderService {
         return this.http.post<{"success": string}>(this.newOrder, requestBody);
     }
 
-    getAllOrdersOfUser(): Observable<any> {
-        return this.http.get<{"success": string}>(this.orders);
+    getAllOrdersOfUser(authHeaders: HttpHeaders): Observable<any> {
+        return this.http.get<{"success": string}>(this.orders, { headers: authHeaders });
     }
 
     deleteOrderById(orderId: number): Observable<any> {

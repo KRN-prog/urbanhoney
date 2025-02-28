@@ -5,6 +5,7 @@ import { ArticlesPageComponent } from './pages/articles-page/articles-page.compo
 import { CartPageComponent } from './pages/cart-page/cart-page.component';
 import { ConnexionPageComponent } from './pages/connexion-page/connexion-page.component';
 import { InscriptionPageComponent } from './pages/inscription-page/inscription-page.component';
+import { ProfilPageComponent } from './pages/profil-page/profil-page.component';
 
 export const routes: Routes = [{
     path: '',
@@ -29,4 +30,8 @@ export const routes: Routes = [{
 {
     path: 'inscription',
     component: InscriptionPageComponent
+},
+{
+    path: 'profil',
+    component: ProfilPageComponent
 }];

@@ -1,0 +1,14 @@
+<app-header></app-header>
+<main>
+    <section>
+        <div *ngIf="loading">
+            <p>WAIT</p>
+        </div>
+        <article *ngIf="loading === false" aria-label="Afficher toutes mes commandes">
+            <h2>Mon Profil:</h2>
+            <img [src]="userInfos.profile_picture" alt="Photo de profil de l'utilisateur">
+            <h3 style="text-transform: uppercase;">{{ userInfos.username }}</h3>
+            <button (click)="ordersFromUser()" [disabled]="isDisabled">Get all my orders</button>
+        </article>
+    </section>
+</main>

@@ -2,19 +2,16 @@
 <main>
     <article>
         <section>
-            <form>
+            <h3 *ngIf="errorsMsg">{{ errorsMsg }}</h3>
+            <form (ngSubmit)="loginUser()">
                 <div>
-                    <label for="">
-                        Email or Username:
-                        <input type="text" name="emailOrUsername" id="emailOrUsername" placeholder="Please enter your email or username" />
-                    </label>
+                    <label for="emailOrUsername">Email or Username:</label>
+                    <input type="text" name="emailOrUsername" id="emailOrUsername" placeholder="Please enter your email or username" [(ngModel)]="loginData.emailOrUsername" (blur)="emailOrUsernameVerification()" required>
                 </div>
 
                 <div>
-                    <label for="">
-                        Password:
-                        <input type="text" name="password" id="password" placeholder="Please enter your password" />
-                    </label>
+                    <label for="password">Password:</label>
+                    <input type="password" name="password" id="password" placeholder="Please enter your password" [(ngModel)]="loginData.password" (blur)="passwordVerification()" required>
                 </div>
 
                 <button>Log in</button>
