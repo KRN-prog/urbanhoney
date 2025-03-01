@@ -1,14 +1,21 @@
 <app-header></app-header>
 <main>
-    <section>
-        <div *ngIf="loading">
-            <p>WAIT</p>
+    <div *ngIf="pageLoading">
+        <p>WAIT</p>
+    </div>
+    <article *ngIf="pageLoading === false" aria-label="Afficher toutes mes commandes">
+        <h2>Mon Profil:</h2>
+        <img [src]="userInfos.profile_picture" alt="Photo de profil de l'utilisateur">
+        <h3 style="text-transform: uppercase;">{{ userInfos.username }}</h3>
+        <button (click)="ordersFromUser()" [disabled]="isDisabled">Get all my orders</button>
+        <div *ngIf="ordersLoading == true">
+            <h3>Loading</h3>
         </div>
-        <article *ngIf="loading === false" aria-label="Afficher toutes mes commandes">
-            <h2>Mon Profil:</h2>
-            <img [src]="userInfos.profile_picture" alt="Photo de profil de l'utilisateur">
-            <h3 style="text-transform: uppercase;">{{ userInfos.username }}</h3>
-            <button (click)="ordersFromUser()" [disabled]="isDisabled">Get all my orders</button>
-        </article>
-    </section>
+        <div *ngIf="ordersLoadingError == true">
+            <h3>An error has occured !</h3>
+        </div>
+        <div *ngIf="ordersLoading == false">
+            <app-order-article-scheme [ordersResponse]="ordersList"></app-order-article-scheme>
+        </div>
+    </article>
 </main>

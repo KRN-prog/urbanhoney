@@ -7,17 +7,22 @@ import { HeaderComponent } from "../../components/header/header.component";
 import { User } from '../../core/models/User';
 import { NgIf } from '@angular/common';
 import { OrderService } from '../../core/services/order.service';
+import { OrderArticleSchemeComponent } from "../../components/order-article-scheme/order-article-scheme.component";
+import { OrdersFromUserResponse } from '../../core/models/response/OrdersFromUserResponse';
 
 @Component({
   selector: 'app-profil-page',
-  imports: [HeaderComponent, NgIf],
+  imports: [HeaderComponent, NgIf, OrderArticleSchemeComponent],
   templateUrl: './profil-page.component.html',
   styleUrl: './profil-page.component.scss'
 })
 export class ProfilPageComponent implements OnInit {
-  loading: boolean = true;
-  isDisabled = false;
+  pageLoading: boolean = true;
   userInfos!: User;
+  ordersLoading!: boolean;
+  ordersLoadingError!: boolean;
+  ordersList!: Array<OrdersFromUserResponse>
+  isDisabled = false;
 
   constructor(private router: Router, public localStorageService: LocalStorageService, private authService: AuthService, private orderService: OrderService) {}
 
@@ -40,7 +45,7 @@ export class ProfilPageComponent implements OnInit {
 
     this.authService.authUser(headers).subscribe(
       (response) => {
-        this.loading = false;
+        this.pageLoading = false;
         this.userInfos = response;
         console.log(response);
       },
@@ -54,6 +59,7 @@ export class ProfilPageComponent implements OnInit {
 
 
   ordersFromUser(): void {
+    this.ordersLoading = true;
     const headers: HttpHeaders = new HttpHeaders({
       Authorization: `Bearer ${this.localStorageService.getUser()}`,
     });
@@ -61,9 +67,13 @@ export class ProfilPageComponent implements OnInit {
     this.orderService.getAllOrdersOfUser(headers).subscribe(
       (response) => {
         this.isDisabled = true;
+        this.ordersLoading = false;
+        this.ordersLoadingError = false;
+        this.ordersList = response;
         console.log(response);
       },
       (error) => {
+        this.ordersLoadingError = true;
         console.log(error);
         
       }
