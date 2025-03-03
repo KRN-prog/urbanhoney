@@ -15,10 +15,48 @@
             </div>
             <div>
                 <h4>Total:</h4>
-                <p>{{ totalPrice }} €</p>
+                <p>
+                    <span>{{ totalPrice[1] }}</span>
+                    <span>{{ totalPrice[0] }}</span>
+                </p>
             </div>
             <div>
-                <button type="button">Order</button>
+                <button type="button" (click)="orderVerification()">Continue the payment</button>
+            </div>
+        </article>
+        <article *ngIf="orderModal">
+            <h3>Payement</h3>
+            <form>
+                <div>
+                    <label for="email">Email *</label>
+                    <input type="email" name="email" id="email" autocomplete="off" />
+                </div>
+                <div>
+                    <label for="cd">Card details *</label>
+                    <input type="text" name="cd" id="cd" autocomplete="off" />
+                </div>
+                <div>
+                    <label for="noc">Name on card *</label>
+                    <input type="text" name="noc" id="noc" autocomplete="off" />
+                </div>
+                <div>
+                    <label for="country">Country *</label>
+                    <select name="country" id="country">
+                        <option value="france">France</option>
+                        <option value="switzerland">Switzerland</option>
+                        <option value="belgium">Belgium</option>
+                        <option value="spain">Spain</option>
+                    </select>
+                </div>
+                <button type="button" (click)="order()">Pay {{ totalPrice[1] }} {{ totalPrice[0] }}</button>
+            </form>
+        </article>
+        <article *ngIf="loginOrRegisterModal">
+            <h3>Before continuing...</h3>
+            <p>To proceed with the processing of your order:</p>
+            <div>
+                <button (click)="registerRouting()">Register</button>
+                <button (click)="loginRouting()">Log in</button>
             </div>
         </article>
         <article *ngIf="emptyCart === true">

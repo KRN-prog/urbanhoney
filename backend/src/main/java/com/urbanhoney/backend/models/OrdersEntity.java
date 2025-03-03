@@ -2,11 +2,15 @@ package com.urbanhoney.backend.models;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.urbanhoney.backend.converter.StringListConverter;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
+import jakarta.persistence.Convert;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -42,10 +46,19 @@ public class OrdersEntity {
         joinColumns = @JoinColumn(name = "order_id"),
         inverseJoinColumns = @JoinColumn(name = "article_id")
     )
-    private List<ArticlesEntity> articlesEntities = new ArrayList<>();
+    private List<ArticlesEntity> articlesEntities;
 
+    @Convert(converter = StringListConverter.class)
+    @Column(name = "size")
+    private List<String> size;
+
+    @Convert(converter = StringListConverter.class)
+    @Column(name = "color")
+    private List<String> color;
+
+    @Convert(converter = StringListConverter.class)
     @Column(name = "total")
-    private String total;
+    private List<String> total;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)

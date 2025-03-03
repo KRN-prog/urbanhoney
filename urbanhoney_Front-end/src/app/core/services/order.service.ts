@@ -14,13 +14,8 @@ export class OrderService {
 
     constructor(private http: HttpClient) {}
 
-    postNewOrder(newOrderData: AddOrderRequest, jwtToken: string): Observable<any> {
-        const requestBody = {
-            ...newOrderData,
-            authorization: jwtToken,
-        };
-
-        return this.http.post<{"success": string}>(this.newOrder, requestBody);
+    postNewOrder(newOrderData: AddOrderRequest, authHeaders: HttpHeaders): Observable<any> {
+        return this.http.post<{"success": string}>(this.newOrder, newOrderData, { headers: authHeaders });
     }
 
     getAllOrdersOfUser(authHeaders: HttpHeaders): Observable<any> {

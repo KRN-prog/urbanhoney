@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { ArticleCart } from '../models/ArticleCart';
 import { BehaviorSubject } from 'rxjs';
 import { User } from '../models/User';
+import { jwtDecode } from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root',
@@ -60,7 +61,7 @@ export class LocalStorageService {
   }
 
 
-  getUser(): User | null {
+  getUser(): string {
     const item = localStorage.getItem(this.USER_KEY);
     return item ? JSON.parse(item) : null;
   }
@@ -73,5 +74,16 @@ export class LocalStorageService {
 
   removeUser(): void {
     localStorage.removeItem(this.USER_KEY);
+  }
+
+  decodeToken(token: string) {
+    // Exemple de token JWT (remplacez par votre token réel)
+
+    try {
+      const decodedToken = jwtDecode(token); // Décoder le token
+      console.log('Token décodé :', decodedToken);
+    } catch (error) {
+      console.error('Erreur lors du décodage du token :', error);
+    }
   }
 }

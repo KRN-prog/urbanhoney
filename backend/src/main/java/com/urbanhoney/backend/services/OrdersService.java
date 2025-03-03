@@ -10,6 +10,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.urbanhoney.backend.models.ArticlesEntity;
 import com.urbanhoney.backend.models.OrdersEntity;
 import com.urbanhoney.backend.models.UserEntity;
@@ -49,7 +51,6 @@ public class OrdersService {
         }
 
         OrdersEntity order = new OrdersEntity();
-
         order.setTotal(addOrderRequestDto.getTotal());
 
         UserEntity user = authRepository.findById(addOrderRequestDto.getUserId().getId())
@@ -64,6 +65,8 @@ public class OrdersService {
         }
         order.setArticlesEntities(articles);
 
+        order.setColor(addOrderRequestDto.getColor());
+        order.setSize(addOrderRequestDto.getSize());
         ordersRepository.save(order);
         return ResponseEntity.status(HttpStatus.CREATED).body(Map.of("success", "Order taken !"));
     }

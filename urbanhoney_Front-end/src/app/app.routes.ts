@@ -24,11 +24,11 @@ export const routes: Routes = [{
     component: CartPageComponent
 },
 {
-    path: 'connexion',
+    path: 'login',
     component: ConnexionPageComponent
 },
 {
-    path: 'inscription',
+    path: 'register',
     component: InscriptionPageComponent
 },
 {

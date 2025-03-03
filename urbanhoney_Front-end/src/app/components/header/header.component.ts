@@ -18,12 +18,12 @@ export class HeaderComponent {
     this.router.navigate(['/']);
   }
 
-  connexionRouting(): void {
-    this.router.navigate(['/connexion']);
+  loginRouting(): void {
+    this.router.navigate(['/login']);
   }
 
-  inscriptionRouting(): void {
-    this.router.navigate(['/inscription']);
+  registerRouting(): void {
+    this.router.navigate(['/register']);
   }
 
   profilRouting(): void {

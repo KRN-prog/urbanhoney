@@ -1,8 +1,9 @@
-import { Article } from "../Article";
 import { User } from "../User";
 
 export interface AddOrderRequest {
-    articleList: Array<Article>,
+    article_list: Array<number>,
+    size: Array<string>,
+    color: Array<string>,
     total: Array<string>,
-    userId: User
+    userId: User | null
 }

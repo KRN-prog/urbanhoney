@@ -94,7 +94,7 @@ export class InscriptionPageComponent implements OnInit {
           
           switch (response.Success) {
             case 'User register successfully':
-              this.router.navigate(['/connexion']);
+              this.router.navigate(['/login']);
               break;
   
             default:
