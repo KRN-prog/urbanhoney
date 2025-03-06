@@ -30,7 +30,7 @@ export class LocalStorageService {
     return item ? JSON.parse(item) : [];
   }
 
-  setCard(card: ArticleCart[]): void {
+  setCart(card: ArticleCart[]): void {
     localStorage.setItem(this.CART_KEY, JSON.stringify(card));
     this.cartSubject.next(card);
   }
@@ -38,13 +38,13 @@ export class LocalStorageService {
   addToCard(item: ArticleCart): void {
     const card = this.getCart();
     card.push(item);
-    this.setCard(card);
+    this.setCart(card);
   }
 
   removeFromCard(itemId: number): void {
     const card = this.getCart();
     const updatedCard = card.filter((i: any) => i.articleId !== itemId);
-    this.setCard(updatedCard);
+    this.setCart(updatedCard);
   }
 
   removeOneFromCard(itemId: number): void {
@@ -52,12 +52,12 @@ export class LocalStorageService {
     const index = card.findIndex((i: any) => JSON.stringify(i.articleId) === JSON.stringify(itemId));
     if (index !== -1) {
       card.splice(index, 1);
-      this.setCard(card);
+      this.setCart(card);
     }
   }
 
-  clearCard(): void {
-    this.setCard([]);
+  clearCart(): void {
+    this.setCart([]);
   }
 
 
@@ -77,8 +77,6 @@ export class LocalStorageService {
   }
 
   decodeToken(token: string) {
-    // Exemple de token JWT (remplacez par votre token réel)
-
     try {
       const decodedToken = jwtDecode(token); // Décoder le token
       console.log('Token décodé :', decodedToken);

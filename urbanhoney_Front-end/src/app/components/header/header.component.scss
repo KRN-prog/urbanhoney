@@ -1,6 +1,33 @@
 .header {
+    position: relative;
     text-transform: uppercase;
     &__heading {
+        width: 14.1rem;
+        display: inline-block;
+        margin: auto;
+        position: absolute;
+        left: 0;
+        right: 0;
         cursor: pointer;
     }
+}
+
+.cartBox {
+    position: relative;
+    display: inline-block;
+}
+.item-count {
+    position: absolute;
+    top: -8px;
+    right: -10px;
+    background: #e53238;
+    color: white;
+    border-radius: 50%;
+    min-width: 18px;
+    height: 18px;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
 }

@@ -55,30 +55,34 @@ public class OrdersService {
         }
 
         OrdersEntity order = new OrdersEntity();
-        OrderArticleEntity orderedArticle = new OrderArticleEntity();
 
         UserEntity user = authRepository.findById(addOrderRequestDto.getUserId().getId())
             .orElseThrow(() -> new RuntimeException("User not found"));
         order.setUserId(user);
         order.setTotal(addOrderRequestDto.getTotal());
 
-        List<OrderArticleEntity> articlesOrdered = new ArrayList<>();
+        List<ArticlesEntity> articles = new ArrayList<>();
         for (Integer articleId : addOrderRequestDto.getArticleList()) {
             ArticlesEntity managedArticle = articlesRepository.findByArticleId(articleId)
                     .orElseThrow(() -> new RuntimeException("Article not found"));
 
-            for(int j = addOrderRequestDto.getColor().size(); j < addOrderRequestDto.getColor().size(); j++) {
-                orderedArticle.setArticles(managedArticle);
-                orderedArticle.setQuantity(addOrderRequestDto.getColor().size());
-                orderedArticle.setSize(addOrderRequestDto.getSize().get(j));
-                orderedArticle.setColor(addOrderRequestDto.getColor().get(j));
-                articlesOrdered.add(orderedArticle);
-            }
+            articles.add(managedArticle);
         }
+
+        List<OrderArticleEntity> articlesOrdered = new ArrayList<>();
+        for(int j = 0; j < articles.size(); j++) {
+            OrderArticleEntity orderedArticle = new OrderArticleEntity();
+            orderedArticle.setOrder(order);
+            orderedArticle.setArticles(articles.get(j));
+            orderedArticle.setQuantity(addOrderRequestDto.getColor().size());
+            orderedArticle.setSize(addOrderRequestDto.getSize().get(j));
+            orderedArticle.setColor(addOrderRequestDto.getColor().get(j));
+            articlesOrdered.add(orderedArticle);
+        }
+
+        System.out.println(articlesOrdered);
         order.setOrderArticles(articlesOrdered);
-        orderedArticle.setOrder(order);
         ordersRepository.save(order);
-        orderedArticleRepository.save(orderedArticle);
         return ResponseEntity.status(HttpStatus.CREATED).body(Map.of("success", "Order taken !"));
     }
 

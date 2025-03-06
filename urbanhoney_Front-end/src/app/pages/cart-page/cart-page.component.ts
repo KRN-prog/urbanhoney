@@ -26,13 +26,14 @@ export class CartPageComponent implements OnInit {
   emptyCartMsg!: string;
   loginOrRegisterModal!: boolean;
   orderModal!: boolean;
+  orderResponse: boolean = false;
+  orderMessage!: string;
 
   constructor(private router: Router, public localStorageService: LocalStorageService, private orderService: OrderService, private authService: AuthService) {}
 
   ngOnInit(): void {
     this.localStorageService.cart$.subscribe((cart) => {
       this.cartContent = cart;
-      console.log(cart);
       
       this.uniqueCartContent = this.showCartContent(this.localStorageService.getCart());
 
@@ -79,6 +80,10 @@ export class CartPageComponent implements OnInit {
     this.localStorageService.removeOneFromCard(itemId);
   }
 
+  deleteCart(): void {
+    this.localStorageService.clearCart();
+  }
+
   orderVerification(): boolean {
     if (!this.localStorageService.getUser()) {
       this.loginOrRegisterModal = true;
@@ -97,14 +102,12 @@ export class CartPageComponent implements OnInit {
     this.authService.authUser(headers).subscribe(
       (response) => {
         this.user = response
-        console.log(response);
         this.putOrder();
       }
     );
   }
 
   putOrder(): void {
-    console.log(this.totalPrice);
     const headers: HttpHeaders = new HttpHeaders({
       Authorization: `Bearer ${this.localStorageService.getUser()}`,
     });
@@ -118,33 +121,28 @@ export class CartPageComponent implements OnInit {
       articlesColor.push(this.cartContent[i].colors[0]);
       articlesSize.push(this.cartContent[i].size[0]);
     }
-
-    console.log(articlesIds);
-    console.log(articlesColor);
-    console.log(articlesSize);
-    
     
     if (this.user !== undefined) {
-      console.log("shii");
-      
       const newOrderData: AddOrderRequest = {
         article_list: articlesIds,
-        size: ["#ffffff", "#000000"],
-        color: ["#ffffff", "#000000"],
+        size: articlesColor,
+        color: articlesSize,
         total: this.totalPrice,
         userId: this.user
       };
 
       this.orderService.postNewOrder(newOrderData, headers).subscribe({
         next: (response) => {
-          console.log('Commande créée avec succès :', response);
+          this.deleteCart();
+          this.orderResponse = true;
+          this.orderMessage = `${response.success} please go to your profil to see it`
         },
         error: (error) => {
+           this.orderResponse = true;
+          this.orderMessage = `${error}+ please try again`
           console.error('Erreur lors de la création de la commande :', error);
         },
       }); 
-    }else{
-      console.log("eee");
     }
   }
 

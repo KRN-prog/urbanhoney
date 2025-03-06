@@ -1,7 +1,9 @@
 import { Article } from "../Article";
+import { User } from "../User";
 
 export interface OrdersFromUserResponse {
-    articlesEntities: Array<Article>,
+    orderArticles: Array<any>,
     orderId: number,
-    total: string
+    total: string,
+    userId: User
 }

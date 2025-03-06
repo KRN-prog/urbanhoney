@@ -1,12 +1,12 @@
 <section *ngFor="let order of ordersResponse">
     <h3>Order N°{{ order.orderId }}</h3>
-    <div *ngFor="let article of order.articlesEntities">
-        <h3>{{ article.title }}</h3>
-        <p>{{ article.brand }}</p>
-        <p>{{ article.colors }}</p>
-        <p>{{ article.size }}</p>
-        <p>{{ article.price }}</p>
-        <img [src]="article.pictures[0]" [alt]="article.title" width="100px" height="100px"/>
+    <div *ngFor="let orderElement of order.orderArticles">
+        <h3>{{ orderElement.articles.title }}</h3>
+        <p>{{ orderElement.articles.brand }}</p>
+        <p>{{ orderElement.color }}</p>
+        <p>{{ orderElement.size }}</p>
+        <img [src]="orderElement.articles.pictures[0]" [alt]="orderElement.articles.title" width="100px" height="100px"/>
     </div>
+    <p>Quantity: {{ order.orderArticles[0].quantity }}</p>
     <p>Total: {{ order.total }}</p>
 </section>

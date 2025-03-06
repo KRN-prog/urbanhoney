@@ -42,20 +42,13 @@ public class OrdersEntity {
     private Integer orderId;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnore
     private List<OrderArticleEntity> orderArticles = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    @JsonIgnore
     private UserEntity userId;
 
     @Convert(converter = StringListConverter.class)
     @Column(name = "total")
     private List<String> total;
-
-    @Override
-    public String toString() {
-        return "OrdersEntity{id=" + orderId + ", user=" + (userId != null ? userId.getId() : "null") + "}";
-    }
 }

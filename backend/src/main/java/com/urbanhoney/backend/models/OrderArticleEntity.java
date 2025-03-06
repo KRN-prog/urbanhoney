@@ -27,16 +27,16 @@ public class OrderArticleEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id; // Clé primaire unique
+    private Integer order_article_id;
 
     @ManyToOne
     @JoinColumn(name = "order_id", nullable = false)
     @JsonIgnore
-    private OrdersEntity order; // Lien vers la commande
+    private OrdersEntity order;
 
     @ManyToOne
     @JoinColumn(name = "article_id", nullable = false)
-    private ArticlesEntity articles; // Lien vers l'article
+    private ArticlesEntity articles;
 
     @Column(name = "quantity")
     private int quantity;
