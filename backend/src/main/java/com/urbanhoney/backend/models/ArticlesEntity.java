@@ -70,8 +70,4 @@ public class ArticlesEntity {
 
     @Column(name = "entretient")
     private String entretien;
-
-    @ManyToMany(mappedBy = "articlesEntities")
-    @JsonIgnore
-    private List<OrdersEntity> orders = new ArrayList<>();
 }

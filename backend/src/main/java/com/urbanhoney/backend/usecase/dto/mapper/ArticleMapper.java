@@ -19,8 +19,7 @@ public class ArticleMapper {
             addArticleRequestDto.getSize(),
             addArticleRequestDto.getPictures(),
             addArticleRequestDto.getComposition(),
-            addArticleRequestDto.getEntretien(),
-            new ArrayList<>());
+            addArticleRequestDto.getEntretien());
     }
 
 

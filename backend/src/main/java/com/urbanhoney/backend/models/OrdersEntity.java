@@ -19,6 +19,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -40,33 +41,21 @@ public class OrdersEntity {
     @Column(name = "order_id")
     private Integer orderId;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-        name = "order_articles",
-        joinColumns = @JoinColumn(name = "order_id"),
-        inverseJoinColumns = @JoinColumn(name = "article_id")
-    )
-    private List<ArticlesEntity> articlesEntities;
-
-    @Convert(converter = StringListConverter.class)
-    @Column(name = "size")
-    private List<String> size;
-
-    @Convert(converter = StringListConverter.class)
-    @Column(name = "color")
-    private List<String> color;
-
-    @Convert(converter = StringListConverter.class)
-    @Column(name = "total")
-    private List<String> total;
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private List<OrderArticleEntity> orderArticles = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     @JsonIgnore
     private UserEntity userId;
 
+    @Convert(converter = StringListConverter.class)
+    @Column(name = "total")
+    private List<String> total;
+
     @Override
     public String toString() {
-        return "OrdersEntity{id=" + orderId + ", total=" + total + "}";
+        return "OrdersEntity{id=" + orderId + ", user=" + (userId != null ? userId.getId() : "null") + "}";
     }
 }
