@@ -1,14 +1,14 @@
 <header class="header">
     <h1 class="header__heading" (click)="homeRouting()">Urbanhoney</h1>
-    <div *ngIf="this.localStorageService.getUser() == null">
+    <div class="header__log" *ngIf="this.localStorageService.getUser() == null">
         <span (click)="registerRouting()">Sign Up</span>
         <span>/</span>
         <span (click)="loginRouting()">Log In</span>
     </div>
-    <div *ngIf="this.localStorageService.getUser()">
+    <div class="header__log" *ngIf="this.localStorageService.getUser()">
         <span (click)="profilRouting()">My profil</span>
     </div>
-    <p (click)="cardRouting()" class="cartBox">
+    <p class="header__cart" (click)="cardRouting()">
         <svg 
             [attr.width]="24" 
             [attr.height]="24" 

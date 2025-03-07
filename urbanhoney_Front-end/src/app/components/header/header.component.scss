@@ -1,21 +1,29 @@
 .header {
+    height: 55px;
     position: relative;
     text-transform: uppercase;
+    &__log {
+        position: absolute;
+        left: 5px;  
+    }
     &__heading {
-        width: 14.1rem;
+        font-size: 1.3em;
+        width: 9.2rem;
         display: inline-block;
         margin: auto;
         position: absolute;
+        top: 0;
+        bottom: 0;
         left: 0;
         right: 0;
         cursor: pointer;
     }
+    &__cart {
+        position: absolute;
+        right: 0;
+    }
 }
 
-.cartBox {
-    position: relative;
-    display: inline-block;
-}
 .item-count {
     position: absolute;
     top: -8px;
