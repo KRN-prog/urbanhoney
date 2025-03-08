@@ -1,9 +1,35 @@
+.subcategories {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin: 15px 15px 0 15px;
+    &__btn {
+        padding: 5px 10px;
+        background: none;
+        border: 1px solid #1a1a1a;
+        border-radius: 50px;
+    }
+}
 .articleWraper {
     width: 90%;
     display: grid;
-    grid-template-columns: calc(25% - 25px) calc(25% - 25px) calc(25% - 25px) calc(25% - 25px);
-    gap: 25px;
-    margin-top: 50px;
+    grid-template-columns: calc(51% - 1rem) calc(50% - 1rem);
+    gap: 1rem;
+    margin-top: 15px;
     margin-left: auto;
     margin-right: auto;
+}
+
+.unfoundArticles {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: -1;
 }

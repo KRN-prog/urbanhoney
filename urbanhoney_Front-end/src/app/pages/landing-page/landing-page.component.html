@@ -1,11 +1,21 @@
 <app-header></app-header>
 <main>
-    <nav>
-        <h2>Shop by category:</h2>
+    <div class="landing_top_img">
+        <img src="https://i.ibb.co/rRqkt6fw/Iv-header.webp" alt="Presentation of the Fall-Winter Collection" width="100%">
+        <div class="landing_top_img__annoncement">
+            <span class="landing_top_img__annoncement__title">DÉFILÉ</span>
+            <h2 class="landing_top_img__annoncement__message">Femme Automne-Hiver 202X</h2>
+        </div>
+    </div>
+    <nav class="nav_categories">
+        <h2 class="nav_categories__heading">Explorez une sélection de créations de la Maison</h2>
         <ul class="categoryWrapper">
             <app-categorie-scheme *ngFor="let category of categories" [category]="category" class="categoryWrapper__basis"></app-categorie-scheme>
         </ul>
     </nav>
+    <div class="parallax">
+        <div class="parallax__image"></div>
+    </div>
     <div class="articleWraper">
         <app-article-scheme *ngFor="let article of articles" [article]="article" class="articleContainer"></app-article-scheme>
     </div>

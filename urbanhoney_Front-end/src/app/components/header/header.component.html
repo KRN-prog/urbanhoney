@@ -1,9 +1,11 @@
 <header class="header">
     <h1 class="header__heading" (click)="homeRouting()">Urbanhoney</h1>
     <div class="header__log" *ngIf="this.localStorageService.getUser() == null">
-        <span (click)="registerRouting()">Sign Up</span>
-        <span>/</span>
-        <span (click)="loginRouting()">Log In</span>
+        <span>
+            <span (click)="registerRouting()">Sign Up</span>
+            /
+            <span (click)="loginRouting()">Log In</span>
+        </span>
     </div>
     <div class="header__log" *ngIf="this.localStorageService.getUser()">
         <span (click)="profilRouting()">My profil</span>

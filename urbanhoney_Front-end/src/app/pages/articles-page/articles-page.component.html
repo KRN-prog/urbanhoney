@@ -1,13 +1,13 @@
 <app-header></app-header>
 <main>
     <section>
-        <div *ngIf="subCategories.length != 0">
+        <div *ngIf="subCategories.length != 0" class="subcategories">
             <div *ngFor="let subCategorie of subCategories">
-                <button (click)="getArticlesByCategorieName(subCategorie.sub_category_name)">{{ subCategorie.sub_category_name.replaceAll("_"," ") }}</button>
+                <button (click)="getArticlesByCategorieName(subCategorie.sub_category_name)" class="subcategories__btn">{{ subCategorie.sub_category_name.replaceAll("_"," ") }}</button>
             </div>
         </div>
 
-        <article *ngIf="error == true">
+        <article class="unfoundArticles" *ngIf="error == true">
             <h2>{{ errorMsg.status }}</h2>
             <p>{{ errorMsg.error.error }}</p>
         </article>

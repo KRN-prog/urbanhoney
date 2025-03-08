@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ArticlesService } from '../../core/services/articles.service';
 import { Article } from '../../core/models/Article';
 import { ActivatedRoute } from '@angular/router';
@@ -17,8 +17,12 @@ import { LocalStorageService } from '../../core/services/localStorage.service';
 export class ArticlePageComponent implements OnInit {
   article!: Article;
   mainImage!: string;
+  successAddToCard: boolean = false;
   errorAddToCard: boolean = false;
-  errorMsgAddToCard: string = "Impossible d'ajouter cette article dans votre panier, veuillez ajouter une taille est une couleur !";
+  AddToCardMsg: string = "Article added to your cart.";
+  errorMsgAddToCard: string = "Impossible to add this item to your cart. Please select a size and a color !";
+  isColorSelected!: string;
+  isSizeSelected!: string;
 
   cartData: any = {
     color: '',
@@ -29,6 +33,15 @@ export class ArticlePageComponent implements OnInit {
 
   ngOnInit(): void {
     this.getArticle();
+  }
+
+  toggleSelectColor(color: string) {
+    this.isColorSelected = color;
+  }
+
+  toggleSelectSize(size: string) {
+    this.isSizeSelected = size;
+    
   }
 
   getCurrentImage(image: any) {
@@ -57,7 +70,7 @@ export class ArticlePageComponent implements OnInit {
       this.errorAddToCard = false;
       this.localStorageService.addToCard(article);
       console.log(this.localStorageService.getCart());
-      
+      this.successAddToCard = true;
     }else {
       this.errorAddToCard = true;
     }
