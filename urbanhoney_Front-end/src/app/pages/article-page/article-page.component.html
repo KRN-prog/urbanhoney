@@ -1,6 +1,6 @@
 <app-header></app-header>
 <main>
-    <article *ngIf="article != undefined">
+    <article class="article" *ngIf="article != undefined">
         <section class="imageArticle__section">
             <img [src]="mainImage" [alt]="article.title" class="imageArticle__section__img" />
             <div class="imageArticle__section__imgPrewiewContainer">
@@ -52,6 +52,7 @@
                         </svg>
                         Add to card
                     </button>
+                    <p *ngIf="successAddToCard == true">{{ AddToCardMsg }}</p>
                     <p *ngIf="errorAddToCard == true">{{ errorMsgAddToCard }}</p>
                 </div>
             </form>

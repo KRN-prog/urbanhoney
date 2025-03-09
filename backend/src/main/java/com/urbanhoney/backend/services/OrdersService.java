@@ -80,7 +80,6 @@ public class OrdersService {
             articlesOrdered.add(orderedArticle);
         }
 
-        System.out.println(articlesOrdered);
         order.setOrderArticles(articlesOrdered);
         ordersRepository.save(order);
         return ResponseEntity.status(HttpStatus.CREATED).body(Map.of("success", "Order taken !"));

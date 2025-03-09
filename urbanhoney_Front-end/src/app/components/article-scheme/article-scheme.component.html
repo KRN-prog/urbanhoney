@@ -1,10 +1,10 @@
 <article (click)="goToArticle(article.articleId)" class="article">
     <img [src]="article.pictures[0] | safeUrl" [alt]="article.title" class="article__img">
-    <span class="article__category">{{ article.sub_category_linked_id.categorie.category_name }} / {{ article.sub_category_linked_id.sub_category_name.replace("_", " ") }}</span>
-    <h2 class="article__title article__text">{{ article.title }}</h2>
+    <span class="article__category article__margin">{{ article.sub_category_linked_id.categorie.category_name }} / {{ article.sub_category_linked_id.sub_category_name.replace("_", " ") }}</span>
+    <h2 class="article__title article__text article__margin">{{ article.title }}</h2>
     <section>
-        <h3 class="article__brand article__text">{{ article.brand }}</h3>
-        <div class="article__infoContainer">
+        <h3 class="article__brand article__text article__margin">{{ article.brand }}</h3>
+        <div class="article__infoContainer article__margin">
             <span *ngFor="let price of article.price">{{ price }}</span>
         </div>
     </section>

@@ -1,26 +1,64 @@
 <app-header></app-header>
 <main>
-    <article>
-        <section>
-            <h2>Sign up</h2>
+    <article class="article">
+        <section class="article__formSection">
+            <h2 class="article__formSection__heading">Sign up</h2>
             <h3 *ngIf="errorsMsg">{{ errorsMsg }}</h3>
-            <form (ngSubmit)="registerUser()">
-                <div>
+            <form (ngSubmit)="registerUser()" class="luxury-form">
+                <div class="form-group">
                     <label for="email">Email:</label>
-                    <input type="email" name="email" id="email" placeholder="Please enter an email" [(ngModel)]="registerData.email" (blur)="emailVerification()" required/>
+                    <input 
+                        type="email"
+                        name="email"
+                        id="email"
+                        placeholder="Please enter an email"
+                        [(ngModel)]="registerData.email"
+                        (blur)="emailVerification()"
+                        class="luxury-input"
+                        required
+                    />
                 </div>
 
-                <div>
+                <div class="form-group">
                     <label for="username">Username:</label>
-                    <input type="text" name="username" id="username" placeholder="Please enter a username" autocomplete="off" [(ngModel)]="registerData.username" (blur)="usernameVerification()" required/>
+                    <input
+                        type="text"
+                        name="username"
+                        id="username"
+                        placeholder="Please enter a username"
+                        autocomplete="off"
+                        [(ngModel)]="registerData.username"
+                        (blur)="usernameVerification()"
+                        class="luxury-input"
+                        required
+                    />
                 </div>
 
-                <div>
+                <div class="form-group">
                     <label for="password">Password:</label>
-                    <input type="password" name="password" id="password" placeholder="Please enter a password" [(ngModel)]="registerData.password" (blur)="passwordVerification()" required />
+                    <input
+                        type="password"
+                        name="password"
+                        id="password"
+                        placeholder="Please enter a password"
+                        [(ngModel)]="registerData.password"
+                        (blur)="passwordVerification()"
+                        class="luxury-input"
+                        required
+                    />
                 </div>
 
-                <button>Sign up</button>
+                <button class="auth-btn register">
+                    <span class="auth-text">Sign up</span>
+                    <span class="auth-icon">
+                        <svg viewBox="0 0 24 24" width="20" height="20">
+                          <path 
+                            d="M15 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0-6c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm0 8c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4zm-6 4c.22-.72 3.31-2 6-2 2.7 0 5.8 1.29 6 2H9zm-3-3v-3h3v-2H6V7H4v3H1v2h3v3z"
+                            fill="currentColor"
+                          />
+                        </svg>
+                    </span>
+                </button>
             </form>
         </section>
     </article>

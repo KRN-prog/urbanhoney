@@ -3,7 +3,7 @@
     <section>
         <article *ngIf="emptyCart === false">
             <div class="cartElement" *ngFor="let cardItem of uniqueCartContent">
-                <img [src]="cardItem.pictures[0]" [alt]="cardItem.title" width="100px" height="100px"/>
+                <img [src]="cardItem.pictures[0]" [alt]="cardItem.title" class="cartElement__img" width="100px" height="100px"/>
                 <div class="cartElement__box">
                     <h3 class="cartElement__box__title">{{ cardItem.title }}</h3>
                     <p class="cartElement__box__element">Brand: {{ cardItem.brand }}</p>

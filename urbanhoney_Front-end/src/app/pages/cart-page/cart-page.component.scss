@@ -8,9 +8,13 @@ main {
     margin: auto;
     margin-bottom: 15px;
     gap: 10px;
+    &__img {
+        align-self: center;
+    }
     &__box {
         display: flex;
         flex-wrap: wrap;
+        max-width: 510px;
         &__title {
             margin: 0;
             flex-basis: 100%;
@@ -227,11 +231,18 @@ main {
         padding: 14px 28px;
         font-size: 13px;
     }
-}
 
-@media (max-width: 768px) {
     .payment-btn {
         padding: 14px 36px;
         font-size: 13px;
+    }
+}
+
+@media (min-width: 768px) {
+    .notLoggedArticle {
+        &__box {
+            justify-content: unset;
+            gap: 25px;
+        }
     }
 }
