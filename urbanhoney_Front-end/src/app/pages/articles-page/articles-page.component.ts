@@ -24,7 +24,6 @@ export class ArticlesPageComponent implements OnInit {
   constructor(private route: ActivatedRoute, private articlesService: ArticlesService, private categoriesService: CategorieService) {}
 
   ngOnInit(): void {
-    console.log(this.route.snapshot.paramMap.get('articleType'));  
     this.getArticlesByType();
     this.getAllSubCategoriesByCategoriename();
   }
@@ -33,7 +32,6 @@ export class ArticlesPageComponent implements OnInit {
     this.route.snapshot.paramMap.get('articleType')?.replace(" ","_");
     this.categoriesService.getAllSubCategoriesByCategoryName(this.route.snapshot.paramMap.get('articleType')).subscribe(
       (response: any) => {
-        console.log(response.success);
         this.subCategories = response.success;
       }
     );;
@@ -44,8 +42,6 @@ export class ArticlesPageComponent implements OnInit {
     this.articlesService.getArticlesByType(this.route.snapshot.paramMap.get('articleType')).subscribe({
       next: (response) => {
         this.articles = response.success;
-        console.log(response.success);
-        
       },
       error: (err) => {
         this.error = true;
@@ -58,7 +54,6 @@ export class ArticlesPageComponent implements OnInit {
     this.articlesService.getArticlesBySubCategoryName(categorieName).subscribe({
       next: (response) => {
         this.articles = response.success;
-        console.log(response.success);
         this.error = false;
       },
       error: (err) => {

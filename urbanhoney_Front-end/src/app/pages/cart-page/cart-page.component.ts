@@ -85,6 +85,8 @@ export class CartPageComponent implements OnInit {
   }
 
   orderVerification(): boolean {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    document.body.style.overflow = 'hidden';
     if (!this.localStorageService.getUser()) {
       this.loginOrRegisterModal = true;
       return false;
@@ -156,10 +158,12 @@ export class CartPageComponent implements OnInit {
   }
 
   closeGetLoggedModal() {
+    document.body.style.overflow = 'auto';
     this.loginOrRegisterModal = false;
   }
 
   closeOrderModal() {
+    document.body.style.overflow = 'auto';
     this.orderModal = false;
   }
 

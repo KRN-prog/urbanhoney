@@ -50,8 +50,6 @@ export class InscriptionPageComponent implements OnInit {
   }
 
   usernameVerification(): boolean {
-    console.log(this.registerData.username.length);
-    
     if (this.registerData.username.length < 8) {
       this.error = true;
       this.errorsMsg = "Your username must be at least 8 char long !";
@@ -86,12 +84,8 @@ export class InscriptionPageComponent implements OnInit {
 
   registerUser(): void {
     if (!this.emailVerification() && !this.usernameVerification() && !this.passwordVerification()) {
-      console.log(this.registerData);
-      
       this.authService.registerUser(this.registerData).subscribe(
         (response: any) => {
-          console.log(response);
-          
           switch (response.Success) {
             case 'User register successfully':
               this.router.navigate(['/login']);

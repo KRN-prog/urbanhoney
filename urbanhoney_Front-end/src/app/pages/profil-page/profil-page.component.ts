@@ -31,8 +31,6 @@ export class ProfilPageComponent implements OnInit {
   }
 
   authUser(): void {
-    console.log(this.localStorageService.getUser());
-    
     const userToken = this.localStorageService.getUser();
     
     if (userToken === null) {
@@ -47,7 +45,6 @@ export class ProfilPageComponent implements OnInit {
       (response) => {
         this.pageLoading = false;
         this.userInfos = response;
-        console.log(response);
       },
       (error) => {
         this.localStorageService.removeUser();
@@ -70,11 +67,9 @@ export class ProfilPageComponent implements OnInit {
         this.ordersLoading = false;
         this.ordersLoadingError = false;
         this.ordersList = response;
-        console.log(response);
       },
       (error) => {
         this.ordersLoadingError = true;
-        console.log(error);
         
       }
     )

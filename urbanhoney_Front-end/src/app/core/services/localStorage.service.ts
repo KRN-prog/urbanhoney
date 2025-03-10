@@ -21,7 +21,6 @@ export class LocalStorageService {
   private initializeLocalStorage(): void {
     if (!localStorage.getItem(this.CART_KEY)) {
       localStorage.setItem(this.CART_KEY, JSON.stringify([]));
-      console.log('Tableau "card" initialisé dans le localStorage.');
     }
   }
 
@@ -78,8 +77,7 @@ export class LocalStorageService {
 
   decodeToken(token: string) {
     try {
-      const decodedToken = jwtDecode(token); // Décoder le token
-      console.log('Token décodé :', decodedToken);
+      const decodedToken = jwtDecode(token);
     } catch (error) {
       console.error('Erreur lors du décodage du token :', error);
     }

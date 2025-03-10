@@ -7,8 +7,8 @@
         <div class="order__infos">
             <h3 class="order__infos__title">{{ orderElement.articles.title }}</h3>
             <p class="order__infos__info">Brand{{ orderElement.articles.brand }}</p>
-            <p class="order__infos__info">Color: {{ orderElement.color }}</p>
-            <p class="order__infos__info">Size: {{ orderElement.size }}</p>
+            <p class="order__infos__info">Color: <span [style.background-color]="orderElement.size" class="color"></span></p>
+            <p class="order__infos__info">Size: {{ orderElement.color }}</p>
             <p class="order__infos__info">Quantity: {{ order.orderArticles[0].quantity }}</p>
             <p class="order__infos__info">Total: {{ order.total }}</p>
         </div>

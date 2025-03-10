@@ -53,8 +53,6 @@ export class ArticlePageComponent implements OnInit {
       next: (response) => {
         this.article = response.success;
         this.mainImage = response.success.pictures[0];
-        console.log(response.success);
-        
       },
       error: (err) => {
         console.error('Erreur lors du chargement du produit :', err);
@@ -69,7 +67,6 @@ export class ArticlePageComponent implements OnInit {
       article.size = [this.cartData.size]; 
       this.errorAddToCard = false;
       this.localStorageService.addToCard(article);
-      console.log(this.localStorageService.getCart());
       this.successAddToCard = true;
     }else {
       this.errorAddToCard = true;

@@ -36,7 +36,6 @@ export class LandingPageComponent implements OnInit {
   getAllArticles(): any {
     this.articlesService.getAllArticles().subscribe(
       (response: any) => {
-        console.log(response.success);
         this.articles = response.success;
       }
     );
