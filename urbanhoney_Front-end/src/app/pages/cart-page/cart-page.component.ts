@@ -134,6 +134,7 @@ export class CartPageComponent implements OnInit {
       this.orderService.postNewOrder(newOrderData, headers).subscribe({
         next: (response) => {
           this.deleteCart();
+          this.orderModal = false;
           this.orderResponse = true;
           this.orderMessage = `${response.success} please go to your profil to see it`
         },
@@ -152,6 +153,14 @@ export class CartPageComponent implements OnInit {
 
   loginRouting(): void {
     this.router.navigate(['/login']);
+  }
+
+  closeGetLoggedModal() {
+    this.loginOrRegisterModal = false;
+  }
+
+  closeOrderModal() {
+    this.orderModal = false;
   }
 
 }

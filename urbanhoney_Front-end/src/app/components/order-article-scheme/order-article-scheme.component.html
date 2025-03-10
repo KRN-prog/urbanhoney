@@ -1,12 +1,16 @@
-<section *ngFor="let order of ordersResponse">
-    <h3>Order N°{{ order.orderId }}</h3>
-    <div *ngFor="let orderElement of order.orderArticles">
-        <h3>{{ orderElement.articles.title }}</h3>
-        <p>{{ orderElement.articles.brand }}</p>
-        <p>{{ orderElement.color }}</p>
-        <p>{{ orderElement.size }}</p>
-        <img [src]="orderElement.articles.pictures[0]" [alt]="orderElement.articles.title" width="100px" height="100px"/>
+<section class="orderWrapper" *ngFor="let order of ordersResponse">
+    <h3 class="orderTitle">Order N°{{ order.orderId }}</h3>
+    <div class="order" *ngFor="let orderElement of order.orderArticles">
+        <div class="order__imgContainer">
+            <img [src]="orderElement.articles.pictures[0]" [alt]="orderElement.articles.title" width="100px" height="100px"/>
+        </div>
+        <div class="order__infos">
+            <h3 class="order__infos__title">{{ orderElement.articles.title }}</h3>
+            <p class="order__infos__info">Brand{{ orderElement.articles.brand }}</p>
+            <p class="order__infos__info">Color: {{ orderElement.color }}</p>
+            <p class="order__infos__info">Size: {{ orderElement.size }}</p>
+            <p class="order__infos__info">Quantity: {{ order.orderArticles[0].quantity }}</p>
+            <p class="order__infos__info">Total: {{ order.total }}</p>
+        </div>
     </div>
-    <p>Quantity: {{ order.orderArticles[0].quantity }}</p>
-    <p>Total: {{ order.total }}</p>
 </section>

@@ -4,17 +4,19 @@
         <p>WAIT</p>
     </div>
     <article *ngIf="pageLoading === false" aria-label="Afficher toutes mes commandes">
-        <h2>Mon Profil:</h2>
-        <img [src]="userInfos.profile_picture" alt="Photo de profil de l'utilisateur">
-        <h3 style="text-transform: uppercase;">{{ userInfos.username }}</h3>
-        <button (click)="ordersFromUser()" [disabled]="isDisabled">Get all my orders</button>
+        <div class="profilPP">
+            <h2>My Profil</h2>
+            <h3 style="text-transform: uppercase;">{{ userInfos.username }}</h3>
+            <img [src]="userInfos.profile_picture" alt="Photo de profil de l'utilisateur" class="profilPP__pp" />
+        </div>
+        <button class="getOrders-btn payment-btn" (click)="ordersFromUser()" [disabled]="isDisabled">Get all my orders</button>
         <div *ngIf="ordersLoading == true">
             <h3>Loading</h3>
         </div>
         <div *ngIf="ordersLoadingError == true">
             <h3>An error has occured !</h3>
         </div>
-        <div *ngIf="ordersLoading == false">
+        <div class="ordersContainer" *ngIf="ordersLoading == false">
             <app-order-article-scheme [ordersResponse]="ordersList"></app-order-article-scheme>
         </div>
     </article>

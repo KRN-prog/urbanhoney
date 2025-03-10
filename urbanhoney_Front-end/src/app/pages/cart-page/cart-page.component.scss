@@ -30,6 +30,10 @@ main {
     }
 }
 
+.pointer {
+    cursor: pointer;
+}
+
 .color {
     display: inline-block;
     vertical-align: middle;
@@ -127,13 +131,28 @@ main {
 }
 
 .notLoggedArticle {
-    width: 95%;
-    margin: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 999;
     &__box {
         display: flex;
         justify-content: space-between;
         margin-top: 25px;
+        gap: 15px;
     }
+}
+
+.container {
+    position: relative;
+    padding: 15px;
+    background: #fff;
 }
 
 .auth-btn {
@@ -225,6 +244,103 @@ main {
     transform: translateX(4px);
 }
 
+.payementBox {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 999;
+}
+
+.payement {
+    position: relative;
+    padding: 15px;
+    width: 50%; 
+    background: #fff;
+    &__title {
+        text-align: center;
+        font-size: 28px;
+        font-weight: 500;
+        margin-top: 0;
+    }
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}
+
+.selectForm {
+    cursor: pointer;
+}
+
+.payementForm {
+    &__section {
+        margin-bottom: 15px;
+    }
+}
+
+.luxury-input {
+    width: calc(100% - 1.5rem);
+    padding: 0.75rem;
+    border: 2px solid #a1a1a1;
+    background-color: #FFF;
+    color: #1a1a1a;
+    font-size: 1rem;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.luxury-input::placeholder {
+    color: #1a1a1a;
+}
+
+.luxury-input:focus {
+    border-color: #0d0d0d;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    outline: none;
+}
+
+.finalPayementBtn {
+    margin: auto;
+    margin-top: 15px;
+}
+
+.emptyCart {
+    position: absolute;
+    top: 55px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.orderResponse {
+    position: absolute;
+    top: 55px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    color: #00b300;
+}
+
+@media (max-width: 424px) {
+    .notLoggedArticle {
+        &__box {
+            flex-direction: column;
+        }
+    }
+}
+
 @media (max-width: 768px) {
     .auth-btn {
         min-width: 180px;
@@ -242,7 +358,6 @@ main {
     .notLoggedArticle {
         &__box {
             justify-content: unset;
-            gap: 25px;
         }
     }
 }
