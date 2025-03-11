@@ -1,0 +1,30 @@
+<app-header></app-header>
+<main>
+    <article>
+        <div *ngIf="pageLoading">
+            <h2>Loading...</h2>
+        </div>
+
+        <div *ngIf="pageLoading === false">
+            <section>
+                <h2>Get all users :</h2>
+                <div *ngFor="let user of users">
+                    <img [src]="user.profilePicture" alt="" width="100px" height="100px">
+                    <span>Mail: {{ user.email }}</span>
+                    <span>Username: {{ user.username }}</span>
+                    <span>Admin {{ user.is_admin }}</span>
+                    <span *ngIf="user.is_admin == true">
+                        <button>Revoke admin status</button>
+                    </span>
+                    <span *ngIf="user.is_admin == false">
+                        <button>Set to Admin</button>
+                    </span>
+                </div>
+            </section>
+
+            <section>
+                <h2>Get all articles :</h2>
+            </section>
+        </div>
+    </article>
+</main>
