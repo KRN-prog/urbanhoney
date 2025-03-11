@@ -9,16 +9,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.urbanhoney.backend.models.ArticlesEntity;
 import com.urbanhoney.backend.models.OrderArticleEntity;
 import com.urbanhoney.backend.models.OrdersEntity;
 import com.urbanhoney.backend.models.UserEntity;
 import com.urbanhoney.backend.repository.ArticlesRepository;
 import com.urbanhoney.backend.repository.AuthRepository;
-import com.urbanhoney.backend.repository.OrderedArticleRepository;
 import com.urbanhoney.backend.repository.OrdersRepository;
 import com.urbanhoney.backend.usecase.dto.request.AddOrderRequestDto;
 
@@ -28,8 +24,6 @@ import jakarta.transaction.Transactional;
 public class OrdersService {
 
     private OrdersRepository ordersRepository;
-
-    private OrderedArticleRepository orderedArticleRepository;
 
     private AuthRepository authRepository;
 

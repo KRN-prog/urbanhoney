@@ -6,6 +6,7 @@ import { CartPageComponent } from './pages/cart-page/cart-page.component';
 import { ConnexionPageComponent } from './pages/connexion-page/connexion-page.component';
 import { InscriptionPageComponent } from './pages/inscription-page/inscription-page.component';
 import { ProfilPageComponent } from './pages/profil-page/profil-page.component';
+import { AdminPageComponent } from './pages/admin-page/admin-page.component';
 
 export const routes: Routes = [{
     path: '',
@@ -34,4 +35,8 @@ export const routes: Routes = [{
 {
     path: 'profil',
     component: ProfilPageComponent
+},
+{
+    path: 'admin',
+    component: AdminPageComponent
 }];

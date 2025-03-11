@@ -7,6 +7,7 @@ import com.urbanhoney.backend.services.AuthService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -21,6 +22,11 @@ public class UserController {
     @GetMapping("/{userId}")
     public ResponseEntity<?> getUser(@PathVariable("userId") Integer userId) {
         return authService.findUserById(userId);
+    }
+
+    @GetMapping()
+    public ResponseEntity<?> getAllUser(Authentication authentication) {
+        return authService.getAllUsers(authentication);
     }
     
 }

@@ -1,5 +1,6 @@
 package com.urbanhoney.backend.services;
 
+import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
 
@@ -99,5 +100,17 @@ public class AuthService {
 
         UserDto userDto = UserMapper.mapToUserDto(userEntity);
         return ResponseEntity.status(HttpStatus.OK).body(userDto);
+    }
+
+    public ResponseEntity<?> getAllUsers(Authentication authentication) {
+        UserEntity authentitcateUser = authRepository.findByEmail(authentication.getName()).orElse(null);
+
+        if (authentitcateUser.getIsAdmin() == false) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("error", "You must be an administator !"));
+        }
+
+        List<UserEntity> getAllUsers = authRepository.findAll();
+
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(Map.of("success", getAllUsers));
     }
 }

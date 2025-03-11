@@ -1,5 +1,6 @@
 package com.urbanhoney.backend.repository;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -22,6 +23,8 @@ public interface AuthRepository extends JpaRepository<UserEntity, Long> {
 
     @Query("SELECT u FROM UserEntity u WHERE u.email = :emailOrUsername OR u.username = :emailOrUsername")
     Optional<UserEntity> findByEmailOrUsername(@Param("emailOrUsername") String emailOrUsername);
+
+    List<UserEntity> findAll();
 
     void save(UserDto userDto);
 }

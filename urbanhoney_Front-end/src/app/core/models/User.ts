@@ -3,6 +3,6 @@ export interface User {
     email: string,
     username: string,
     password: string,
-    profile_picture: string,
+    profilePicture: string,
     is_admin: boolean
 }
