@@ -38,7 +38,7 @@ public class UserEntity {
     @Column(name = "profile_picture")
     private String profilePicture;
 
-    @Column(name = "is_admin", columnDefinition = "TINYINT(1)")
+    @Column(name = "is_admin")
     private Boolean isAdmin;
 
     @OneToMany(mappedBy = "userId", cascade = CascadeType.REMOVE, orphanRemoval = true)

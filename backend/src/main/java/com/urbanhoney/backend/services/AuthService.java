@@ -3,6 +3,7 @@ package com.urbanhoney.backend.services;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,14 +34,12 @@ public class AuthService {
     }
     
     public Boolean isValidEmail(String email) {
-        // Regex pour vérifier si l'email est valide
         String emailRegex = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
         Pattern pattern = Pattern.compile(emailRegex);
         return pattern.matcher(email).matches();
     }
 
     public ResponseEntity<?> registerUser(UserDto userDto) {
-        
         if (userDto.getEmail() != null || isValidEmail(userDto.getEmail()) == true) {
             UserEntity findByEmail = authRepository.findByEmail(userDto.getEmail()).orElse(null);
             UserEntity findByUsername = authRepository.findByUsername(userDto.getUsername()).orElse(null);
@@ -58,7 +57,6 @@ public class AuthService {
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("error", "Please insert a real mail please."));
     }
-
 
     public ResponseEntity<?> loginUser(AuthRequestDto authRequestDto, Authentication authentication) {
         UserEntity getUserByEmailOrUsername = authRepository.findByEmailOrUsername(authRequestDto.getEmailOrUsername()).orElse(null);
@@ -111,6 +109,44 @@ public class AuthService {
 
         List<UserEntity> getAllUsers = authRepository.findAll();
 
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body(Map.of("success", getAllUsers));
+        List<UserDto> userDtos = getAllUsers.stream()
+                .map(UserMapper::mapToUserDto)
+                .collect(Collectors.toList());
+
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(Map.of("success", userDtos));
+    }
+
+    public ResponseEntity<?> revokeAdminStatus(Integer userId, Authentication authentication) {
+        UserEntity authentitcateUser = authRepository.findByEmail(authentication.getName()).orElse(null);
+        UserEntity getUser = authRepository.findById(userId).orElse(null);
+
+        if (authentitcateUser.getIsAdmin() == false) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("error", "You must be an administator !"));
+        }
+
+        if (getUser == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("error", "Your User ID is not valid !"));
+        }
+
+        getUser.setIsAdmin(false);
+        authRepository.save(getUser);
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(Map.of("success", getUser.getUsername()+"Admin role as been revoked !"));
+    }
+
+    public ResponseEntity<?> setAdminStatus(Integer userId, Authentication authentication) {
+        UserEntity authentitcateUser = authRepository.findByEmail(authentication.getName()).orElse(null);
+        UserEntity getUser = authRepository.findById(userId).orElse(null);
+
+        if (authentitcateUser.getIsAdmin() == false) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("error", "You must be an administator !"));
+        }
+
+        if (getUser == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("error", "Your User ID is not valid !"));
+        }
+
+        getUser.setIsAdmin(true);
+        authRepository.save(getUser);
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(Map.of("success", "Admin role as been set to"+ getUser.getUsername() +" !"));
     }
 }

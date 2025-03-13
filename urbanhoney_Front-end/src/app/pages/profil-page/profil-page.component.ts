@@ -70,7 +70,6 @@ export class ProfilPageComponent implements OnInit {
       },
       (error) => {
         this.ordersLoadingError = true;
-        
       }
     )
   }
