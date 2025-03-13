@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { Article } from "../models/Article";
+import { AddArticleRequest } from "../models/request/AddArticleRequest";
 
 @Injectable({
     providedIn: 'root',
@@ -9,19 +10,20 @@ import { Article } from "../models/Article";
 export class ArticlesService {
 
     private article = 'http://localhost:8080/urbanhoney/article/';
+    private postNewArticle = 'http://localhost:8080/urbanhoney/article';
     private articles = 'http://localhost:8080/urbanhoney/articles';
     private articlesSlashed = 'http://localhost:8080/urbanhoney/articles/';
     private articlesBySubCategory = 'http://localhost:8080/urbanhoney/articles/subcategory/';
 
     constructor(private http: HttpClient) {}
 
-    postArticle(articleData: Article, jwtToken: string): Observable<any> {
+    postArticle(articleData: AddArticleRequest, jwtToken: string): Observable<any> {
         const requestBody = {
             ...articleData,
             authorization: jwtToken,
         };
 
-        return this.http.post<{"success": string}>(this.article, requestBody);
+        return this.http.post<{"success": string}>(this.postNewArticle, requestBody);
     }
 
     getArticleById(idArticle: string | null): Observable<any> {

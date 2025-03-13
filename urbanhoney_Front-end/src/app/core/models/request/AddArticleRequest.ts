@@ -5,7 +5,7 @@ export interface AddArticleRequest {
     description: string,
     subCategorie: SubCategorie,
     brand: string,
-    price: string,
+    price: Array<number | string>,
     color: Array<string>,
     size: Array<string>,
     pictures: Array<string>,

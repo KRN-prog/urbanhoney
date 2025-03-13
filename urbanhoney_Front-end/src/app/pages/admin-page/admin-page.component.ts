@@ -13,6 +13,7 @@ import { CategorieService } from '../../core/services/categorie.service';
 import { Category } from '../../core/models/Category';
 import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { SubCategorie } from '../../core/models/SubCategorie';
+import { AddArticleRequest } from '../../core/models/request/AddArticleRequest';
 
 @Component({
   selector: 'app-admin-page',
@@ -26,7 +27,8 @@ export class AdminPageComponent implements OnInit {
   articles: Array<Article> = [];
   users: Array<User> = [];
   categories: Array<Category> = [];
-  categorySelected: string = "";
+  //categorySelected: string = "";
+  subCategorySelected!: SubCategorie;
   newArticleForm: any;
   availableSizes = ['XS', 'S', 'M', 'L', 'XL'];
   subCategoryResponse: Array<SubCategorie> = [];
@@ -37,10 +39,39 @@ export class AdminPageComponent implements OnInit {
     this.authUser();
     this.getAllCategories();
     this.initializeArticleForm();
+    this.newArticleForm.get('category.sub').valueChanges.subscribe((newSubCategory: string) => {
+      this.categorieService.getSubCategoriesByName(newSubCategory).subscribe(
+        (response) => {
+          console.log(response);
+          this.subCategorySelected = response.success
+        },
+        (error) => {
+          console.log(error);
+        },
+      );;
+    });
   }
 
   get sizes(): FormArray {
     return this.newArticleForm.get('specifications.size') as FormArray;
+  }
+
+  getSelectedSizes(): string[] {
+    const selectedSizes: string[] = [];
+    const sizeArray = this.newArticleForm.get('specifications.size') as FormArray;
+  
+    sizeArray.controls.forEach((control, index) => {
+      if (control.value) { // Si la valeur est true (case cochée)
+        selectedSizes.push(this.availableSizes[index]); // Ajoutez la taille correspondante
+      }
+    });
+  
+    return selectedSizes;
+  }
+
+
+  addSubCategorie(subCategory: any): void {
+    this.subCategorySelected = subCategory;
   }
 
   initializeArticleForm(): void {
@@ -60,7 +91,7 @@ export class AdminPageComponent implements OnInit {
         sub: ['', Validators.required]
       }),
       brand: ['', Validators.required],
-      price: ['', [Validators.required, Validators.min(1)]],  // Prix min de 1€
+      price: ['', [Validators.required, Validators.min(1)]],
       images: ['', Validators.required],
       specifications: this.fb.group({
         color: ['', Validators.required],
@@ -69,6 +100,32 @@ export class AdminPageComponent implements OnInit {
         entretien: ['', Validators.required]
       })
     });
+  }
+
+  transformFormToRequest(): AddArticleRequest {
+    const formValue = this.newArticleForm.value;
+
+    const selectedSizes = this.getSelectedSizes();
+    const colors = formValue.specifications.color.split(',').map((c: string) => c.trim());
+    const pictures = formValue.images.split(',').map((p: string) => p.trim());
+
+    const request: AddArticleRequest = {
+      title: formValue.title,
+      description: formValue.description,
+      subCategorie: this.subCategorySelected,
+      brand: formValue.brand,
+      price: [parseFloat(formValue.price), "€"],
+      color: colors,
+      size: selectedSizes,
+      pictures: pictures,
+      composition: formValue.specifications.composition,
+      entretient: formValue.specifications.entretien
+    };
+
+    console.log(request);
+    
+
+    return request;
   }
 
   authUser(): any {
@@ -205,6 +262,14 @@ export class AdminPageComponent implements OnInit {
   }
 
   addArticle(): any {
-    console.log(this.newArticleForm.value);
+    if (this.newArticleForm.invalid) {
+      console.error('Le formulaire est invalide');
+      return;
+    }
+
+    const request: AddArticleRequest = this.transformFormToRequest();
+    console.log('Données transformées :', request);
+
+    this.articlesService.postArticle(request, this.localStorageService.getUser());
   }
 }
