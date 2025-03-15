@@ -103,6 +103,9 @@ export class AdminPageComponent implements OnInit {
   }
 
   transformFormToRequest(): AddArticleRequest {
+
+    console.log("============"+this.subCategorySelected.sub_category_id+"===============");
+    
     const formValue = this.newArticleForm.value;
 
     const selectedSizes = this.getSelectedSizes();
@@ -112,14 +115,14 @@ export class AdminPageComponent implements OnInit {
     const request: AddArticleRequest = {
       title: formValue.title,
       description: formValue.description,
-      subCategorie: this.subCategorySelected,
+      sub_category: this.subCategorySelected,
       brand: formValue.brand,
       price: [parseFloat(formValue.price), "€"],
       color: colors,
       size: selectedSizes,
       pictures: pictures,
       composition: formValue.specifications.composition,
-      entretient: formValue.specifications.entretien
+      entretien: formValue.specifications.entretien
     };
 
     console.log(request);
@@ -262,6 +265,13 @@ export class AdminPageComponent implements OnInit {
   }
 
   addArticle(): any {
+    console.log("=====================================");
+    console.log(this.localStorageService.getUser());
+
+    const headers: HttpHeaders = new HttpHeaders({
+      Authorization: `Bearer ${this.localStorageService.getUser()}`,
+    });
+    
     if (this.newArticleForm.invalid) {
       console.error('Le formulaire est invalide');
       return;
@@ -270,6 +280,13 @@ export class AdminPageComponent implements OnInit {
     const request: AddArticleRequest = this.transformFormToRequest();
     console.log('Données transformées :', request);
 
-    this.articlesService.postArticle(request, this.localStorageService.getUser());
+    this.articlesService.postArticle(request, headers).subscribe(
+      (response: any) => {
+        console.log(response);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 }

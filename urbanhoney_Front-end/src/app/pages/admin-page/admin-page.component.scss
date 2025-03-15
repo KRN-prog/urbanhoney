@@ -1,0 +1,39 @@
+.main {
+    width: 95%;
+    margin: auto;
+}
+
+.elementBox {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 15px;
+    &__section {
+        flex-basis: calc(75% - 15px);
+        display: flex;
+        flex-wrap: wrap;
+        &__element {
+            flex-basis: 100%;
+        }
+    }
+}
+
+.luxury-input {
+    width: calc(100% - 1.5rem);
+    padding: 0.75rem;
+    border: 2px solid #a1a1a1;
+    background-color: #FFF;
+    color: #1a1a1a;
+    font-size: 1rem;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.luxury-input::placeholder {
+    color: #1a1a1a;
+}
+
+.luxury-input:focus {
+    border-color: #0d0d0d;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    outline: none;
+}

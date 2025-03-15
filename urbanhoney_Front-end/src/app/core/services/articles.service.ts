@@ -17,13 +17,8 @@ export class ArticlesService {
 
     constructor(private http: HttpClient) {}
 
-    postArticle(articleData: AddArticleRequest, jwtToken: string): Observable<any> {
-        const requestBody = {
-            ...articleData,
-            authorization: jwtToken,
-        };
-
-        return this.http.post<{"success": string}>(this.postNewArticle, requestBody);
+    postArticle(articleData: AddArticleRequest, authHeaders: HttpHeaders): Observable<any> {
+        return this.http.post<{"success": string}>(this.postNewArticle, articleData, { headers: authHeaders });
     }
 
     getArticleById(idArticle: string | null): Observable<any> {

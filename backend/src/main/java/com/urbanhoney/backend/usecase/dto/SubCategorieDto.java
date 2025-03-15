@@ -14,7 +14,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class SubCategorieDto {
     
-    @JsonProperty("sub_categorie_id")
+    @JsonProperty("sub_category_id")
     private Integer subCategorieId;
 
     @JsonProperty("sub_category_name")
