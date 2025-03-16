@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { CategorieService } from '../../core/services/categorie.service';
 import { Category } from '../../core/models/Category';
 import { CategorieSchemeComponent } from "../../components/categorie-scheme/categorie-scheme.component";
@@ -17,6 +17,7 @@ import { GetArticlesByGender } from '../../core/models/request/GetArticlesByGend
   styleUrl: './landing-page.component.scss'
 })
 export class LandingPageComponent implements OnInit {
+  @ViewChild('videoPlayer') videoPlayer!: ElementRef<HTMLVideoElement>;
   categories: Array<Category> = [];
   maleArticles: Array<Article> = [];
   femaleArticles: Array<Article> = [];
@@ -30,6 +31,14 @@ export class LandingPageComponent implements OnInit {
     this.getAllArticles();
     this.loadArticlesByGender("m", this.maleArticles);
     this.loadArticlesByGender("f", this.femaleArticles);
+  }
+
+  ngAfterViewInit() {
+    this.videoPlayer.nativeElement.muted = true;
+
+    this.videoPlayer.nativeElement.play().catch((error) => {
+      console.error('La lecture automatique a échoué :', error);
+    });
   }
   
   getCategories(): void {

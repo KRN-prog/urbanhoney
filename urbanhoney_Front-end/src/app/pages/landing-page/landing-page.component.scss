@@ -33,6 +33,12 @@
         text-align: center;
     }
 }
+
+.sectionTitle {
+    margin-top: 50px;
+    margin-left: 15px;
+}
+
 .categoryWrapper {
     padding: 0;
     display: grid;
@@ -44,11 +50,12 @@
 }
 .articleWraper {
     display: grid;
+    justify-content: center;
     grid-template-columns: calc(51% - 1rem) calc(50% - 1rem);
     gap: 1rem;
-    margin-top: 50px;
     margin-left: auto;
     margin-right: auto;
+    margin-bottom: 50px;
 }
 .articleContainer {
     display: flex;
@@ -70,10 +77,18 @@
         height: 100%;
         background-image: url('https://i.ibb.co/h1rv663v/Women-Nautical.webp');
         background-size: cover;
-        background-position: center;
         background-attachment: fixed;
+        background-position: center;
         background-repeat: no-repeat;
-        z-index: -1; 
+        z-index: -1;
+
+        &--men {
+            background-image: url('https://i.ibb.co/5W68XDXZ/LVMEN.jpg');
+        }
+
+        &--mixed {
+            background-image: url('https://i.ibb.co/93Yz2MWX/thumb-les-gastons-vuitton.jpg');
+        }
     }
 }
 
@@ -109,6 +124,11 @@
 }
 
 @media screen and (min-width: 1024px)  {
+    .sectionTitle {
+        width: 80%;
+        margin-left: auto;
+        margin-right: auto;
+    }
     .categoryWrapper, .articleWraper {
         width: 80%;
     }
@@ -117,7 +137,10 @@
     }
 
     .parallax {
-        height: 90vh;
+        height: 100vh;
+        &__image {
+            background-position-y: 0;
+        }
     }
 }
 

@@ -1,7 +1,7 @@
 <app-header></app-header>
 <main>
     <div class="landing_top_img">
-        <video width="100%" autoplay loop muted playsinline class="topImg custom-video" #videoPlayer>
+        <video width="100%" muted autoplay loop playsinline class="topImg custom-video" #videoPlayer>
             <source src="assets/video/mode.mp4" type="video/mp4">
             Votre navigateur ne supporte pas la balise vidéo.
         </video>
@@ -19,16 +19,24 @@
     <div class="parallax">
         <div class="parallax__image"></div>
     </div>
+    <h2 class="nav_categories__heading">A sample of our woman creations</h2>
     <div class="articleWraper">
-        <h2>Women fashion:</h2>
         <app-article-scheme *ngFor="let article of femaleArticles" [article]="article" class="articleContainer"></app-article-scheme>
     </div>
+
+    <div class="parallax">
+        <div class="parallax__image parallax__image--men"></div>
+    </div>
+    <h2 class="nav_categories__heading">A sample of our man creations</h2>
     <div class="articleWraper">
-        <h2>Man fashion:</h2>
         <app-article-scheme *ngFor="let article of maleArticles" [article]="article" class="articleContainer"></app-article-scheme>
     </div>
+
+    <div class="parallax">
+        <div class="parallax__image parallax__image--mixed"></div>
+    </div>
+    <h2 class="nav_categories__heading">Our mixed creations</h2>
     <div class="articleWraper">
-        <h2>All articles:</h2>
         <app-article-scheme *ngFor="let article of articles" [article]="article" class="articleContainer"></app-article-scheme>
     </div>
 </main>
