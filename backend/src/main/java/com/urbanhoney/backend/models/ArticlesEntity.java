@@ -70,4 +70,7 @@ public class ArticlesEntity {
 
     @Column(name = "entretient")
     private String entretien;
+
+    @Column(name = "gender")
+    private String gender;
 }

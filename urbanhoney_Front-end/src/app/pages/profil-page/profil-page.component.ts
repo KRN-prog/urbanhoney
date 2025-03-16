@@ -9,10 +9,11 @@ import { NgIf } from '@angular/common';
 import { OrderService } from '../../core/services/order.service';
 import { OrderArticleSchemeComponent } from "../../components/order-article-scheme/order-article-scheme.component";
 import { OrdersFromUserResponse } from '../../core/models/response/OrdersFromUserResponse';
+import { FooterComponent } from '../../components/footer/footer.component';
 
 @Component({
   selector: 'app-profil-page',
-  imports: [HeaderComponent, NgIf, OrderArticleSchemeComponent],
+  imports: [HeaderComponent, NgIf, OrderArticleSchemeComponent, FooterComponent],
   templateUrl: './profil-page.component.html',
   styleUrl: './profil-page.component.scss'
 })

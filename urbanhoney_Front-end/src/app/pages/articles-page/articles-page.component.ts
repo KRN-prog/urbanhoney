@@ -8,10 +8,11 @@ import { ArticleSchemeComponent } from "../../components/article-scheme/article-
 import { CategorieService } from '../../core/services/categorie.service';
 import { SubCategorie } from '../../core/models/SubCategorie';
 import { HeaderComponent } from "../../components/header/header.component";
+import { FooterComponent } from "../../components/footer/footer.component";
 
 @Component({
   selector: 'app-articles-page',
-  imports: [NgIf, NgFor, ArticleSchemeComponent, HeaderComponent],
+  imports: [NgIf, NgFor, ArticleSchemeComponent, HeaderComponent, FooterComponent],
   templateUrl: './articles-page.component.html',
   styleUrl: './articles-page.component.scss'
 })

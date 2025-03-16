@@ -58,4 +58,7 @@ public class AddArticleRequestDto {
 
     @NotEmpty(message = "Please enter the entretien of the article")
     private String entretien;
+
+    @NotEmpty(message = "Please enter a valid gender")
+    private String gender;
 }

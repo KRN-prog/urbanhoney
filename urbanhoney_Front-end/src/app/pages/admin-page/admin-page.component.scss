@@ -18,6 +18,86 @@
     }
 }
 
+.changeStatus-btn {
+    min-width: 200px;
+    padding: 16px 32px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    font-weight: 500;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.changeStatus-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.2) 50%,
+        transparent 100%
+    );
+    transition: left 0.5s ease;
+}
+
+.changeStatus-btn:hover::before {
+    left: 100%;
+}
+
+.changeStatus-btn.status {
+    background: linear-gradient(135deg, #1a1a1a 0%, #333333 100%);
+    color: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.changeStatus-btn.register {
+    background: #fff;
+    color: #1a1a1a;
+    border: 1px solid #1a1a1a;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.changeStatus-btn:hover {
+    transform: translateY(-2px);
+}
+
+.changeStatus-btn.status:hover {
+    background: linear-gradient(135deg, #262626 0%, #404040 100%);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.changeStatus-btn.register:hover {
+    background: #f8f8f8;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.changeStatus-btn:active {
+    transform: translateY(0);
+}
+
+.changeStatus-text {
+    position: relative;
+    z-index: 1;
+}
+
+.resizableField {
+    resize: vertical;
+}
+
 .luxury-input {
     width: calc(100% - 1.5rem);
     padding: 0.75rem;
@@ -36,4 +116,66 @@
     border-color: #0d0d0d;
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
     outline: none;
+}
+
+.sizeInput {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.fieldMargin {
+    margin-bottom: 15px;
+}
+
+.btn {
+    background: linear-gradient(135deg, #1a1a1a 0%, #333333 100%);
+    color: #fff;
+    border: none;
+    border-radius: 2px;
+    padding: 16px 48px;
+    font-size: 14px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 400;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    font-family: 'Montserrat', sans-serif;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.1) 50%,
+        transparent 100%
+    );
+    transition: left 0.5s ease;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    background: linear-gradient(135deg, #262626 0%, #404040 100%);
+}
+
+.btn:hover::before {
+    left: 100%;
+}
+
+.btn:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }

@@ -4,13 +4,14 @@ import { Article } from '../../core/models/Article';
 import { ActivatedRoute } from '@angular/router';
 import { NgFor, NgIf } from '@angular/common';
 import { HeaderComponent } from "../../components/header/header.component";
+import { FooterComponent } from "../../components/footer/footer.component";
 import { FormsModule } from '@angular/forms';
 import { LocalStorageService } from '../../core/services/localStorage.service';
 
 @Component({
   selector: 'app-article-page',
   standalone: true,
-  imports: [NgFor, NgIf, HeaderComponent, FormsModule],
+  imports: [NgFor, NgIf, HeaderComponent, FormsModule, FooterComponent],
   templateUrl: './article-page.component.html',
   styleUrl: './article-page.component.scss'
 })

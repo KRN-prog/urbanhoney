@@ -14,10 +14,11 @@ import { Category } from '../../core/models/Category';
 import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { SubCategorie } from '../../core/models/SubCategorie';
 import { AddArticleRequest } from '../../core/models/request/AddArticleRequest';
+import { FooterComponent } from '../../components/footer/footer.component';
 
 @Component({
   selector: 'app-admin-page',
-  imports: [HeaderComponent, NgIf, NgFor, ReactiveFormsModule],
+  imports: [HeaderComponent, NgIf, NgFor, ReactiveFormsModule, FooterComponent],
   templateUrl: './admin-page.component.html',
   styleUrl: './admin-page.component.scss'
 })
@@ -233,7 +234,7 @@ export class AdminPageComponent implements OnInit {
     )
   }
 
-  verifySexe(sexe: string): string  {
+  verifyGender(gender: string): string  {
     const getSubCategory: string = this.newArticleForm.get('category')?.get('sub').value;
     const subTheme: SubCategorie | undefined = this.subCategoryResponse.find((subCategory) => subCategory.sub_category_name === getSubCategory);
 
@@ -241,7 +242,7 @@ export class AdminPageComponent implements OnInit {
       return '';
     }
 
-    const getGender: string = subTheme.gender == sexe ? sexe : '';
+    const getGender: string = subTheme.gender == gender ? gender : '';
     
     return getGender;
   }

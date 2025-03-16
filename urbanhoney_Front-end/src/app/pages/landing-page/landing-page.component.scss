@@ -11,6 +11,20 @@
     }
 }
 
+.custom-video::-webkit-media-controls-timeline {
+    display: none;
+}
+  
+.custom-video::-webkit-media-controls-current-time-display,
+.custom-video::-webkit-media-controls-time-remaining-display {
+    display: none;
+}
+  
+.custom-video::-webkit-media-controls-panel {
+    background: transparent;
+  
+}
+
 .nav_categories {
     margin-bottom: 50px;
     &__heading {
@@ -54,7 +68,7 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background-image: url('https://i.ibb.co/nMdzYz7H/lv-men.webp');
+        background-image: url('https://i.ibb.co/h1rv663v/Women-Nautical.webp');
         background-size: cover;
         background-position: center;
         background-attachment: fixed;
@@ -101,6 +115,10 @@
     .categoryWrapper {
         margin: auto;
     }
+
+    .parallax {
+        height: 90vh;
+    }
 }
 
 @media screen and (min-width: 1024px) and (max-width: 1269px) {
@@ -121,10 +139,4 @@
         grid-template-columns: calc(20% - 0.75rem) calc(20% - 0.75rem) calc(20% - 0.75rem) calc(20% - 0.75rem);
         justify-content: center;
     }  
-}
-
-@media screen and (min-width: 1440px) {
-    .parallax {
-        height: 90vh;
-    }
 }

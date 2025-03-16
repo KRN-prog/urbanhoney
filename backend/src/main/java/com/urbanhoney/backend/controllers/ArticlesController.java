@@ -1,11 +1,13 @@
 package com.urbanhoney.backend.controllers;
 
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.urbanhoney.backend.services.ArticlesService;
 import com.urbanhoney.backend.services.IsAdminService;
 import com.urbanhoney.backend.usecase.dto.request.AddArticleRequestDto;
+import com.urbanhoney.backend.usecase.dto.request.GetArticlesByGenderDto;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
@@ -53,6 +55,11 @@ public class ArticlesController {
     @GetMapping("/articles")
     public ResponseEntity<?> getAllArticles() {
         return articlesService.getAllArticles();
+    }
+
+    @GetMapping("/articles/gender")
+    public ResponseEntity<?> getArticlesByGender(@RequestParam String gender) {
+        return articlesService.getArticleByGender(gender);
     }
 
     @GetMapping("/articles/{articlesType}")

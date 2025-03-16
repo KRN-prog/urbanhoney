@@ -33,7 +33,6 @@ public class IsAdminService {
     public boolean isAuth(HttpServletRequest requestAuth) {
         String token = jwtUtil.extractToken(requestAuth);
         Jwt jwt = jwtDecoder.decode(token);
-        System.out.println(jwt.getSubject());
         UserEntity authenticateUser = authRepository.findByEmail(jwt.getSubject()).orElse(null);
 
         return authenticateUser != null && authenticateUser.getIsAdmin();

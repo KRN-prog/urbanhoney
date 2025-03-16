@@ -17,10 +17,14 @@
                         <span class="elementBox__section__element">Username: {{ user.username }}</span>
                         <span class="elementBox__section__element">Admin {{ user.is_admin }}</span>
                         <span *ngIf="user.is_admin == true">
-                            <button (click)="revokeAdminStatus(user.id)">Revoke admin status</button>
+                            <button (click)="revokeAdminStatus(user.id)" class="changeStatus-btn register status">
+                                <span class="changeStatus">Revoke admin status</span>
+                            </button>
                         </span>
                         <span *ngIf="user.is_admin == false">
-                            <button (click)="setAdminStatus(user.id)">Set to Admin</button>
+                            <button (click)="setAdminStatus(user.id)" class="changeStatus-btn register status">
+                                <span class="changeStatus">Set to Admin</span>
+                            </button>
                         </span>
                     </div>
                 </div>
@@ -45,35 +49,35 @@
                 <form [formGroup]="newArticleForm">
                     <div>
                         <label for="title">Title*</label>
-                        <input type="text" formControlName="title" id="title" class="luxury-input" name="title" placeholder="Pull pour homme..." required/>
+                        <input type="text" formControlName="title" id="title" class="luxury-input fieldMargin" name="title" placeholder="Pull pour homme..." required/>
                     </div>
                     <div>
                         <label for="description">Description*</label>
-                        <textarea name="description" formControlName="description" id="description" class="luxury-input" placeholder="Description of the article"></textarea>
+                        <textarea name="description" formControlName="description" id="description" class="luxury-input fieldMargin resizableField" placeholder="Description of the article"></textarea>
                     </div>
                     <div formGroupName="category">
                         <label for="categorie">Category*</label>
-                        <select name="categorie" id="categorie" class="luxury-input" formControlName="main" (change)="onCategoryChange($event)">
+                        <select name="categorie" id="categorie" class="luxury-input fieldMargin" formControlName="main" (change)="onCategoryChange($event)">
                             <option *ngFor="let category of categories" [value]="category.category_name">{{ category.category_name }}</option>
                         </select>
                     </div>
                     <div formGroupName="category">
                         <label for="subCategorie">Sub category*</label>
-                        <select name="subCategorie" id="categorie" class="luxury-input" formControlName="sub">
+                        <select name="subCategorie" id="categorie" class="luxury-input fieldMargin" formControlName="sub">
                             <option *ngFor="let subCategory of subCategoryResponse" [value]="subCategory.sub_category_name">{{ subCategory.sub_category_name }}</option>
                         </select>
                     </div>
                     <div>
-                        <label for="sexe">Sexe*</label>
-                        <select name="" id="" class="luxury-input" *ngIf="verifySexe('F') == 'F' ">
+                        <label for="gender">Gender*</label>
+                        <select name="gender" id="gender" class="luxury-input fieldMargin" *ngIf="verifyGender('F') == 'F' ">
                             <option value="f">Female</option>
                         </select>
 
-                        <select name="" id="" class="luxury-input" *ngIf="verifySexe('H') == 'H' ">
+                        <select name="gender" id="gender"class="luxury-input fieldMargin" *ngIf="verifyGender('H') == 'H' ">
                             <option value="m">Male</option>
                         </select>
 
-                        <select name="" id="" class="luxury-input" *ngIf="verifySexe('H/F') == 'H/F' ">
+                        <select name="gender" id="gender"class="luxury-input fieldMargin" *ngIf="verifyGender('H/F') == 'H/F' ">
                             <option value="h/f">Male/Female</option>
                             <option value="h/f">Male</option>
                             <option value="h/f">Female</option>
@@ -81,23 +85,23 @@
                     </div>
                     <div>
                         <label for="brand">Brand*</label>
-                        <input type="text" id="brand" class="luxury-input" name="brand" formControlName="brand" placeholder="Nike, Adidas, Puma" required/>
+                        <input type="text" id="brand" class="luxury-input fieldMargin" name="brand" formControlName="brand" placeholder="Nike, Adidas, Puma" required/>
                     </div>
                     <div>
                         <label for="price">Price*</label>
-                        <input type="number" id="price" class="luxury-input" name="price" formControlName="price" placeholder="12.99, 29.99" required/>
+                        <input type="number" id="price" class="luxury-input fieldMargin" name="price" formControlName="price" placeholder="12.99, 29.99" required/>
                     </div>
                     <div>
                         <label for="images">Images*</label>
-                        <textarea name="images" id="images" class="luxury-input" formControlName="images" placeholder="URL for all article image"></textarea>
+                        <textarea name="images" id="images" class="luxury-input fieldMargin resizableField" formControlName="images" placeholder="URL for all article image"></textarea>
                     </div>
                     <div formGroupName="specifications">
                         <label for="color">Color*</label>
-                        <textarea name="color" formControlName="color" id="color" class="luxury-input" placeholder="#FFFFFF, #000000, #A1A1A1, ..."></textarea>
+                        <textarea name="color" formControlName="color" id="color" class="luxury-input fieldMargin resizableField" placeholder="#FFFFFF, #000000, #A1A1A1, ..."></textarea>
                     </div>
                     <div formGroupName="specifications">
                         <label>Size*</label>
-                        <div formArrayName="size">
+                        <div formArrayName="size" class="sizeInput fieldMargin">
                             <div *ngFor="let sizeControl of sizes.controls; let i = index">
                                 <input [formControlName]="i" type="checkbox"> {{ availableSizes[i] }}
                             </div>
@@ -105,16 +109,17 @@
                     </div>
                     <div formGroupName="specifications">
                         <label for="composition">Composition*</label>
-                        <textarea name="composition" formControlName="composition" id="composition" class="luxury-input" placeholder="Composition of the clothe"></textarea>
+                        <textarea name="composition" formControlName="composition" id="composition" class="luxury-input fieldMargin resizableField" placeholder="Composition of the clothe"></textarea>
                     </div>
                     <div formGroupName="specifications">
                         <label for="entretien">Entretien*</label>
-                        <textarea name="entretien" formControlName="entretien" id="entretien" class="luxury-input" placeholder="Entretien of the clothe"></textarea>
+                        <textarea name="entretien" formControlName="entretien" id="entretien" class="luxury-input fieldMargin resizableField" placeholder="Entretien of the clothe"></textarea>
                     </div>
 
-                    <button (click)="addArticle()">Add article</button>
+                    <button (click)="addArticle()" class="btn">Add article</button>
                 </form>
             </section>
         </div>
     </article>
 </main>
+<app-footer></app-footer>

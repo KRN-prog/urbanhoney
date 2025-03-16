@@ -86,7 +86,6 @@ public class OrdersService {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("error", "User not found !"));
         }
         
-        System.out.println(authentitcateUser.getId());
         List<OrdersEntity> ordersEntities = ordersRepository.findAllByUserId_Id(authentitcateUser.getId());
 
         if (ordersEntities.isEmpty()) {

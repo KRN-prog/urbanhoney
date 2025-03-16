@@ -16,6 +16,7 @@ import com.urbanhoney.backend.repository.SubCategorieRepository;
 import com.urbanhoney.backend.usecase.dto.ArticleDto;
 import com.urbanhoney.backend.usecase.dto.mapper.ArticleMapper;
 import com.urbanhoney.backend.usecase.dto.request.AddArticleRequestDto;
+import com.urbanhoney.backend.usecase.dto.request.GetArticlesByGenderDto;
 
 @Service
 public class ArticlesService {
@@ -30,7 +31,6 @@ public class ArticlesService {
     }
 
     public ResponseEntity<?> addNewArticle(AddArticleRequestDto addArticleRequest) {
-        System.out.println(addArticleRequest.getSubCategorie().getSubcategoryId());
         SubCategorieEntity subCategorie = subCategorieRepository.findBySubcategoryId(addArticleRequest.getSubCategorie().getSubcategoryId()).orElse(null);
 
         if (subCategorie == null) {
@@ -77,6 +77,20 @@ public class ArticlesService {
                 .map(ArticleMapper::mapToArticleDto)
                 .collect(Collectors.toList());
                 
+        return ResponseEntity.status(HttpStatus.OK).body(Map.of("success", articleDtos));
+    }
+
+    public ResponseEntity<?> getArticleByGender(String articleGender) {
+
+        List<ArticlesEntity> articlesEntities = articlesRepository.findAllByGender(articleGender);
+        if (articlesEntities == null || articlesEntities.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("error", "No sub articles found !"));
+        }
+
+        List<ArticleDto> articleDtos = articlesEntities.stream()
+                .map(ArticleMapper::mapToArticleDto)
+                .collect(Collectors.toList());
+        
         return ResponseEntity.status(HttpStatus.OK).body(Map.of("success", articleDtos));
     }
 

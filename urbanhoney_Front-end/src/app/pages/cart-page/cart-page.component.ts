@@ -33,6 +33,8 @@ export class CartPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.localStorageService.cart$.subscribe((cart) => {
+      this.totalPrice = [];
+      
       this.cartContent = cart;
       
       this.uniqueCartContent = this.showCartContent(this.localStorageService.getCart());
