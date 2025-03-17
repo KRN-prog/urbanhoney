@@ -6,6 +6,7 @@ import { AuthService } from '../../core/services/auth.service';
 import { AuthRequest } from '../../core/models/request/AuthRequest';
 import { NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-connexion-page',
@@ -21,9 +22,10 @@ export class ConnexionPageComponent implements OnInit {
   error: boolean = false;
   errorsMsg!: string;
 
-  constructor(private router: Router, public localStorageService: LocalStorageService, private authService: AuthService) {}
+  constructor(private titleService: Title, private router: Router, public localStorageService: LocalStorageService, private authService: AuthService) {}
 
   ngOnInit(): void {
+    this.titleService.setTitle('Urbanhoney | Log in');
     if (this.localStorageService.getUser() != null) {
       this.homeRouting();
     }

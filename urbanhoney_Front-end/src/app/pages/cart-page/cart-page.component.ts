@@ -9,6 +9,7 @@ import { AddOrderRequest } from '../../core/models/request/AddOrderRequest';
 import { HttpHeaders } from '@angular/common/http';
 import { AuthService } from '../../core/services/auth.service';
 import { User } from '../../core/models/User';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-cart-page',
@@ -29,9 +30,10 @@ export class CartPageComponent implements OnInit {
   orderResponse: boolean = false;
   orderMessage!: string;
 
-  constructor(private router: Router, public localStorageService: LocalStorageService, private orderService: OrderService, private authService: AuthService) {}
+  constructor(private titleService: Title, private router: Router, public localStorageService: LocalStorageService, private orderService: OrderService, private authService: AuthService) {}
 
   ngOnInit(): void {
+    this.titleService.setTitle('Urbanhoney | My cart');
     this.localStorageService.cart$.subscribe((cart) => {
       this.totalPrice = [];
       

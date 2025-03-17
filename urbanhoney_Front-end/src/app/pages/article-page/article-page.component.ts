@@ -8,6 +8,7 @@ import { FooterComponent } from "../../components/footer/footer.component";
 import { FormsModule } from '@angular/forms';
 import { LocalStorageService } from '../../core/services/localStorage.service';
 import { ArticleSchemeComponent } from "../../components/article-scheme/article-scheme.component";
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-article-page',
@@ -32,9 +33,10 @@ export class ArticlePageComponent implements OnInit {
     size: '',
   };
 
-  constructor(private route: ActivatedRoute, private articlesService: ArticlesService, private localStorageService: LocalStorageService) {}
+  constructor(private titleService: Title, private route: ActivatedRoute, private articlesService: ArticlesService, private localStorageService: LocalStorageService) {}
 
   ngOnInit(): void {
+    this.titleService.setTitle('Urbanhoney about this article');
     this.getArticle();
   }
 

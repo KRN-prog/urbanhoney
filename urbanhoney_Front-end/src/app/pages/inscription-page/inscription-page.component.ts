@@ -6,6 +6,7 @@ import { RegisterRequest } from '../../core/models/request/RegisterRequest';
 import { FormsModule } from '@angular/forms';
 import { NgFor, NgIf } from '@angular/common';
 import { AuthService } from '../../core/services/auth.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-inscription-page',
@@ -25,9 +26,10 @@ export class InscriptionPageComponent implements OnInit {
   errorsMsg!: string;
   specialCharactersRegex: RegExp = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
 
-  constructor(private router: Router, public localStorageService: LocalStorageService, private authService: AuthService) {}
+  constructor(private titleService: Title, private router: Router, public localStorageService: LocalStorageService, private authService: AuthService) {}
   
   ngOnInit(): void {
+    this.titleService.setTitle('Urbanhoney | Sign up');
     if (this.localStorageService.getUser() != null) {
       this.homeRouting();
     }

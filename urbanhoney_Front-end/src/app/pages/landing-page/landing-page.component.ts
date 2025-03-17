@@ -9,6 +9,7 @@ import { ArticleSchemeComponent } from "../../components/article-scheme/article-
 import { HeaderComponent } from "../../components/header/header.component";
 import { FooterComponent } from '../../components/footer/footer.component';
 import { GetArticlesByGender } from '../../core/models/request/GetArticlesByGender';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-landing-page',
@@ -17,6 +18,8 @@ import { GetArticlesByGender } from '../../core/models/request/GetArticlesByGend
   styleUrl: './landing-page.component.scss'
 })
 export class LandingPageComponent implements OnInit {
+  title = 'Urbanhoney';
+
   @ViewChild('videoPlayer') videoPlayer!: ElementRef<HTMLVideoElement>;
   categories: Array<Category> = [];
   maleArticles: Array<Article> = [];
@@ -24,9 +27,10 @@ export class LandingPageComponent implements OnInit {
   articles: Array<Article> = [];
   gender!: GetArticlesByGender;
 
-  constructor(private categorieService: CategorieService, private articlesService: ArticlesService) {}
+  constructor(private titleService: Title, private categorieService: CategorieService, private articlesService: ArticlesService) {}
 
   ngOnInit(): void {
+    this.titleService.setTitle(this.title);
     this.getCategories();
     this.getAllArticles();
     this.loadArticlesByGender("m", this.maleArticles);

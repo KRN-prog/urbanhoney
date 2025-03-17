@@ -9,6 +9,7 @@ import { CategorieService } from '../../core/services/categorie.service';
 import { SubCategorie } from '../../core/models/SubCategorie';
 import { HeaderComponent } from "../../components/header/header.component";
 import { FooterComponent } from "../../components/footer/footer.component";
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-articles-page',
@@ -22,9 +23,10 @@ export class ArticlesPageComponent implements OnInit {
   error: boolean = false;
   errorMsg!: HttpErrorResponse;
 
-  constructor(private route: ActivatedRoute, private articlesService: ArticlesService, private categoriesService: CategorieService) {}
+  constructor(private titleService: Title, private route: ActivatedRoute, private articlesService: ArticlesService, private categoriesService: CategorieService) {}
 
   ngOnInit(): void {
+    this.titleService.setTitle('Urbanhoney all '+this.route.snapshot.paramMap.get('articleType'));
     this.getArticlesByType();
     this.getAllSubCategoriesByCategoriename();
   }
