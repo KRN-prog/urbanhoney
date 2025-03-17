@@ -48,6 +48,14 @@
     cursor: pointer;
 }
 
+@media screen and (max-widht: 375px) {
+    .header {
+        &__heading {
+            font-size: .8em;
+            width: 5.6rem;
+        }
+    }
+}
 
 @media screen and (min-width: 768px) and (max-width: 1024px) {
     .header {

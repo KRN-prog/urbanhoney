@@ -2,12 +2,9 @@ package com.urbanhoney.backend.usecase.dto.request;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.urbanhoney.backend.models.ArticlesEntity;
 import com.urbanhoney.backend.models.UserEntity;
-import com.urbanhoney.backend.usecase.dto.ArticleDto;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;

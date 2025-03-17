@@ -16,7 +16,6 @@ import com.urbanhoney.backend.repository.SubCategorieRepository;
 import com.urbanhoney.backend.usecase.dto.ArticleDto;
 import com.urbanhoney.backend.usecase.dto.mapper.ArticleMapper;
 import com.urbanhoney.backend.usecase.dto.request.AddArticleRequestDto;
-import com.urbanhoney.backend.usecase.dto.request.GetArticlesByGenderDto;
 
 @Service
 public class ArticlesService {

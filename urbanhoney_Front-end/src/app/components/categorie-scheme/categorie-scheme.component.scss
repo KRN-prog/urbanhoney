@@ -14,3 +14,11 @@
         padding: 0;
     }
 }
+
+@media screen and (max-width: 424px) {
+    .category { 
+        &__picture {
+            width: 100%;
+        }
+    }
+}

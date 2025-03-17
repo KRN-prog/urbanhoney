@@ -1,7 +1,5 @@
 package com.urbanhoney.backend.usecase.dto.mapper;
 
-import java.util.ArrayList;
-
 import com.urbanhoney.backend.models.ArticlesEntity;
 import com.urbanhoney.backend.usecase.dto.ArticleDto;
 import com.urbanhoney.backend.usecase.dto.request.AddArticleRequestDto;

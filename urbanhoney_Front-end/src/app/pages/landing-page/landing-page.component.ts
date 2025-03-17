@@ -52,23 +52,26 @@ export class LandingPageComponent implements OnInit {
   getAllArticles(): void {
     this.articlesService.getAllArticles().subscribe(
       (response: any) => {
-        this.articles = response.success;
+        this.articles = response.success.slice(0,8);
       }
     );
   }
 
   loadArticlesByGender(gender: string, genderToSave: Array<Article>): void {
-    this.articlesService.getArticleByGender(gender).subscribe(
-      (response: any) => {
-        for (let i = 0; i < response.success.length; i++) {
-          genderToSave.push(response.success[i]);
-          console.log(genderToSave);
-          
+    this.articlesService.getArticleByGender(gender).subscribe({
+      next: (response: any) => {
+        if (!response.success || !Array.isArray(response.success)) {
+          console.error('Invalid response format:', response);
+          return;
         }
+
+        const articlesToAdd = response.success.slice(0, 8);
+  
+        genderToSave.push(...articlesToAdd);
       },
-      (error: any) => {
-        console.log(error);
-      }
-    );
+      error: (error: any) => {
+        console.error('Error fetching articles by gender:', error);
+      },
+    });
   }
 }

@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.urbanhoney.backend.services.ArticlesService;
 import com.urbanhoney.backend.services.IsAdminService;
 import com.urbanhoney.backend.usecase.dto.request.AddArticleRequestDto;
-import com.urbanhoney.backend.usecase.dto.request.GetArticlesByGenderDto;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;

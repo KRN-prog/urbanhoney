@@ -8,9 +8,6 @@ main {
     margin: auto;
     margin-bottom: 15px;
     gap: 10px;
-    &__img {
-        align-self: center;
-    }
     &__box {
         display: flex;
         flex-wrap: wrap;
@@ -355,6 +352,11 @@ main {
 }
 
 @media (min-width: 768px) {
+    .article {
+        width: 80%;
+        margin: auto;
+    }
+
     .notLoggedArticle {
         &__box {
             justify-content: unset;

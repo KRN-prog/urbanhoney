@@ -68,5 +68,11 @@
             </div>
         </section>
     </article>
+    <div class="moreArticle">
+        <h2 class="moreArticle__title">More article</h2>
+        <div class="articleWraper">
+            <app-article-scheme *ngFor="let article of sameArticles" [article]="article" class="articleContainer"></app-article-scheme>
+        </div>
+    </div>
 </main>
 <app-footer></app-footer>
