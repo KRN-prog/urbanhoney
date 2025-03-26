@@ -9,6 +9,9 @@ import com.urbanhoney.backend.usecase.dto.request.AuthRequestDto;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -23,12 +26,12 @@ public class AuthController {
     private AuthService authService;
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody AuthRequestDto authRequestDto, Authentication authentication) {
+    public ResponseEntity<Object> login(@RequestBody AuthRequestDto authRequestDto, Authentication authentication) {
         return authService.loginUser(authRequestDto, authentication);
     }
     
     @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody UserDto userDto) {
+    public ResponseEntity<Map<String, String>> register(@RequestBody UserDto userDto) {
         return authService.registerUser(userDto);
     }
     
@@ -37,6 +40,4 @@ public class AuthController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return authService.findUserByMail(authentication.getName());
     }
-
-    
 }

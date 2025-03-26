@@ -21,7 +21,7 @@ export class CategorieService {
     
     constructor(private http: HttpClient) {}
 
-    newCategorie(newCategorieData: AddCategorieRequest, jwtToken: string): Observable<any> {
+    newCategorie(newCategorieData: AddCategorieRequest, jwtToken: string): Observable<{ success: string; }> {
         const requestBody = {
             ...newCategorieData,
             authorization: jwtToken,
@@ -39,27 +39,27 @@ export class CategorieService {
         return this.http.post<{"success": string}>(this.newSubCategories, requestBody);
     }
 
-    getAllCategories(): Observable<any> {
+    getAllCategories(): Observable<{ success: Category[]; }> {
         return this.http.get<{"success": Array<Category>}>(this.getAllCategorie);
     }
 
-    getCategoriesByType(typeCategorie: string): Observable<any> {
+    getCategoriesByType(typeCategorie: string): Observable<{ success: Category; }> {
         return this.http.get<{"success": Category}>(this.getCategories + typeCategorie);
     }
 
-    getAllSubCategories(): Observable<any> {
+    getAllSubCategories(): Observable<{ success: SubCategorie[]; }> {
         return this.http.get<{"success": Array<SubCategorie>}>(this.subCategories);
     }
 
-    getAllSubCategoriesByCategoryName(categoryName: string | null): Observable<any> {
+    getAllSubCategoriesByCategoryName(categoryName: string | null): Observable<{ success: SubCategorie[]; }> {
         return this.http.get<{"success": Array<SubCategorie>}>(this.getAllsubCategoriesByCategorieName + categoryName);
     }
 
-    getSubCategoriesByName(subCategorieName: string): Observable<any> {
+    getSubCategoriesByName(subCategorieName: string): Observable<{ success: SubCategorie; }> {
         return this.http.get<{"success": SubCategorie}>(this.subCategories + subCategorieName);
     }
 
-    deleteSubCategoriesByName(subCategorieName: string): Observable<any> {
+    deleteSubCategoriesByName(subCategorieName: string): Observable<{ success: string; }> {
         return this.http.delete<{"success": string}>(this.deleteSubCategories + subCategorieName);
     }
 }

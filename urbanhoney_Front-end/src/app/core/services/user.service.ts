@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
+import { User } from "../models/User";
 
 @Injectable({
     providedIn: 'root',
@@ -14,19 +15,19 @@ export class UserService {
 
     constructor(private http: HttpClient) {}
 
-    getUserById(userId: number): Observable<any> {
+    getUserById(userId: number): Observable<{success: string}> {
         return this.http.get<{"success": string}>(this.getUser + userId);
     }
 
-    getAllUsers(authHeaders: HttpHeaders): Observable<any> {
-        return this.http.get<{"success": any}>(this.getUsers, { headers: authHeaders });
+    getAllUsers(authHeaders: HttpHeaders): Observable<{success: User[]}> {
+        return this.http.get<{"success": Array<User>}>(this.getUsers, { headers: authHeaders });
     }
 
-    revokeAdminStatus(userId: number, authHeaders: HttpHeaders): Observable<any> {
-        return this.http.put<{"success": any}>(this.revokeAdmin + userId, {}, { headers: authHeaders });
+    revokeAdminStatus(userId: number, authHeaders: HttpHeaders): Observable<{success: string}> {
+        return this.http.put<{"success": string}>(this.revokeAdmin + userId, {}, { headers: authHeaders });
     }
 
-    setAdminStatus(userId: number, authHeaders: HttpHeaders): Observable<any> {
-        return this.http.put<{"success": any}>(this.setAdmin + userId, {}, { headers: authHeaders });
+    setAdminStatus(userId: number, authHeaders: HttpHeaders): Observable<{success: string}> {
+        return this.http.put<{"success": string}>(this.setAdmin + userId, {}, { headers: authHeaders });
     }
 }

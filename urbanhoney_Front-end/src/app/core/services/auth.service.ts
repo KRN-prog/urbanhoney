@@ -4,6 +4,7 @@ import { Observable } from "rxjs";
 import { AuthRequest } from "../models/request/AuthRequest";
 import { User } from "../models/User";
 import { RegisterRequest } from "../models/request/RegisterRequest";
+import { TokenResponse } from "../models/response/TokenResponse";
 
 @Injectable({
     providedIn: 'root',
@@ -21,14 +22,14 @@ export class AuthService {
     });
 
     loginUser(loginData: AuthRequest): Observable<any> {
-        return this.http.post<{"success": any}>(this.login, loginData);
+        return this.http.post<{"success": TokenResponse}>(this.login, loginData);
     }
 
-    registerUser(registerData: RegisterRequest): Observable<any> {
+    registerUser(registerData: RegisterRequest): Observable<{"success": User}> {
         return this.http.post<{"success": User}>(this.register, registerData);
     }
 
-    authUser(authHeaders: HttpHeaders): Observable<any> {
-        return this.http.get<any>(this.authMe, { headers: authHeaders });
+    authUser(authHeaders: HttpHeaders): Observable<User> {
+        return this.http.get<User>(this.authMe, { headers: authHeaders });
     }
 }

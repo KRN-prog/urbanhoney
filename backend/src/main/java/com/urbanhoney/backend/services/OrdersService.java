@@ -36,7 +36,7 @@ public class OrdersService {
     }
     
     @Transactional
-    public ResponseEntity<?> postNewOrder(AddOrderRequestDto addOrderRequestDto) {
+    public ResponseEntity<Map<String, String>> postNewOrder(AddOrderRequestDto addOrderRequestDto) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserEntity authentitcateUser = authRepository.findByEmail(authentication.getName()).orElse(null);
 
@@ -79,7 +79,7 @@ public class OrdersService {
         return ResponseEntity.status(HttpStatus.CREATED).body(Map.of("success", "Order taken !"));
     }
 
-    public ResponseEntity<?> getOrdersFromUser(Authentication authentication) {
+    public ResponseEntity<Object> getOrdersFromUser(Authentication authentication) {
         UserEntity authentitcateUser = authRepository.findByEmail(authentication.getName()).orElse(null);
 
         if (authentitcateUser == null) {
@@ -96,7 +96,7 @@ public class OrdersService {
     }
 
     @Transactional
-    public ResponseEntity<?> deleteOrderById(Integer orderId) {
+    public ResponseEntity<Map<String, String>> deleteOrderById(Integer orderId) {
         if (ordersRepository.existsByOrderId(orderId) == false) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("error", "Order not found !"));
         }

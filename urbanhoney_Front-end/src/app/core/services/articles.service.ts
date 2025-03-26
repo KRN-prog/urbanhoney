@@ -19,28 +19,28 @@ export class ArticlesService {
 
     constructor(private http: HttpClient) {}
 
-    postArticle(articleData: AddArticleRequest, authHeaders: HttpHeaders): Observable<any> {
+    postArticle(articleData: AddArticleRequest, authHeaders: HttpHeaders): Observable<{ success: string; }> {
         return this.http.post<{"success": string}>(this.postNewArticle, articleData, { headers: authHeaders });
     }
 
-    getArticleById(idArticle: string | null): Observable<any> {
+    getArticleById(idArticle: string | null): Observable<{ success: Article; }> {
         return this.http.get<{"success": Article}>(this.article + idArticle);
     }
 
-    getArticleByGender(gender: string): Observable<any> {
+    getArticleByGender(gender: string): Observable<{ success: Article[]; }> {
         const params = new HttpParams().set('gender', gender);
         return this.http.get<{"success": Array<Article>}>(this.articlesByGender, { params });
     }
 
-    getAllArticles(): Observable<any> {
+    getAllArticles(): Observable<{ success: Article[]; }> {
         return this.http.get<{"success": Array<Article>}>(this.articles);
     }
 
-    getArticlesByType(articleType: string | null): Observable<any> {
+    getArticlesByType(articleType: string | null): Observable<{ success: Article[]; }> {
         return this.http.get<{"success": Array<Article>}>(this.articlesSlashed + articleType);
     }
 
-    getArticlesBySubCategoryName(categoryName: string | null): Observable<any> {
+    getArticlesBySubCategoryName(categoryName: string | null): Observable<{ success: Article[]; }> {
         return this.http.get<{"success": Array<Article>}>(this.articlesBySubCategory + categoryName);
     }
 

@@ -37,7 +37,7 @@ public class ArticlesController {
     }
 
     @PostMapping("/article")
-    public ResponseEntity<?> postNewArticle(@Valid @RequestBody AddArticleRequestDto addArticleRequest, HttpServletRequest request) {
+    public ResponseEntity<Map<String, String>> postNewArticle(@Valid @RequestBody AddArticleRequestDto addArticleRequest, HttpServletRequest request) {
         if (!isAdminService.isAdmin(request)) {
             return ResponseEntity
                     .status(HttpStatus.UNAUTHORIZED)
@@ -47,32 +47,32 @@ public class ArticlesController {
     }
     
     @GetMapping("/article/{articleId}")
-    public ResponseEntity<?> getArticleById(@PathVariable("articleId") Integer articleId) {
+    public ResponseEntity<Object> getArticleById(@PathVariable("articleId") Integer articleId) {
         return articlesService.getArticleById(articleId);
     }
 
     @GetMapping("/articles")
-    public ResponseEntity<?> getAllArticles() {
+    public ResponseEntity<Object> getAllArticles() {
         return articlesService.getAllArticles();
     }
 
     @GetMapping("/articles/gender")
-    public ResponseEntity<?> getArticlesByGender(@RequestParam String gender) {
+    public ResponseEntity<Object> getArticlesByGender(@RequestParam String gender) {
         return articlesService.getArticleByGender(gender);
     }
 
     @GetMapping("/articles/{articlesType}")
-    public ResponseEntity<?> getArticlesByCategorieName(@PathVariable("articlesType") String articleType) {
+    public ResponseEntity<Object> getArticlesByCategorieName(@PathVariable("articlesType") String articleType) {
         return articlesService.getArticleByType(articleType);
     }
 
     @GetMapping("/articles/subcategory/{articlesSubCategory}")
-    public ResponseEntity<?> getArticlesBySubCategorieName(@PathVariable("articlesSubCategory") String articleSubCategory) {
+    public ResponseEntity<Object> getArticlesBySubCategorieName(@PathVariable("articlesSubCategory") String articleSubCategory) {
         return articlesService.getArticleBySubCategoryName(articleSubCategory);
     }
 
     @DeleteMapping("/article/{articleId}")
-    public ResponseEntity<?> deleteArticleById(@PathVariable("articlesType") Integer articleId, HttpServletRequest request) {
+    public ResponseEntity<Object> deleteArticleById(@PathVariable("articlesType") Integer articleId, HttpServletRequest request) {
         if (!isAdminService.isAdmin(request)) {
             return ResponseEntity
                     .status(HttpStatus.UNAUTHORIZED)

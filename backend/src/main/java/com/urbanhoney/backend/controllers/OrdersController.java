@@ -8,6 +8,8 @@ import com.urbanhoney.backend.usecase.dto.request.AddOrderRequestDto;
 
 import jakarta.validation.Valid;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -26,17 +28,17 @@ public class OrdersController {
     OrdersService ordersService;
 
     @PostMapping("/order/new")
-    public ResponseEntity<?> newOrder(@Valid @RequestBody AddOrderRequestDto addOrderRequestDto) {
+    public ResponseEntity<Map<String, String>> newOrder(@Valid @RequestBody AddOrderRequestDto addOrderRequestDto) {
         return ordersService.postNewOrder(addOrderRequestDto);
     }
     
     @GetMapping("/orders")
-    public ResponseEntity<?> getAllOrdersOfUser(Authentication authentication) {
+    public ResponseEntity<Object> getAllOrdersOfUser(Authentication authentication) {
         return ordersService.getOrdersFromUser(authentication);
     }
 
     @DeleteMapping("/order/{orderId}")
-    public ResponseEntity<?> deleteOrderById(@PathVariable("orderId") Integer orderId) {
+    public ResponseEntity<Map<String, String>> deleteOrderById(@PathVariable("orderId") Integer orderId) {
         return ordersService.deleteOrderById(orderId);
     }
 

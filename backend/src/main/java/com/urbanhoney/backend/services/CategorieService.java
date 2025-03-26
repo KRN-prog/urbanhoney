@@ -83,7 +83,7 @@ public class CategorieService {
         return ResponseEntity.status(HttpStatus.OK).body(Map.of("success", "Sub categorie added"));
     }
 
-    public ResponseEntity<?> getAllCategories() {
+    public ResponseEntity<Object> getAllCategories() {
 
         List<CategorieEntity> categorieEntity = categorieRepository.findAll();
 
@@ -98,7 +98,7 @@ public class CategorieService {
         return ResponseEntity.status(HttpStatus.OK).body(Map.of("success", categoriesDtos));
     }
 
-    public ResponseEntity<?> getCategorieByName(String subCategorieName) {
+    public ResponseEntity<Object> getCategorieByName(String subCategorieName) {
 
         CategorieEntity categorieEntity = categorieRepository.findByCategoryName(subCategorieName).orElse(null);
         if (categorieEntity == null) {
@@ -109,7 +109,7 @@ public class CategorieService {
         return ResponseEntity.status(HttpStatus.OK).body(Map.of("success", CategorieDto));
     }
 
-    public ResponseEntity<?> getAllSubCategories() {
+    public ResponseEntity<Object> getAllSubCategories() {
 
         List<SubCategorieEntity> subCategorieEntities = subCategorieRepository.findAll();
         if (subCategorieEntities == null) {
@@ -123,7 +123,7 @@ public class CategorieService {
         return ResponseEntity.status(HttpStatus.OK).body(Map.of("success", subCategorieDto));
     }
 
-    public ResponseEntity<?> getSubCategorieByName(String subCategorieName) {
+    public ResponseEntity<Object> getSubCategorieByName(String subCategorieName) {
         
         SubCategorieEntity subCategorieEntity = subCategorieRepository.findBySubCategoryName(subCategorieName).orElse(null);
         if (subCategorieEntity == null) {
@@ -134,7 +134,7 @@ public class CategorieService {
         return ResponseEntity.status(HttpStatus.OK).body(Map.of("success", subCategorieDto));
     }
 
-    public ResponseEntity<?> getAllSubCategoriesByCategorieName(String categorieName) {
+    public ResponseEntity<Object> getAllSubCategoriesByCategorieName(String categorieName) {
         
         List<SubCategorieEntity> subCategorieEntity = subCategorieRepository.findAllByCategorie_CategoryName(categorieName);
         if (subCategorieEntity == null) {
@@ -148,7 +148,7 @@ public class CategorieService {
     }
 
     @Transactional
-    public ResponseEntity<?> deleteSubCategorieByName(String subCategorieName) {
+    public ResponseEntity<Map<String, String>> deleteSubCategorieByName(String subCategorieName) {
         
         SubCategorieEntity findSubCategorieEntity = subCategorieRepository.findBySubCategoryName(subCategorieName).orElse(null);
         if (findSubCategorieEntity == null) {

@@ -39,7 +39,7 @@ public class AuthService {
         return pattern.matcher(email).matches();
     }
 
-    public ResponseEntity<?> registerUser(UserDto userDto) {
+    public ResponseEntity<Map<String, String>> registerUser(UserDto userDto) {
         if (userDto.getEmail() != null || isValidEmail(userDto.getEmail()) == true) {
             UserEntity findByEmail = authRepository.findByEmail(userDto.getEmail()).orElse(null);
             UserEntity findByUsername = authRepository.findByUsername(userDto.getUsername()).orElse(null);
@@ -58,7 +58,7 @@ public class AuthService {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("error", "Please insert a real mail please."));
     }
 
-    public ResponseEntity<?> loginUser(AuthRequestDto authRequestDto, Authentication authentication) {
+    public ResponseEntity<Object> loginUser(AuthRequestDto authRequestDto, Authentication authentication) {
         UserEntity getUserByEmailOrUsername = authRepository.findByEmailOrUsername(authRequestDto.getEmailOrUsername()).orElse(null);
         if (getUserByEmailOrUsername == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("error", "Email or Username not found."));
@@ -83,7 +83,7 @@ public class AuthService {
         return UserMapper.mapToUserDto(userEntity);
     }
 
-    public ResponseEntity<?> findUserById (Integer userId) {
+    public ResponseEntity<Object> findUserById (Integer userId) {
         UserEntity userEntity = authRepository.findById(userId).orElse(null);
         if (userEntity == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("error", "Invalid credentials !"));
@@ -100,7 +100,7 @@ public class AuthService {
         return ResponseEntity.status(HttpStatus.OK).body(userDto);
     }
 
-    public ResponseEntity<?> getAllUsers(Authentication authentication) {
+    public ResponseEntity<Object> getAllUsers(Authentication authentication) {
         UserEntity authentitcateUser = authRepository.findByEmail(authentication.getName()).orElse(null);
 
         if (authentitcateUser.getIsAdmin() == false) {
@@ -116,7 +116,7 @@ public class AuthService {
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(Map.of("success", userDtos));
     }
 
-    public ResponseEntity<?> revokeAdminStatus(Integer userId, Authentication authentication) {
+    public ResponseEntity<Map<String, String>> revokeAdminStatus(Integer userId, Authentication authentication) {
         UserEntity authentitcateUser = authRepository.findByEmail(authentication.getName()).orElse(null);
         UserEntity getUser = authRepository.findById(userId).orElse(null);
 
@@ -133,7 +133,7 @@ public class AuthService {
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(Map.of("success", getUser.getUsername()+"Admin role as been revoked !"));
     }
 
-    public ResponseEntity<?> setAdminStatus(Integer userId, Authentication authentication) {
+    public ResponseEntity<Map<String, String>> setAdminStatus(Integer userId, Authentication authentication) {
         UserEntity authentitcateUser = authRepository.findByEmail(authentication.getName()).orElse(null);
         UserEntity getUser = authRepository.findById(userId).orElse(null);
 

@@ -29,7 +29,7 @@ public class ArticlesService {
         this.articlesRepository = articlesRepository;
     }
 
-    public ResponseEntity<?> addNewArticle(AddArticleRequestDto addArticleRequest) {
+    public ResponseEntity<Map<String, String>> addNewArticle(AddArticleRequestDto addArticleRequest) {
         SubCategorieEntity subCategorie = subCategorieRepository.findBySubcategoryId(addArticleRequest.getSubCategorie().getSubcategoryId()).orElse(null);
 
         if (subCategorie == null) {
@@ -41,7 +41,7 @@ public class ArticlesService {
         return ResponseEntity.status(HttpStatus.OK).body(Map.of("success", "Article saved !"));
     }
 
-    public ResponseEntity<?> getArticleById(Integer articleId) {
+    public ResponseEntity<Object> getArticleById(Integer articleId) {
         ArticlesEntity articlesEntity = articlesRepository.findByArticleId(articleId).orElse(null);
 
         if (articlesEntity == null) {
@@ -52,7 +52,7 @@ public class ArticlesService {
         return ResponseEntity.status(HttpStatus.OK).body(Map.of("success", articleDto));
     }
 
-    public ResponseEntity<?> getAllArticles() {
+    public ResponseEntity<Object> getAllArticles() {
         List<ArticlesEntity> articlesEntities = articlesRepository.findAll();
         if (articlesEntities.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("error", "No articles found !"));
@@ -65,7 +65,7 @@ public class ArticlesService {
         return ResponseEntity.status(HttpStatus.OK).body(Map.of("success", articleDtos));
     }
 
-    public ResponseEntity<?> getArticleByType(String articleType) {
+    public ResponseEntity<Object> getArticleByType(String articleType) {
 
         List<ArticlesEntity> articleEntity = articlesRepository.findBySubCategoryLinkedId_Categorie_CategoryName(articleType);
         if (articleEntity == null || articleEntity.isEmpty()) {
@@ -79,7 +79,7 @@ public class ArticlesService {
         return ResponseEntity.status(HttpStatus.OK).body(Map.of("success", articleDtos));
     }
 
-    public ResponseEntity<?> getArticleByGender(String articleGender) {
+    public ResponseEntity<Object> getArticleByGender(String articleGender) {
 
         List<ArticlesEntity> articlesEntities = articlesRepository.findAllByGender(articleGender);
         if (articlesEntities == null || articlesEntities.isEmpty()) {
@@ -93,7 +93,7 @@ public class ArticlesService {
         return ResponseEntity.status(HttpStatus.OK).body(Map.of("success", articleDtos));
     }
 
-    public ResponseEntity<?> getArticleBySubCategoryName(String articleCategory) {
+    public ResponseEntity<Object> getArticleBySubCategoryName(String articleCategory) {
 
         String articleCategoryReformated = articleCategory.replace("_", " ");
         List<ArticlesEntity> articleEntity = articlesRepository.findBySubCategoryLinkedId_SubCategoryName(articleCategoryReformated);

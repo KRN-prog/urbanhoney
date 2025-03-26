@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.urbanhoney.backend.services.AuthService;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -22,22 +24,22 @@ public class UserController {
     private AuthService authService;
     
     @GetMapping("/{userId}")
-    public ResponseEntity<?> getUser(@PathVariable("userId") Integer userId) {
+    public ResponseEntity<Object> getUser(@PathVariable("userId") Integer userId) {
         return authService.findUserById(userId);
     }
 
     @GetMapping()
-    public ResponseEntity<?> getAllUser(Authentication authentication) {
+    public ResponseEntity<Object> getAllUser(Authentication authentication) {
         return authService.getAllUsers(authentication);
     }
 
     @PutMapping("/revoke/{userId}")
-    public ResponseEntity<?> revokeAdminStatus(@PathVariable("userId") Integer userId, Authentication authentication) {
+    public ResponseEntity<Map<String, String>> revokeAdminStatus(@PathVariable("userId") Integer userId, Authentication authentication) {
         return authService.revokeAdminStatus(userId, authentication);
     }
 
     @PutMapping("/set/{userId}")
-    public ResponseEntity<?> setAdminStatus(@PathVariable("userId") Integer userId, Authentication authentication) {
+    public ResponseEntity<Map<String, String>> setAdminStatus(@PathVariable("userId") Integer userId, Authentication authentication) {
         return authService.setAdminStatus(userId, authentication);
     }
     

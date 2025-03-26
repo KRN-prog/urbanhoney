@@ -37,7 +37,7 @@ public class CategoriesController {
     }
     
     @PostMapping("/new")
-    public ResponseEntity<?> postNewCategorie(@Valid @RequestBody AddCategorieRequestDto addCategorieRequestDto, HttpServletRequest request) {
+    public ResponseEntity<Map<String, String>> postNewCategorie(@Valid @RequestBody AddCategorieRequestDto addCategorieRequestDto, HttpServletRequest request) {
         if (!isAdminService.isAdmin(request)) {
             return ResponseEntity
                     .status(HttpStatus.UNAUTHORIZED)
@@ -47,7 +47,7 @@ public class CategoriesController {
     }
 
     @PostMapping("/sub_categorie/new")
-    public ResponseEntity<?> postNewSubCategorie(@Valid @RequestBody AddSubCategorieRequestDto AddSubCategorieRequestDto, HttpServletRequest request) {
+    public ResponseEntity<Map<String, String>> postNewSubCategorie(@Valid @RequestBody AddSubCategorieRequestDto AddSubCategorieRequestDto, HttpServletRequest request) {
         if (!isAdminService.isAdmin(request)) {
             return ResponseEntity
                     .status(HttpStatus.UNAUTHORIZED)
@@ -57,32 +57,32 @@ public class CategoriesController {
     }
 
     @GetMapping("/get")
-    public ResponseEntity<?> getAllCategories() {
+    public ResponseEntity<Object> getAllCategories() {
         return categorieService.getAllCategories();
     }
     
     @GetMapping("/get/{categorieName}")
-    public ResponseEntity<?> getCategorieById(@PathVariable("categorieName") String categorieName) {
+    public ResponseEntity<Object> getCategorieByName(@PathVariable("categorieName") String categorieName) {
         return categorieService.getCategorieByName(categorieName);
     }
     
     @GetMapping("/sub_categorie")
-    public ResponseEntity<?> getAllSubCategories() {
+    public ResponseEntity<Object> getAllSubCategories() {
         return categorieService.getAllSubCategories();
     }
 
     @GetMapping("/sub_categorie/{subCategorieName}")
-    public ResponseEntity<?> getSubCategorieByName(@PathVariable("subCategorieName") String subCategorieName) {
+    public ResponseEntity<Object> getSubCategorieByName(@PathVariable("subCategorieName") String subCategorieName) {
         return categorieService.getSubCategorieByName(subCategorieName);
     }
 
     @GetMapping("/get/sub_categorie/categorie/{categorieName}")
-    public ResponseEntity<?> getSubCategorieByCategorieName(@PathVariable("categorieName") String categorieName) {
+    public ResponseEntity<Object> getSubCategorieByCategorieName(@PathVariable("categorieName") String categorieName) {
         return categorieService.getAllSubCategoriesByCategorieName(categorieName);
     }
     
     @DeleteMapping("/sub_categorie/delete/{subCategorieName}")
-    public ResponseEntity<?> deleteSubCategorieByName(@PathVariable("subCategorieName") String subCategorieName, HttpServletRequest request) {
+    public ResponseEntity<Map<String, String>> deleteSubCategorieByName(@PathVariable("subCategorieName") String subCategorieName, HttpServletRequest request) {
         if (!isAdminService.isAdmin(request)) {
             return ResponseEntity
                     .status(HttpStatus.UNAUTHORIZED)
