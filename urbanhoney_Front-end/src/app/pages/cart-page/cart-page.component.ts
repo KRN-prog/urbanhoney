@@ -77,11 +77,11 @@ export class CartPageComponent implements OnInit {
   }
 
   deleteFromCart(itemId: number): void {
-    this.localStorageService.removeFromCard(itemId);
+    this.localStorageService.removeFromCart(itemId);
   }
 
   removeOneFromCart(itemId: number): void {
-    this.localStorageService.removeOneFromCard(itemId);
+    this.localStorageService.removeOneFromCart(itemId);
   }
 
   deleteCart(): void {

@@ -34,19 +34,19 @@ export class LocalStorageService {
     this.cartSubject.next(card);
   }
 
-  addToCard(item: ArticleCart): void {
+  addToCart(item: ArticleCart): void {
     const card = this.getCart();
     card.push(item);
     this.setCart(card);
   }
 
-  removeFromCard(itemId: number): void {
+  removeFromCart(itemId: number): void {
     const card = this.getCart();
     const updatedCard = card.filter((i: any) => i.articleId !== itemId);
     this.setCart(updatedCard);
   }
 
-  removeOneFromCard(itemId: number): void {
+  removeOneFromCart(itemId: number): void {
     const card = this.getCart();
     const index = card.findIndex((i: any) => JSON.stringify(i.articleId) === JSON.stringify(itemId));
     if (index !== -1) {

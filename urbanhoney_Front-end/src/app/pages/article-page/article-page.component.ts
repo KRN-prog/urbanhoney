@@ -83,7 +83,7 @@ export class ArticlePageComponent implements OnInit {
       article.colors = [this.cartData.color];
       article.size = [this.cartData.size]; 
       this.errorAddToCard = false;
-      this.localStorageService.addToCard(article);
+      this.localStorageService.addToCart(article);
       this.successAddToCard = true;
     }else {
       this.errorAddToCard = true;
